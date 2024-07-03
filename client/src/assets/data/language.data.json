@@ -1,0 +1,14 @@
+[
+    {
+        "langName": "Монгол",
+        "langId": "mn",
+        "icon": "mn",
+        "lang": "Mn"
+    },
+	{
+        "langName": "English",
+        "langId": "en",
+        "icon": "us",
+        "lang": "En"
+    }
+]

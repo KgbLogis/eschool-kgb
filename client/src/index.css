@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* html {
+  scroll-behavior: smooth;
+  background-color: theme("colors.primary");
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    padding-top: theme("spacing.3");
+    padding-left: theme("spacing.3");
+    padding-right: theme("spacing.3");
+    font-size: theme("fontSize.sm");
+    line-height: theme("lineHeight.5");
+    color: theme("colors.slate.800");
+  }
+} */
+
+.ant-image-preview-img {
+  display: inline;
+}
+
+svg {
+  vertical-align: baseline;
+}
+
+@media print {
+  @media all {
+    .page-break {
+      display: none;
+    }
+  }
+
+  @media print {
+
+    html,
+    body {
+      height: initial !important;
+      overflow: initial !important;
+      -webkit-print-color-adjust: exact;
+    }
+
+    .page-break {
+      margin-top: 1rem;
+      display: block;
+      page-break-before: always;
+    }
+  }
+}
