@@ -16,7 +16,6 @@
     "apexcharts": "^3.23.0",
     "apollo-upload-client": "^17.0.0",
     "braft-editor": "^2.3.9",
-    "caniuse-lite": "^1.0.30001521",
     "chart.js": "^2.9.4",
     "concurrently": "^5.3.0",
     "d3-fetch": "^2.0.0",

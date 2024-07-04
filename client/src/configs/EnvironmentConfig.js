@@ -4,8 +4,8 @@ const dev = {
 };
 
 const prod = {
-	API_ENDPOINT_URL: 'http://103.50.205.111/:8001/graphql',
-	SERVER_ENDPOINT_URL: 'http://103.50.205.111/:8001/media/'
+	API_ENDPOINT_URL: 'http://103.50.205.111:8001/graphql',
+	SERVER_ENDPOINT_URL: 'http://103.50.205.111:8001/media/'
 };
 
 const test = {

@@ -1,1 +1,1 @@
-# school_backend
+# virutal_env_name = venv

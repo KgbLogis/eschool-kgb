@@ -8,7 +8,6 @@ django-cors-headers==3.10.1
 django-environ==0.11.2
 django-filter==21.1
 django-graphql-auth==0.3.16
-django-graphql-jwt==0.4.0
 django-js-asset==2.0.0
 django-mptt==0.14.0
 djangorestframework==3.14.0
@@ -26,7 +25,6 @@ pandas==2.2.2
 pillow==10.3.0
 promise==2.3
 psycopg2==2.9.9
-PyJWT==2.8.0
 python-dateutil==2.9.0.post0
 pytz==2024.1
 requests==2.32.3
