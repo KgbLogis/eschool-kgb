@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkemind=self.webpackChunkemind||[]).push([[2406],{2406:function(e,n,s){s.r(n);s(72791);var u=s(80184);n.default=function(){return(0,u.jsx)("div",{children:"Assessment"})}}}]);
+//# sourceMappingURL=2406.fc7576a6.chunk.js.map
