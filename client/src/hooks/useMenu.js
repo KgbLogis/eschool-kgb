@@ -250,15 +250,6 @@ export function useMenu() {
       submenu: [],
     },
     {
-      key: "view_contactbook",
-      path: "/app/contact-book",
-      title: "contact-book",
-      icon: ContactBookSVG,
-      priority: 1000,
-      breadcrumb: true,
-      submenu: []
-    },
-    {
       key: "view_conversation",
       path: "/app/conversation",
       title: "conversation",

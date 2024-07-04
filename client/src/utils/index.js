@@ -6,28 +6,12 @@ export function classNames(...classes) {
 
 export const subjectNames = [
     {
-        label: 'Хэл яриа',
+        label: 'Солонгос хэл',
         value: 'LANGUAGE'
     },
     {
-        label: 'Хөдөлгөөн, эрүүл мэнд',
-        value: 'MOVEMENT',
-    },
-    {
-        label: 'Байгаль, нийгмийн ухаан',
-        value: 'NATURE',
-    },
-    {
-        label: 'Математикийн энгийн төсөөлөл',
-        value: 'MATH',
-    },
-    {
-        label: 'Дүрслэх урлаг',
-        value: 'ART',
-    },
-    {
-        label: 'Дуу хөгжим',
-        value: 'MUSIC'
+        label: 'Бусад',
+        value: 'OTHER',
     },
 ]
 
