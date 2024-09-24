@@ -1,11 +1,11 @@
 const dev = {
-	API_ENDPOINT_URL: 'http://localhost:8000/graphql',
-	SERVER_ENDPOINT_URL: 'http://localhost:8000/media/'
+	API_ENDPOINT_URL: 'http://192.168.0.117:8500/graphql',
+	SERVER_ENDPOINT_URL: 'http://192.168.0.117:8500/media/'
 };
 
 const prod = {
-	API_ENDPOINT_URL: 'http://103.50.205.111:8001/graphql',
-	SERVER_ENDPOINT_URL: 'http://103.50.205.111:8001/media/'
+	API_ENDPOINT_URL: 'https://2424job.com:8001/graphql',
+	SERVER_ENDPOINT_URL: 'https://2424job.com:8001/media/'
 };
 
 const test = {
