@@ -11,7 +11,6 @@ import IntlMessage from 'components/util-components/IntlMessage';
 import { CalendarIcon } from '@heroicons/react/outline';
 import { APP_PREFIX_PATH, BASE_SERVER_URL } from 'configs/AppConfig';
 import Loading from 'components/shared-components/Loading';
-import userImage from 'assets/image/user.png'
 import EllipsisDropdown from 'components/shared-components/EllipsisDropdown';
 
 const LessonForm = lazy(() => import('./lesson-form'));
