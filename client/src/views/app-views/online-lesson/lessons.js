@@ -9,7 +9,7 @@ import Flex from 'components/shared-components/Flex';
 import { ALL_ONLINE_LESSON, DELETE_ONLINE_LESSON } from 'graphql/lesson';
 import IntlMessage from 'components/util-components/IntlMessage';
 import { CalendarIcon } from '@heroicons/react/outline';
-import { APP_PREFIX_PATH } from 'configs/AppConfig';
+import { APP_PREFIX_PATH, BASE_SERVER_URL } from 'configs/AppConfig';
 import Loading from 'components/shared-components/Loading';
 import userImage from 'assets/image/user.png'
 import EllipsisDropdown from 'components/shared-components/EllipsisDropdown';
@@ -137,7 +137,7 @@ const Lessons = ({ permissions }) => {
                     <Link
                         to={`${APP_PREFIX_PATH}/online-lesson/${lesson.id}`}
                         key={index}
-                        className={`border-regular border-1 pt-[20px] px-[25px] pb-[25px] bg-white rounded-10 bg-cover bg-center`}
+                        className={`border-regular border-1 pt-[20px] px-[25px] pb-[25px] bg-emind/10 rounded-10 bg-cover bg-center`}
                     >
                         {Object.values(permissions).some(val => val === true) &&
                             <div className="flex items-center justify-end">
@@ -153,7 +153,14 @@ const Lessons = ({ permissions }) => {
                         </div>
                         <div className="flex flex-wrap items-center justify-between">
                             <div className="flex items-center gap-[15px]">
-                                <img className="w-[30px] h-[30px] rounded-full" src={userImage} alt="" />
+                                <img
+                                    className="w-[30px] h-[30px] rounded-full bg-emind"
+                                    src={
+                                        lesson.createUserid.teacher ? BASE_SERVER_URL+lesson.createUserid.teacher.photo
+                                         : BASE_SERVER_URL + 'avatar01.png'
+                                    }
+                                    alt=""
+                                />
                                 <span className={`text-[15px] font-medium `}>{lesson.createUserid.teacher?.name}</span>
                             </div>
                             <div className="flex items-center gap-[15px]">

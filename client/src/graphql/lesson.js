@@ -109,6 +109,7 @@ export const ALL_ONLINE_LESSON = gql`
                     isTeacher
                     teacher {
                         name
+                        photo
                     }
                 }
             }
