@@ -19,6 +19,15 @@ from school.utils import custom_paginate
 class StudentType(DjangoObjectType):
     class Meta:
         model = Student
+        
+    photo = graphene.String()
+
+    def resolve_photo(self, info):
+        
+        if self.sex == "Эрэгтэй":
+            return 'avatar01.png'
+        else:
+            return 'avatar02.png'
 
 class TransferType(DjangoObjectType):
     class Meta:

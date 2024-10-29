@@ -96,48 +96,42 @@ export default function AppLayout() {
             </div>
           </Dialog>
         </Transition.Root>
-        <header className="h-[70px] relative flex items-center justify-between">
-          <button
-            type="button"
-            className="px-4 text-gray-500 lg:hidden"
-            onClick={() => setMobileMenuOpen(true)}
-          >
-            <span className="sr-only">Open sidebar</span>
-            <MenuAlt2Icon className="h-6 w-6 text-white" aria-hidden="true" />
-          </button>
-          <img
-            alt="logo"
-            className={classNames(
-              domainData.logo === defaultLogo ? 'h-8' : 'h-16 ',
-              "w-auto hidden ml-16 my-auto lg:block"
-            )}
-            src={domainData.logo}
-          />
-          <div className="ml-2 flex items-center sm:ml-6">
-            <SupportSVG className="h-7 w-7 fill-background" />
-            <NavProfile />
-          </div>
-        </header>
         <div
-          className={classNames(
-            "relative mt-4",
-            "before:content-[''] before:w-[100%] before:rounded-[1.3rem] before:bg-black/10 before:h-full before:-mt-4 before:absolute before:mx-auto before:inset-x-0",
-          )}
+          className="relative mt-4"
         >
           <div
-            className={classNames(
-              "translate-y-0 bg-emind-2 flex rounded-[1.3rem] -mt-[7px] lg:mt-0",
-              "before:block before:absolute before:inset-0 before:bg-black/[0.15] before:rounded-[1.3rem] before:z-[-1]",
-            )}
+            className="flex"
           >
-            <nav className="hidden lg:block w-[105px] lg:w-[250px] px-5 pt-8 pb-16 overflow-x-hidden">
-              <ul>
+            <nav className="hidden bg-white rounded-4 mr-4 lg:block w-[105px] lg:w-[300px] px-5 pt-8 pb-16 overflow-x-hidden">
+              <img
+                alt="logo"
+                className={classNames(
+                  domainData.logo === defaultLogo ? 'h-16' : 'h-16 ',
+                  "w-auto hidden ml-16 my-auto mx-auto lg:block"
+                )}
+                src={domainData.logo}
+              />
+              <ul className='mt-4'>
                 {mainNavTree.map((menu, index) => (
                   <MenuItem menu={menu} key={index} />
                 ))}
               </ul>
             </nav>
-            <div className="max-w-full lg:max-w-auto rounded-[1.3rem] flex-1 min-w-0 min-h-screen pb-10 shadow-sm bg-background">
+            <div className="max-w-full lg:max-w-auto rounded-[1.3rem] flex-1 min-w-0 min-h-screen pb-10 shadow-sm bg-white">
+              <header className="h-[70px] relative flex items-center justify-between md:justify-end">
+                <button
+                  type="button"
+                  className="px-4 text-emind lg:hidden"
+                  onClick={() => setMobileMenuOpen(true)}
+                >
+                  <span className="sr-only">Open sidebar</span>
+                  <MenuAlt2Icon className="h-6 w-6 text-emind" aria-hidden="true" />
+                </button>
+                <div className="ml-2 flex items-center sm:ml-6">
+                  <SupportSVG className="h-7 w-7 fill-emind" />
+                  <NavProfile />
+                </div>
+              </header>
               <main className="mt-4 p-4">
                 <AppViews />
               </main>

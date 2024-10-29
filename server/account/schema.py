@@ -10,6 +10,12 @@ from graphql_jwt.decorators import login_required
 class AccountType(DjangoObjectType):
     class Meta:
         model = CustomUser
+        
+    avatar = graphene.String()
+
+    def resolve_avatar(self, info):
+        return 'avatar01.png'
+
 
 class Custom_accountType(graphene.ObjectType):
     email = graphene.String()

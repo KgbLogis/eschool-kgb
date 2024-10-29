@@ -5,9 +5,8 @@ import ChartWidget from 'components/shared-components/ChartWidget';
 import { withRouter } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import IntlMessage from "components/util-components/IntlMessage";
-import { StudentSVG, SubjectSVG, TeacherSVG } from "assets/svg/menu-icon";
 
-const DASHBOARD = gql `
+const DASHBOARD = gql`
     query dashboard {
         dashboard {
             studentCount
@@ -27,27 +26,37 @@ export const DefaultDashboard = () => {
     const [countData, setCountData] = useState([])
     const [series, setSeries] = useState([])
     const [xAxis, setXAxis] = useState([])
-    
+
     const { loading } = useQuery(DASHBOARD, {
         onCompleted: data => {
             setCountData([
                 {
                     title: <IntlMessage id="student-registration" />,
                     value: data.dashboard.studentCount,
-                    svg: StudentSVG,
-                    color: 'rgba(159, 177, 183, .1)'
+                    svg: "student-white",
+                    color: '#C67BFC',
+                    colorType: 1
                 },
                 {
                     title: <IntlMessage id="teacher-registration" />,
                     value: data.dashboard.teacherCount,
-                    svg: TeacherSVG,
-                    color: 'rgba(159, 177, 183, .1)'
+                    svg: "teacher-white",
+                    color: 'rgba(159, 177, 183, .1)',
+                    colorType: 2
                 },
                 {
                     title: <IntlMessage id="subject-registration" />,
                     value: data.dashboard.subjectCount,
-                    svg: SubjectSVG,
-                    color: 'rgba(159, 177, 183, .1)'
+                    svg: "subject-white",
+                    color: 'rgba(159, 177, 183, .1)',
+                    colorType: 3
+                },
+                {
+                    title: <IntlMessage id="online-lesson-registration" />,
+                    value: data.dashboard.subjectCount,
+                    svg: "online-lesson-white",
+                    color: 'rgba(159, 177, 183, .1)',
+                    colorType: 4
                 }
             ])
             const ser = data.dashboard.logins.map(item => {
@@ -64,24 +73,28 @@ export const DefaultDashboard = () => {
     });
 
     return (
-        <>  
+        <>
             <Skeleton loading={loading} active rows={6}>
-                <div className="mb-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                    { countData?.map((elm, i) => (
+                <div className="mb-4 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                    {countData?.map((elm, i) => (
                         <StatisticWidget
-                            key={i} 
+                            key={i}
                             color={elm.color}
-                            title={elm.title} 
+                            title={elm.title}
                             value={elm.value}
                             Svg={elm.svg}
+                            colorType={elm.colorType}
                         />
                     ))}
                 </div>
-                <ChartWidget 
+                <ChartWidget
                     title={<IntlMessage id="main.site_status" />}
-                    series={series} 
-                    xAxis={xAxis} 
+                    series={series}
+                    xAxis={xAxis}
                     className="h-2/3"
+                    customOptions={{
+                        colors: ['#009A8E']
+                    }}
                 />
             </Skeleton>
         </>

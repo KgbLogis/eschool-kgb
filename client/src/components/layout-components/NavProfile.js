@@ -43,22 +43,22 @@ const NavProfile = () => {
                         if (user.isStudent) {
                             return (
                                 <Avatar
-                                    className="bg-emind-2"
+                                    className="bg-emind"
                                     src={BASE_SERVER_URL + user.student.photo}
                                 />
                             )
                         } else if (user.isTeacher) {
                             return (
                                 <Avatar
-                                    className="bg-emind-2"
+                                    className="bg-emind"
                                     src={BASE_SERVER_URL + user.teacher.photo}
                                 />
                             )
                         } else {
                             return (
                                 <Avatar
-                                    className="bg-emind-2"
-                                    icon={<UserOutlined />}
+                                    className="bg-emind"
+                                    src={BASE_SERVER_URL + 'avatar01.png'}
                                 />
                             )
                         }
@@ -104,22 +104,22 @@ const NavProfile = () => {
                         if (user.isStudent) {
                             return (
                                 <Avatar
-                                    className="bg-emind-2"
+                                    className="bg-emind"
                                     src={BASE_SERVER_URL + user.student.photo}
                                 />
                             )
                         } else if (user.isTeacher) {
                             return (
                                 <Avatar
-                                    className="bg-emind-2"
+                                    className="bg-emind"
                                     src={BASE_SERVER_URL + user.teacher.photo}
                                 />
                             )
                         } else {
                             return (
                                 <Avatar
-                                    className="bg-emind-2"
-                                    icon={<UserOutlined />}
+                                    className="bg-emind"
+                                    src={BASE_SERVER_URL + 'avatar01.png'}
                                 />
                             )
                         }

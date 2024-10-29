@@ -14,6 +14,15 @@ from django.db.models import Q
 class TeacherType(DjangoObjectType):
     class Meta:
         model = Teacher
+        
+    photo = graphene.String()
+
+    def resolve_photo(self, info):
+        
+        if self.sex == "Эрэгтэй":
+            return 'avatar01.png'
+        else:
+            return 'avatar02.png'
 
 class Query(object):
     all_teachers = graphene.List(TeacherType, offset=graphene.Int(required=False, default_value=0), limit=graphene.Int(required=False, default_value=50), filter=graphene.String(required=False, default_value=''))
