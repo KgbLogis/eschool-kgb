@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import { Form, Avatar, Button, Input, Row, Col, Card, message } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
 import { ROW_GUTTER } from 'constants/ThemeConstant';
 import { UserContext } from 'hooks/UserContextProvider';
 import { BASE_SERVER_URL } from 'configs/AppConfig';
@@ -45,6 +44,7 @@ const UpdateProfile = () => {
                             return (
                                 <Avatar
                                     size={300} 
+                                    className='bg-emind'
                                     src={BASE_SERVER_URL+user.student.photo}
                                 />
                             )
@@ -52,6 +52,7 @@ const UpdateProfile = () => {
                             return (
                                 <Avatar
                                     size={300} 
+                                    className='bg-emind'
                                     src={BASE_SERVER_URL+user.teacher.photo}
                                 />
                             )
@@ -59,8 +60,8 @@ const UpdateProfile = () => {
                             return (
                                 <Avatar
                                     size={300} 
-                                    style={{ backgroundColor: '#87d068' }}
-                                    icon={<UserOutlined />}
+                                    className='bg-emind'
+                                    src={BASE_SERVER_URL+'avatar01.png'}
                                 />
                             )
                         }

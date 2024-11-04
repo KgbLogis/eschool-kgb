@@ -33,7 +33,7 @@ const Index = (props) => {
                 <ConversationForm handleCancel={handleCancel} />
             </FormModal>
             <div className="flex flex-col w-full h-full rounded-3xl md:flex-row">
-                <div className="flex flex-col w-full bg-white m-2 rounded-4 md:w-2/12">
+                <div className="flex flex-col w-full bg-emind/10 m-2 rounded-4 md:w-2/12">
                     <Button 
                         className='mx-auto mt-4' 
                         type='primary' 

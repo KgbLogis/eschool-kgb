@@ -13,6 +13,7 @@ const DASHBOARD = gql`
             teacherCount
             parentCount
             subjectCount
+            onlineLessonCount
             logins {
                 loginDate
                 loginCount
@@ -34,7 +35,8 @@ export const DefaultDashboard = () => {
                     title: <IntlMessage id="student-registration" />,
                     value: data.dashboard.studentCount,
                     svg: "student-white",
-                    color: '#C67BFC',
+                    color1: '#C67BFC',
+                    color2: '#5971FF',
                     colorType: 1
                 },
                 {
@@ -42,6 +44,8 @@ export const DefaultDashboard = () => {
                     value: data.dashboard.teacherCount,
                     svg: "teacher-white",
                     color: 'rgba(159, 177, 183, .1)',
+                    color1: '#727DFD',
+                    color2: '#33A1EE',
                     colorType: 2
                 },
                 {
@@ -49,13 +53,17 @@ export const DefaultDashboard = () => {
                     value: data.dashboard.subjectCount,
                     svg: "subject-white",
                     color: 'rgba(159, 177, 183, .1)',
+                    color1: '#E7687F',
+                    color2: '#F29A5F',
                     colorType: 3
                 },
                 {
                     title: <IntlMessage id="online-lesson-registration" />,
-                    value: data.dashboard.subjectCount,
+                    value: data.dashboard.onlineLessonCount,
                     svg: "online-lesson-white",
                     color: 'rgba(159, 177, 183, .1)',
+                    color1: '#43D49B',
+                    color2: '#9ADD68',
                     colorType: 4
                 }
             ])
@@ -84,6 +92,8 @@ export const DefaultDashboard = () => {
                             value={elm.value}
                             Svg={elm.svg}
                             colorType={elm.colorType}
+                            color1={elm.color1}
+                            color2={elm.color2}
                         />
                     ))}
                 </div>

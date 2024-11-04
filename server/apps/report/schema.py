@@ -7,6 +7,7 @@ from apps.teacher.models import Teacher
 from apps.parent.models import Parent
 from apps.school.models import School
 from apps.program.models import Program
+from apps.online_lesson.models import Online_lesson
 from apps.schoolyear.models import Schoolyear
 from apps.mark.models import Mark_rel, Mark_board, Mark, Mark_percentage
 from apps.subject.models import Subject
@@ -75,6 +76,7 @@ class DashboardType(graphene.ObjectType):
     teacher_count = graphene.Int()
     parent_count = graphene.Int()
     subject_count = graphene.Int()
+    online_lesson_count = graphene.Int()
     logins = graphene.List(LoginCountType)
 
 class Query(graphene.ObjectType):
@@ -101,6 +103,8 @@ class Query(graphene.ObjectType):
       parent_count = Parent.objects.all().count()
 
       subject_count = Subject.objects.all().count()
+      
+      online_lesson_count = Online_lesson.objects.all().count()
 
       cursor.execute("SELECT DATE_TRUNC('day', ""expire_date"") AS ""day"", COUNT(""expire_date"") AS ""number_of_users"" FROM ""django_session"" GROUP BY DATE_TRUNC('day', ""expire_date"") ORDER BY day ASC LIMIT 6;")
       row5 = cursor.fetchall()
@@ -116,6 +120,7 @@ class Query(graphene.ObjectType):
         'teacher_count': teacher_count,
         'parent_count': parent_count,
         'subject_count': subject_count,
+        'online_lesson_count': online_lesson_count,
         'logins': login_array
       }
       return sections

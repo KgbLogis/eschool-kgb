@@ -26,10 +26,6 @@ const Folder = ({ data, setFolder, setFolderHistory, refetch }) => {
 		setFolderHistory(prevData => [...prevData, { id: id, name: name }])
 	}
 
-	function onClickOutside() {
-		setShow(false)
-	}
-
 	function onDragOver (e) {
 		// console.log("onDragOver");
 		e.stopPropagation();
@@ -58,6 +54,11 @@ const Folder = ({ data, setFolder, setFolderHistory, refetch }) => {
 	}
 	
 	useEffect(() => {
+
+		function onClickOutside() {
+			setShow(false)
+		}
+
 		const handleClickOutside = (event) => {
 			if (ref.current && !ref.current.contains(event.target)) {
 				onClickOutside && onClickOutside();
@@ -69,7 +70,7 @@ const Folder = ({ data, setFolder, setFolderHistory, refetch }) => {
 		  	document.removeEventListener('contextmenu', handleClickOutside, true);
 			  document.addEventListener('click', handleClickOutside, true);
 		};
-	}, [ onClickOutside ]);
+	}, []);
 
 	return (
 		<>
@@ -87,7 +88,7 @@ const Folder = ({ data, setFolder, setFolderHistory, refetch }) => {
 				onClick={() => onFolderClicked({ id: data.id, name: data.name })}
 			>
 				<div className="relative px-5 py-1 bg-white ring-1 ring-gray-900/5 rounded-lg leading-none flex items-top justify-start space-x-6">
-					<FolderSVG className="w-8 h-8 fill-emind-2 my-auto" />
+					<FolderSVG className="w-8 h-8 fill-emind my-auto" />
 					<div className="space-y-2">
 						<p className="text-slate-800 text-sm my-auto">{data.name}</p>
 					</div>

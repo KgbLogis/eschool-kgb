@@ -278,19 +278,17 @@ const Index = () => {
                 <nav aria-label="breadcrumb" className="w-full px-4">
                     <ol className="flex h-8 space-x-2">
                         {folderHistory.map((item, index) => (
-                            <li key={index} className="flex items-center space-x-1">
-                                {index !== 0 && <span className=" text-emind">/</span>}
-                                <a
-                                    href="javascript:void(0)"
+                            <li key={index} className="flex items-center text-center">
+                                {index !== 0 && <span className=" text-center text-emind">/</span>}
+                                <span
                                     onClick={() => currentFolder !== item.id && onBreadcrumbsChange({ key: index, id: item.id })}
-                                    rel="noopener noreferrer"
                                     className={classNames(
                                         currentFolder === item.id && 'font-bold',
-                                        "flex items-center px-1 capitalize hover:underline text-emind"
+                                        "flex items-center text-center px-1 capitalize text-emind hover:underline hover:cursor-pointer"
                                     )}
                                 >
                                     {item.name}
-                                </a>
+                                </span>
                             </li>
                         ))}
                     </ol>

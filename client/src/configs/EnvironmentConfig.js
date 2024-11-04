@@ -1,6 +1,6 @@
 const dev = {
-	API_ENDPOINT_URL: 'http://192.168.0.117:8500/graphql',
-	SERVER_ENDPOINT_URL: 'http://192.168.0.117:8500/media/'
+	API_ENDPOINT_URL: 'http://localhost:8500/graphql',
+	SERVER_ENDPOINT_URL: 'http://localhost:8500/media/'
 };
 
 const prod = {

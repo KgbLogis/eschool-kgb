@@ -46,7 +46,7 @@ const Index = () => {
 
     return (
         <>
-            <div className="flex flex-col w-full m-2 h-full bg-white rounded-4 md:w-10/12">
+            <div className="flex flex-col w-full m-2 h-full bg-emind/10 rounded-4 md:w-10/12">
                 
                 { selected ? (
                     <ConversationBody selected={selected} setSelected={setSelected} />

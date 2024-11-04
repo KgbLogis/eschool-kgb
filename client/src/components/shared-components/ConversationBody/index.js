@@ -152,6 +152,7 @@ const ConversationBody = ({ selected, setSelected }) => {
                                                 currentTarget.onerror = null;
                                                 currentTarget.src = "/img/file/file-icon.png";
                                             }}
+                                            alt='file'
                                         />
                                     </div>
                                     <div className="gap-x-[10px] absolute top-[40px] left-1/2 -translate-x-1/2 opacity-0 invisible transition-all group-hover:opacity-100 group-hover:visible">
