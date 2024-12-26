@@ -22,7 +22,7 @@ class Query(object):
     @login_required
     @permission_required('event.view_event')
     def resolve_all_events(self, info):
-       return Event.objects.filter(start_at__gte=datetime.now() - timedelta(days=1)).order_by('start_at')
+       return Event.objects.all()
 
     @login_required
     @permission_required('event.view_event')

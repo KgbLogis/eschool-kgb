@@ -11,7 +11,7 @@ class Event_type(Model):
 class Event(Model):
     title = CharField(max_length=50)
     description = TextField(max_length=500)
-    content = TextField()
+    content = TextField(null=True, blank=True)
     start_at = DateTimeField()
     end_at = DateTimeField()
     event_type = ForeignKey(Event_type, on_delete=CASCADE)

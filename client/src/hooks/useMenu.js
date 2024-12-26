@@ -1,28 +1,4 @@
 import { useState, useEffect } from "react";
-import {
-  ClassesSVG,
-  ConfigSVG,
-  ConversationSVG,
-  EmployeesAttendanceSVG,
-  EmployeesSVG,
-  EventSVG,
-  HomeSVG,
-  LiveSVG,
-  OnlineFileSVG,
-  OnlineLessonSVG,
-  ParentSVG,
-  ProgramSVG,
-  ReportSVG,
-  RoutineSVG,
-  SchoolSchemaSVG,
-  SchoolSVG,
-  StudentSVG,
-  SubjectSVG,
-  SubSchoolSVG,
-  TeacherSVG,
-  UsersSVG,
-  OnlineViewSVG
-} from "assets/svg/menu-icon";
 import { CheckPer } from "./checkPermission";
 
 export function useMenu() {
@@ -33,6 +9,13 @@ export function useMenu() {
 
   const isLoading = CheckPer("loading");
 
+
+
+  function refetch() {
+    setIsRefetch(true);
+    setUserNav([]);
+  }
+  
   const permissions = {
     view_home: CheckPer("view_home"),
     view_student: CheckPer("view_student"),
@@ -79,298 +62,302 @@ export function useMenu() {
     view_flex_time: CheckPer("view_flex_time")
   };
 
-  const mainNavTree = [
-    {
-      key: "view_stdudent",
-      path: "#",
-      title: "users",
-      icon: "users",
-      priority: 1,
-      breadcrumb: true,
-      submenu: [
-        {
-          key: "view_teacher",
-          path: "/app/teacher",
-          title: "teacher",
-          icon: "teacher",
-          priority: 2,
-          breadcrumb: true,
-          submenu: [],
-        },
-        {
-          key: "view_student",
-          path: "/app/student",
-          title: "student",
-          icon: "student",
-          priority: 2,
-          breadcrumb: true,
-          submenu: [],
-        },
-        {
-          key: "view_parent",
-          path: "/app/parent",
-          title: "parent",
-          icon: "parent",
-          priority: 3,
-          breadcrumb: true,
-          submenu: [],
-        },
-        {
-          key: "view_employee",
-          path: "/app/employees",
-          title: "employees",
-          icon: "employees",
-          priority: 1000,
-          breadcrumb: true,
-          submenu: [],
-        },
-      ],
-    },
-    {
-      key: "view_subject",
-      path: "#",
-      title: "school-schema",
-      icon: "school-schema",
-      priority: 4,
-      breadcrumb: true,
-      submenu: [
-        {
-          key: "view_school",
-          path: "/app/school",
-          title: "school",
-          icon: "school",
-          priority: 5,
-          breadcrumb: true,
-          submenu: [],
-        },
-        {
-          key: "view_program",
-          path: "/app/programs",
-          title: "program",
-          icon: "program",
-          priority: 7,
-          breadcrumb: true,
-          submenu: [],
-        },
-        {
-          key: "view_sub_school",
-          path: "/app/sub-school",
-          title: "sub-school",
-          icon: "sub-school",
-          priority: 1000,
-          breadcrumb: true,
-          submenu: [],
-        },
-        {
-          key: "view_classes",
-          path: "/app/classes",
-          title: "classes",
-          icon: "classes",
-          priority: 8,
-          breadcrumb: true,
-          submenu: [],
-        },
-        {
-          key: "view_subject",
-          path: "/app/subject",
-          title: "subject",
-          icon: "subject",
-          priority: 9,
-          breadcrumb: true,
-          submenu: [],
-        },
-        {
-          key: "view_routine",
-          path: "/app/routine",
-          title: "routine",
-          icon: "routine",
-          priority: 101,
-          breadcrumb: true,
-          submenu: [],
-        },
-      ],
-    },
-    {
-      key: "view_online",
-      path: "#",
-      title: "online_view",
-      icon: "online-lesson-schema",
-      priority: 1,
-      breadcrumb: true,
-      submenu: [
-        {
-          key: "view_online_file",
-          path: "/app/online-file",
-          title: "online-file",
-          icon: "online-file",
-          priority: 12,
-          breadcrumb: true,
-          submenu: [],
-        },
-        {
-          key: "view_online_lesson",
-          path: "/app/online-lesson",
-          title: "online-lesson",
-          icon: "online-lesson",
-          priority: 13,
-          breadcrumb: true,
-          submenu: [],
-        }
-      ],
-    },
-    {
-      key: "view_live",
-      path: "/app/live",
-      title: "live",
-      icon: "live",
-      priority: 4,
-      breadcrumb: true,
-      submenu: [],
-    },
-    {
-      key: "view_event",
-      path: "/app/event",
-      title: "event",
-      icon: "event",
-      priority: 1000,
-      breadcrumb: true,
-      submenu: [],
-    },
-    {
-      key: "view_employee_attandance",
-      path: "/app/employees-attendance",
-      title: "employees-attendance",
-      icon: "employees-attendance",
-      priority: 1000,
-      breadcrumb: true,
-      submenu: [],
-    },
-    {
-      key: "view_conversation",
-      path: "/app/conversation",
-      title: "conversation",
-      icon: "conversation",
-      priority: 1000,
-      breadcrumb: true,
-      submenu: [],
-    },
-    // {
-    //   key: "view_plan",
-    //   path: "/app/plan",
-    //   title: "plan",
-    //   icon: PlanSVG,
-    //   priority: 1000,
-    //   breadcrumb: true,
-    //   submenu: [],
-    // },
-    {
-      key: "view_report",
-      path: "#",
-      title: "report",
-      icon: "report",
-      priority: 1000,
-      breadcrumb: true,
-      submenu: [
-        {
-          key: "view_report",
-          path: "/app/report/consolidated-report",
-          title: "consolidated-report",
-          icon: "consolidated-report",
-          priority: 10,
-          breadcrumb: true,
-          submenu: [],
-        },
-      ],
-    },
-    {
-      key: "configs",
-      path: "/app/configs",
-      title: "configs",
-      icon: "configs",
-      breadcrumb: true,
-      submenu: [],
-    },
-  ];
-
-  const configNavTree = [
-    {
-      key: "view_schoolyear",
-      path: "schoolyear",
-      title: "schoolyear",
-      breadcrumb: true,
-      submenu: [],
-    },
-    {
-      key: "view_activity",
-      path: "activity",
-      title: "activity",
-      breadcrumb: true,
-      submenu: [],
-    },
-    {
-      key: "view_classtime",
-      path: "class-times",
-      title: "class-times",
-      breadcrumb: true,
-      submenu: [],
-    },
-    {
-      key: "view_student_status",
-      path: "student-status",
-      title: "student-status",
-      breadcrumb: true,
-      submenu: [],
-    },
-    {
-      key: "view_student_status_extra",
-      path: "student-status-extras",
-      title: "student-status-extras",
-      breadcrumb: true,
-      submenu: [],
-    },
-    {
-      key: "view_teacher_status",
-      path: "teacher-status",
-      title: "teacher-status",
-      breadcrumb: true,
-      submenu: [],
-    },
-    {
-      key: "view_degree",
-      path: "degree",
-      title: "degree",
-      breadcrumb: true,
-      submenu: [],
-    },
-    {
-      key: "view_group",
-      path: "group-permission",
-      title: "group-permission",
-      breadcrumb: true,
-      submenu: [],
-    },
-    {
-      key: "view_event_type",
-      path: "event-type",
-      title: "event-type",
-      breadcrumb: true,
-      submenu: [],
-    },
-    {
-      "key": "view_planmark",
-      "path": "plan-mark",
-      "title": "plan-mark",
-      "breadcrumb": true,
-      "submenu": []
-    }
-  ];
-
-  function refetch() {
-    setIsRefetch(true);
-    setUserNav([]);
-  }
-
   useEffect(() => {
+
+    const mainNavTree = [
+      {
+        key: "view_stdudent",
+        path: "#",
+        title: "users",
+        icon: "users",
+        priority: 1,
+        breadcrumb: true,
+        submenu: [
+          {
+            key: "view_teacher",
+            path: "/app/teacher",
+            title: "teacher",
+            icon: "teacher",
+            priority: 2,
+            breadcrumb: true,
+            submenu: [],
+          },
+          {
+            key: "view_student",
+            path: "/app/student",
+            title: "student",
+            icon: "student",
+            priority: 2,
+            breadcrumb: true,
+            submenu: [],
+          },
+          {
+            key: "view_parent",
+            path: "/app/parent",
+            title: "parent",
+            icon: "parent",
+            priority: 3,
+            breadcrumb: true,
+            submenu: [],
+          },
+          {
+            key: "view_employee",
+            path: "/app/employees",
+            title: "employees",
+            icon: "employees",
+            priority: 1000,
+            breadcrumb: true,
+            submenu: [],
+          },
+        ],
+      },
+      {
+        key: "view_subject",
+        path: "#",
+        title: "school-schema",
+        icon: "school-schema",
+        priority: 4,
+        breadcrumb: true,
+        submenu: [
+          {
+            key: "view_school",
+            path: "/app/school",
+            title: "school",
+            icon: "school",
+            priority: 5,
+            breadcrumb: true,
+            submenu: [],
+          },
+          {
+            key: "view_program",
+            path: "/app/programs",
+            title: "program",
+            icon: "program",
+            priority: 7,
+            breadcrumb: true,
+            submenu: [],
+          },
+          {
+            key: "view_sub_school",
+            path: "/app/sub-school",
+            title: "sub-school",
+            icon: "sub-school",
+            priority: 1000,
+            breadcrumb: true,
+            submenu: [],
+          },
+          {
+            key: "view_classes",
+            path: "/app/classes",
+            title: "classes",
+            icon: "classes",
+            priority: 8,
+            breadcrumb: true,
+            submenu: [],
+          },
+          {
+            key: "view_subject",
+            path: "/app/subject",
+            title: "subject",
+            icon: "subject",
+            priority: 9,
+            breadcrumb: true,
+            submenu: [],
+          },
+          {
+            key: "view_routine",
+            path: "/app/routine",
+            title: "routine",
+            icon: "routine",
+            priority: 101,
+            breadcrumb: true,
+            submenu: [],
+          },
+        ],
+      },
+      {
+        key: "view_online",
+        path: "#",
+        title: "online_view",
+        icon: "online-lesson-schema",
+        priority: 1,
+        breadcrumb: true,
+        submenu: [
+          {
+            key: "view_online_file",
+            path: "/app/online-file",
+            title: "online-file",
+            icon: "online-file",
+            priority: 12,
+            breadcrumb: true,
+            submenu: [],
+          },
+          {
+            key: "view_online_lesson",
+            path: "/app/online-lesson",
+            title: "online-lesson",
+            icon: "online-lesson",
+            priority: 13,
+            breadcrumb: true,
+            submenu: [],
+          }
+        ],
+      },
+      {
+        key: "view_live",
+        path: "/app/live",
+        title: "live",
+        icon: "live",
+        priority: 4,
+        breadcrumb: true,
+        submenu: [],
+      },
+      {
+        key: "view_take_test",
+        path: "/app/take-test",
+        title: "take-test",
+        icon: "take-test",
+        priority: 4,
+        breadcrumb: true,
+        submenu: [],
+      },
+      {
+        key: "view_event",
+        path: "/app/event",
+        title: "event",
+        icon: "event",
+        priority: 1000,
+        breadcrumb: true,
+        submenu: [],
+      },
+      {
+        key: "view_employee_attandance",
+        path: "/app/employees-attendance",
+        title: "employees-attendance",
+        icon: "employees-attendance",
+        priority: 1000,
+        breadcrumb: true,
+        submenu: [],
+      },
+      {
+        key: "view_conversation",
+        path: "/app/conversation",
+        title: "conversation",
+        icon: "conversation",
+        priority: 1000,
+        breadcrumb: true,
+        submenu: [],
+      },
+      // {
+      //   key: "view_plan",
+      //   path: "/app/plan",
+      //   title: "plan",
+      //   icon: PlanSVG,
+      //   priority: 1000,
+      //   breadcrumb: true,
+      //   submenu: [],
+      // },
+      {
+        key: "view_report",
+        path: "#",
+        title: "report",
+        icon: "report",
+        priority: 1000,
+        breadcrumb: true,
+        submenu: [
+          {
+            key: "view_report",
+            path: "/app/report/consolidated-report",
+            title: "consolidated-report",
+            icon: "consolidated-report",
+            priority: 10,
+            breadcrumb: true,
+            submenu: [],
+          },
+        ],
+      },
+      {
+        key: "configs",
+        path: "/app/configs",
+        title: "configs",
+        icon: "configs",
+        breadcrumb: true,
+        submenu: [],
+      },
+    ];
+
+    const configNavTree = [
+      {
+        key: "view_schoolyear",
+        path: "schoolyear",
+        title: "schoolyear",
+        breadcrumb: true,
+        submenu: [],
+      },
+      {
+        key: "view_activity",
+        path: "activity",
+        title: "activity",
+        breadcrumb: true,
+        submenu: [],
+      },
+      {
+        key: "view_classtime",
+        path: "class-times",
+        title: "class-times",
+        breadcrumb: true,
+        submenu: [],
+      },
+      {
+        key: "view_student_status",
+        path: "student-status",
+        title: "student-status",
+        breadcrumb: true,
+        submenu: [],
+      },
+      {
+        key: "view_student_status_extra",
+        path: "student-status-extras",
+        title: "student-status-extras",
+        breadcrumb: true,
+        submenu: [],
+      },
+      {
+        key: "view_teacher_status",
+        path: "teacher-status",
+        title: "teacher-status",
+        breadcrumb: true,
+        submenu: [],
+      },
+      {
+        key: "view_degree",
+        path: "degree",
+        title: "degree",
+        breadcrumb: true,
+        submenu: [],
+      },
+      {
+        key: "view_group",
+        path: "group-permission",
+        title: "group-permission",
+        breadcrumb: true,
+        submenu: [],
+      },
+      {
+        key: "view_event_type",
+        path: "event-type",
+        title: "event-type",
+        breadcrumb: true,
+        submenu: [],
+      },
+      {
+        "key": "view_planmark",
+        "path": "plan-mark",
+        "title": "plan-mark",
+        "breadcrumb": true,
+        "submenu": []
+      }
+    ];
     if (isLoading !== "loading" && isRefetch) {
       mainNavTree.map((nav) => {
         if (nav.submenu.length > 0) {
@@ -403,7 +390,7 @@ export function useMenu() {
       });
       setIsRefetch(false);
     }
-  }, [isLoading, isRefetch, mainNavTree, configNavTree, permissions]);
+  }, [isLoading, isRefetch]);
 
   return {
     mainNavTree: [

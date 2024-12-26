@@ -3,7 +3,7 @@ import graphene
 from graphene_django.types import DjangoObjectType
 from graphene_file_upload.scalars import Upload
 from .models import Online_file_folder, Online_lesson, Online_attendance, Online_student, Online_file, Online_sub_file, Online_type, Online_sub
-# from apps.subject.models import Subject
+from apps.subject.models import Subject
 from apps.student.models import Student
 from apps.teacher.models import Teacher
 from apps.schoolyear.models import Schoolyear
@@ -207,20 +207,20 @@ class CreateOnline_lesson(graphene.Mutation):
 
     class Arguments:
         schoolyear = graphene.Int()
-        # subject = graphene.Int()
+        subject = graphene.Int()
         description = graphene.String()
         # content = graphene.String()
         status = graphene.String()
 
     @login_required
     @permission_required('online_lesson.add_online_lesson')
-    def mutate(self, info, schoolyear, description, status):
+    def mutate(self, info, schoolyear, description, status, subject):
         
         schoolyear_i = Schoolyear.objects.get(pk=schoolyear)
-        # subject_i = Subject.objects.get(pk=subject)
+        subject_i = Subject.objects.get(pk=subject)
         create_userID_i = info.context.user
 
-        online_lesson = Online_lesson(schoolyear=schoolyear_i, description=description, status=status, create_userID=create_userID_i)
+        online_lesson = Online_lesson(schoolyear=schoolyear_i, description=description, status=status, create_userID=create_userID_i, subject=subject_i)
         online_lesson.save()
         return CreateOnline_lesson(online_lesson=online_lesson)
 
@@ -229,7 +229,7 @@ class UpdateOnline_lesson(graphene.Mutation):
 
     class Arguments:
         schoolyear = graphene.Int()
-        # subject = graphene.Int()
+        subject = graphene.Int()
         description = graphene.String()
         # content = graphene.String()
         status = graphene.String()
@@ -237,14 +237,14 @@ class UpdateOnline_lesson(graphene.Mutation):
 
     @login_required
     @permission_required('online_lesson.change_online_lesson')
-    def mutate(self, info, schoolyear, description, status, id):
+    def mutate(self, info, schoolyear, description, status, id, subject):
         
         online_lesson = Online_lesson.objects.get(pk=id)
         schoolyear_i = Schoolyear.objects.get(pk=schoolyear)
-        # subject_i = Subject.objects.get(pk=subject)
+        subject_i = Subject.objects.get(pk=subject)
 
         online_lesson.schoolyear = schoolyear_i
-        # online_lesson.subject = subject_i
+        online_lesson.subject = subject_i
         online_lesson.description = description
         # online_lesson.content = content
         online_lesson.status = status

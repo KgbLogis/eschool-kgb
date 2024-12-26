@@ -1,28 +1,32 @@
 import React from 'react';
-import { Row, Col, Typography  } from 'antd';
-import PageHeaderAlt from 'components/layout-components/PageHeaderAlt'
+import { RollbackOutlined } from '@ant-design/icons';
 import IntlMessage from 'components/util-components/IntlMessage';
+import { Button } from 'antd';
+import { Link } from 'react-router-dom';
+import { APP_PREFIX_PATH } from 'configs/AppConfig';
+import Flex from 'components/shared-components/Flex';
 
-const { Title } = Typography;
+const ShowScore = ({ score }) => {
 
-const ShowScore = (props) => {
-
-    return (
-        <PageHeaderAlt className="bg-primary" overlap>
-			<div className="container text-center">
-				<div className="py-lg-4">
-					<h1 className="text-white display-4"><IntlMessage id="total-exam-score" /></h1>
-					<Row type="flex" justify="center">
-						<Col xs={24} sm={24} md={12}>
-							<Title className="text-white w-75 text-center mt-2 mb-4 mx-auto">
-								{props.location.state.message.finishTest?.score}
-							</Title>
-						</Col>
-					</Row>
-				</div>
+	return (
+		<div className="container text-center">
+			<Flex alignItems="center" justifyContent="between" mobileFlex={false}>
+				<Flex mobileFlex={false}>
+					<div className='text-right' >
+						<Link to={`${APP_PREFIX_PATH}/take-test`}>
+							<Button type="default" icon={<RollbackOutlined />} block> <IntlMessage id="back" /></Button>
+						</Link>
+					</div>
+				</Flex>
+			</Flex>
+			<div className="py-lg-4 bg-emind rounded-4 mt-4">
+				<h1 className="text-white display-4"><IntlMessage id="total-exam-score" /></h1>
+				<p className="text-white text-center text-2xl mt-2 mb-4 mx-auto">
+					{score}
+				</p>
 			</div>
-		</PageHeaderAlt>
-    )
+		</div>
+	)
 
 }
 

@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useLazyQuery } from '@apollo/client';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Card, Col, Row, Statistic, Button, message } from 'antd';
 import { START_TEST, TEST_TIME, FINISH_TEST } from 'graphql/test';
 import moment from 'moment';
 import ExamForm from './exam-form';
 import Loading from 'components/shared-components/Loading';
 import IntlMessage from 'components/util-components/IntlMessage';
+import ShowScore from './show-score';
 
 const { Countdown } = Statistic;
 
 const Exam = () => {
 
     const slug = useParams();
-    const history =  useHistory();
+    const [score, setScore] = useState(0)
 
     const [leftTime, setLeftTime] = useState(null);
     const [isFinished, setIsFinished] = useState(false);
@@ -45,10 +46,11 @@ const Exam = () => {
         }
     })
 
-    const [finishTest] = useLazyQuery(FINISH_TEST, {
+    const [finishTest, { called }] = useLazyQuery(FINISH_TEST, {
         onCompleted: data => {
+            setLoading(false)
             message.warning('Шалгалт дууссан!')
-            history.push({pathname: '/app/my-score', state: {message: data}})
+            setScore(data.finishTest.score);
         }
     })
 
@@ -116,8 +118,7 @@ const Exam = () => {
                 <Button 
                     key={index}
                     shape="circle" 
-                    type="dashed"
-                    style={{ background: "#dde3df", borderColor: "#3c8dbc" }}
+                    type="primary"
                     className='mx-1' 
                     size='small'
                     onClick={() => handleChange(index)}
@@ -142,7 +143,7 @@ const Exam = () => {
                 key={index}
                 shape="circle" 
                 type="primary"
-                className='mx-1' 
+                className='mx-1 bg-green-500' 
                 size='small'
                 onClick={() => handleChange(index)}
             >
@@ -153,6 +154,10 @@ const Exam = () => {
 
     if (loading) {
         return <Loading cover="content" />
+    }
+
+    if (called) {
+        return <ShowScore score={score} />
     }
 
     return (
@@ -170,7 +175,7 @@ const Exam = () => {
                     />
                 </Col>
                 <Col xs={24} xl={6}>
-                    <Card>
+                    <Card className='bg-red-500/5'>
                         <Countdown 
                             title={<span className='mb-4' ><IntlMessage id="exam.time-left" /></span>}  
                             value={leftTime} 
@@ -179,6 +184,7 @@ const Exam = () => {
                     </Card>
                     <Card
                         title={<IntlMessage id="question" />}
+                        className='bg-emind/5'
                     >
                         { answers.map(function (answer, index) {
                             filledForm = filledForm + 1
@@ -189,15 +195,16 @@ const Exam = () => {
                     </Card>
                     <Card
                         title={<IntlMessage id="exam.recommendations" />}
+                        className='bg-blue-500/5'
                     >
                         <div className='mt-2'>
-                            <Button shape="circle" type='dashed' style={{ background: "#dde3df", borderColor: "#3c8dbc" }} className='mx-1' size='small'>
+                            <Button shape="circle" type='primary' className='mx-1' size='small'>
                                 1
                             </Button>
                             <IntlMessage id="exam.current" />
                         </div>
                         <div className='mt-2'>
-                            <Button shape="circle" type='primary' className='mx-1' size='small'>
+                            <Button shape="circle" type='primary' className='mx-1 bg-green-500' size='small'>
                                 2
                             </Button>
                             <IntlMessage id="exam.completed" />

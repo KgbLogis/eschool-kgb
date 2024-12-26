@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { Badge, Card, message, Button, Modal, Select } from 'antd';
+import { Badge, message, Button, Modal, Select } from 'antd';
 import moment from 'moment';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { ALL_EVENTS, ALL_EVENTS_BY_DATE, ALL_EVENT_TYPES } from 'graphql/all';
@@ -10,6 +10,7 @@ import EventModal from './event-modal';
 import EventList from './event-list';
 import EventListModal from './event-list-modal';
 import { DELETE_EVENT } from 'graphql/delete';
+import { classNames } from 'utils';
 
 const dateFormat = 'MMMM DD'
 const { confirm } = Modal;
@@ -152,23 +153,17 @@ const CalendarApp = ({ permissions }) => {
 	}
 
 	return (
-		<Card>
-			<div className='justify-between md:flex'>
-				<div className='hidden md:block'>
-				</div>
-				<div className=''>
-
-				</div>
-			</div>
+		<>
 			<div className='flex flex-col md:flex-row gap-3'>
-				<div className='md:basis-1/4'>
-					<h2 className="mb-4"><IntlMessage id="event" /></h2>
-					{permissions.create === true && (
-						<Button onClick={() => setModalVisible(true)} type="primary" icon={<PlusCircleOutlined />} block> <IntlMessage id="add_new" /> </Button>
-					)}
-					<div className='flex flex-col mt-4'>
+				<div className='bg-emind/10 rounded-4 p-2 md:basis-1/4'>
+					<div className='flex flex-row justify-center mt-4'>
 						{eventTypes?.allEventTypes.map((event, index) => (
-							<Badge key={index} className='mr-4' color={event.color} text={event.name} />
+							<span key={index} className="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 text-xs font-bold text-emind">
+								<svg className="h-3 w-3" viewBox="0 0 6 6" aria-hidden="true" fill={event.color}>
+									<circle cx={3} cy={3} r={3} />
+								</svg>
+								{event.name}
+							</span>
 						))}
 					</div>
 					<EventList
@@ -188,11 +183,11 @@ const CalendarApp = ({ permissions }) => {
 					<div className="text-gray-700">
 						<div className="flex flex-grow w-full h-full overflow-auto">
 							<div className="flex flex-col flex-grow">
-								<div className="flex items-center mt-4">
-									<div className="flex ml-6 space-x-4">
+								<div className="flex justify-between text-center items-center">
+									<div className="flex text-center items-center space-x-4">
 										<Select
 											onSelect={onYearSelect}
-											className='w-28'
+											className=' custom-select text-white active:text-white'
 											defaultValue={moment(currentDate).format("YYYY")}
 										>
 											<Option value={moment().format("YYYY")} >{moment().format("YYYY")}</Option>
@@ -200,7 +195,7 @@ const CalendarApp = ({ permissions }) => {
 										</Select>
 										<Select
 											onSelect={onMonthSelect}
-											className='w-28'
+											// className='w-28'
 											defaultValue={moment(currentDate).format("M")}
 										>
 											<Option value={"1"}>1 сар</Option>
@@ -216,29 +211,37 @@ const CalendarApp = ({ permissions }) => {
 											<Option value={"11"}>11 сар</Option>
 											<Option value={"12"}>12 сар</Option>
 										</Select>
+										<h2 className="text-xl font-bold leading-none text-emind">{moment(currentDate).format("YYYY-MMMM")}</h2>
 									</div>
-									<h2 className="ml-2 text-xl font-bold leading-none">{moment(currentDate).format("YYYY-MMMM")}</h2>
+									<div className=''>
+										{permissions.create === true && (
+											<Button onClick={() => setModalVisible(true)} type="primary" icon={<PlusCircleOutlined />} block> <IntlMessage id="add_new" /> </Button>
+										)}
+									</div>
 								</div>
-								<div className="grid grid-cols-7 my-4">
-									<div className="pl-1 text-sm text-slate-400 font-bold text-center ">{moment.weekdays(1)}</div>
-									<div className="pl-1 text-sm text-slate-400 font-bold text-center ">{moment.weekdays(2)}</div>
-									<div className="pl-1 text-sm text-slate-400 font-bold text-center ">{moment.weekdays(3)}</div>
-									<div className="pl-1 text-sm text-slate-400 font-bold text-center ">{moment.weekdays(4)}</div>
-									<div className="pl-1 text-sm text-slate-400 font-bold text-center ">{moment.weekdays(5)}</div>
-									<div className="pl-1 text-sm text-slate-400 font-bold text-center ">{moment.weekdays(6)}</div>
-									<div className="pl-1 text-sm text-slate-400 font-bold text-center ">{moment.weekdays(7)}</div>
+								<div className="grid grid-cols-7 py-2 rounded-t-2 mt-2 bg-emind/10 text-emind">
+									<div className="pl-1 text-sm font-bold text-center ">{moment.weekdays(1)}</div>
+									<div className="pl-1 text-sm font-bold text-center ">{moment.weekdays(2)}</div>
+									<div className="pl-1 text-sm font-bold text-center ">{moment.weekdays(3)}</div>
+									<div className="pl-1 text-sm font-bold text-center ">{moment.weekdays(4)}</div>
+									<div className="pl-1 text-sm font-bold text-center ">{moment.weekdays(5)}</div>
+									<div className="pl-1 text-sm font-bold text-center ">{moment.weekdays(6)}</div>
+									<div className="pl-1 text-sm font-bold text-center ">{moment.weekdays(7)}</div>
 								</div>
-								<div className="grid flex-grow w-full h-auto grid-cols-7 grid-rows-5 gap-1 rounded-2 pt-px mt-1 bg-background">
+								<div className="grid flex-grow w-full h-auto grid-cols-7 grid-rows-5 rounded-2">
 									{dates.map((item, index) => (
 										<Fragment key={index}>
 											{index === 0 &&
 												renderNullDate(moment(item).isoWeekday())
 											}
 											<div
-												className="relative flex flex-col bg-white h-30 m-1 rounded-2 group hover:cursor-pointer"
+												className={classNames(
+													moment(item).day() === 0 || moment(item).day() === 6 ? 'bg-emind/10 text-emind' : 'bg-white',
+													'relative flex flex-col h-30 group border border-emind hover:cursor-pointer'
+												)}
 												onClick={() => onSelect(item)}
 											>
-												<span className="mx-2 my-1 text-lg font-bold">{moment(item).format("DD")}</span>
+												<span className="text-right mx-2 my-1 text-lg font-bold">{moment(item).format("DD")}</span>
 												{cellRender(item)}
 											</div>
 										</Fragment>
@@ -264,7 +267,7 @@ const CalendarApp = ({ permissions }) => {
 				cancel={onAddEventCancel}
 				allEventTypes={eventTypes?.allEventTypes}
 			/>
-		</Card>
+		</>
 	)
 }
 

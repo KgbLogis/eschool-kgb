@@ -146,7 +146,7 @@ class Query(object):
                         answer = Answer(participant=participant, question=question, question_text=question.question, choices=choices,answer_type=question.answer_type)
                         answer.save()
 
-            return Answer.objects.filter(participant__take_test=take_test)
+            return Answer.objects.filter(participant__take_test=take_test).order_by('pk')
         else:
             return None
 

@@ -70,8 +70,8 @@ export const DELETE_ONLINE_FILE_FOLDER = gql`
 `
 
 export const CREATE_ONLINE_LESSON = gql`
-    mutation createOnlineLesson ($description: String, $schoolyear: Int, $status: String) {
-        createOnlineLesson (description: $description, schoolyear: $schoolyear, status: $status) {
+    mutation createOnlineLesson ($description: String, $schoolyear: Int, $status: String, $subject: Int) {
+        createOnlineLesson (description: $description, schoolyear: $schoolyear, status: $status, subject: $subject) {
             onlineLesson {
                 id
             }
@@ -80,8 +80,8 @@ export const CREATE_ONLINE_LESSON = gql`
 `;
 
 export const UPDATE_ONLINE_LESSON = gql`
-    mutation updateOnlineLesson ($description: String, $id: ID, $schoolyear: Int, $status: String) {
-        updateOnlineLesson (description: $description, id: $id, schoolyear: $schoolyear, status: $status) {
+    mutation updateOnlineLesson ($description: String, $id: ID, $schoolyear: Int, $status: String, $subject: Int) {
+        updateOnlineLesson (description: $description, id: $id, schoolyear: $schoolyear, status: $status, subject: $subject) {
             onlineLesson {
                 id
             }
@@ -101,6 +101,10 @@ export const ALL_ONLINE_LESSON = gql`
                 schoolyear {
                     id
                     schoolyear
+                }
+                subject {
+                    id
+                    subject
                 }
                 description
                 createdAt
@@ -219,6 +223,7 @@ export const SUB_BY_ID = gql `
                     studentCode
                     name
                     familyName
+                    photo
                 }
             }
             status
@@ -291,6 +296,21 @@ export const DELETE_ONLINE_SUB_FILE = gql`
             onlineSubFile {
                 id
             }
+        }
+    }
+`
+
+export const LESSONS_NAV = gql`
+    query lessonsNav {
+        allOnlineLessons {
+            id
+            subject {
+            subject
+            }
+        }
+        allOnlineTypes {
+            id
+            name
         }
     }
 `

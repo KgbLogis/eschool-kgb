@@ -118,7 +118,7 @@ export default function AppLayout() {
               </ul>
             </nav>
             <div className="max-w-full lg:max-w-auto rounded-[1.3rem] flex-1 min-w-0 min-h-screen pb-10 shadow-sm bg-white">
-              <header className="h-[70px] relative flex items-center justify-between md:justify-end">
+              <header className="h-[70px] relative flex items-center justify-between mx-9 md:justify-end">
                 <button
                   type="button"
                   className="px-4 text-emind lg:hidden"
@@ -132,6 +132,7 @@ export default function AppLayout() {
                   <NavProfile />
                 </div>
               </header>
+              <div className='border-b border-emind/20 mx-[10%]' />
               <main className="mt-4 p-4">
                 <AppViews />
               </main>

@@ -51,3 +51,8 @@ svg {
     }
   }
 }
+
+.custom-select .ant-select-selector {
+  background-color: #009A8E !important; 
+  color: white
+}

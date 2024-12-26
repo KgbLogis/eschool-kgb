@@ -19,9 +19,6 @@ const Classes = lazy(() => import(`./classes`));
 const Mark = lazy(() => import(`./mark`));
 const Subject = lazy(() => import(`./subject`));
 const OnlineLesson = lazy(() => import(`./online-lesson`));
-const OnlineLessonStudents = lazy(() => import('./online-lesson/students'));
-const SubLesson = lazy(() => import('./online-lesson-sub'));
-const Detail = lazy(() => import('./online-lesson-sub/detail'));
 const OnlineFile = lazy(() => import(`./online-file`));
 const Config = lazy(() => import(`./web-configs`));
 const Parent = lazy(() => import(`./parent`));
@@ -55,8 +52,6 @@ const FlexTime = lazy(() => import('./flex-time'))
 export const AppViews = (currentTitle) => {
 
     const title = currentTitle.currentTitle;
-
-    const viewAttendance = CheckPer('view_online_attendance');
 
     return (
         <>
@@ -177,7 +172,7 @@ export const AppViews = (currentTitle) => {
                                 title={title} />}
                         />
                     }
-                    {CheckPer('view_online_sub') &&
+                    {/* {CheckPer('view_online_sub') &&
                         <Route
                             path={`${APP_PREFIX_PATH}/online-lesson/:lesson/:subLesson`}
                             render={props => <Detail {...props}
@@ -185,18 +180,13 @@ export const AppViews = (currentTitle) => {
                                 title={title} />}
                         />
                     }
-                    <Route
-                        path={`${APP_PREFIX_PATH}/online-lesson-students/:lesson`}
-                        render={props => <OnlineLessonStudents {...props}
-                            title={'student'} />}
-                    />
                     {CheckPer('view_online_sub') &&
                         <Route
                             path={`${APP_PREFIX_PATH}/online-lesson/:lesson`}
                             render={props => <SubLesson {...props}
                                 title={title} />}
                         />
-                    }
+                    } */}
                     {CheckPer('view_online_lesson') &&
                         <Route
                             path={`${APP_PREFIX_PATH}/online-lesson`}

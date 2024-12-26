@@ -12,7 +12,7 @@ class Online_lesson(Model):
         ('CLOSED', 'Хаалттай',),
     )
     schoolyear = ForeignKey(Schoolyear, on_delete=CASCADE)
-    # subject = ForeignKey(Subject, on_delete=CASCADE)
+    subject = ForeignKey(Subject, on_delete=CASCADE, blank=True, null=True)
     description = TextField(blank=True)
     # content = TextField(blank=True)
     status = CharField(
