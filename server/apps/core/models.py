@@ -1,4 +1,4 @@
-from django.db.models import CharField, ForeignKey, Model, CASCADE
+from django.db.models import CharField, ForeignKey, Model, CASCADE, ImageField
 
 class City(Model):
     code = CharField(max_length=2)
@@ -61,5 +61,11 @@ class Classtime(Model):
 
 class Employee_compartment(Model):
     name = CharField(max_length=80)
+    def __str__(self):
+        return 'id: '+str(self.pk)+' | '+self.name 
+    
+class Banner(Model):
+    name = CharField(max_length=80)
+    image = ImageField(upload_to='uploads/photo/banner')
     def __str__(self):
         return 'id: '+str(self.pk)+' | '+self.name

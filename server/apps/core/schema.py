@@ -2,7 +2,7 @@ import email
 from tokenize import group
 import graphene
 from graphene_django.types import DjangoObjectType
-from .models import City, District, Khoroo, Student_status, Teacher_status, Student_status_extra, Activity, Degree, Classtime, Employee_compartment
+from .models import City, District, Khoroo, Student_status, Teacher_status, Student_status_extra, Activity, Degree, Classtime, Employee_compartment, Banner
 from django.contrib.auth.models import Permission
 from django.contrib.auth.models import Group
 from django.contrib.auth import get_user_model
@@ -77,6 +77,10 @@ class UserType(DjangoObjectType):
         model = get_user_model()
         fields = ("id", "username", "first_name", "last_name", "email", "is_teacher", "is_student", "is_employee", "employee", "teacher", "student", "status", "groups")
 
+class BannerType(DjangoObjectType):
+    class Meta:
+        model = Banner
+
 class Query(object):
     count = graphene.Field(Count, app_name=graphene.String(required=True), model_name=graphene.String(required=True), filter=graphene.String())
     all_citys = graphene.List(CityType)
@@ -98,6 +102,7 @@ class Query(object):
     user_by_username = graphene.Field(UserType, username=graphene.String(required=True))
     all_attendace_employees = graphene.List(UserType)
     all_employees_compartment = graphene.List(Employee_compartmentType)
+    all_banners = graphene.List(BannerType)
 
     @login_required
     def resolve_all_employees_compartment(self, info):
@@ -490,6 +495,10 @@ class Query(object):
             return Permission.objects.all()
 
         return list(chain(info.context.user.user_permissions.all(), Permission.objects.filter(group__user=info.context.user)))
+
+    @login_required
+    def resolve_all_banners(self, info, **kwargs):
+        return Banner.objects.all()
 
 class ChangeUserPassword(graphene.Mutation):
     user = graphene.Field(UserType)
