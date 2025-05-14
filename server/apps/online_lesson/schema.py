@@ -89,14 +89,22 @@ class Query(object):
                 Qr = q
 
 
-        if info.context.user.is_superuser==True | info.context.user.is_employee==True:
-            return Online_lesson.objects.filter(Qr)[offset:limit]
-        if info.context.user.is_student==True:
+        if info.context.user.is_teacher==True:
+            return Online_lesson.objects.filter(Q(create_userID=info.context.user))
+        elif info.context.user.is_student==True:
             student = Student.objects.get(user=info.context.user)
-            online_student = Online_student.objects.filter(student=student).values ('online_lesson')
-            return Online_lesson.objects.filter(Q(pk__in=online_student), Qr)[offset:limit]
+            return Online_lesson.objects.filter(Q(create_userID=student.section.teacher.user, status='OPEN'))
         else:
-            return Online_lesson.objects.filter(Q(create_userID=info.context.user), Qr)[offset:limit]
+            return Online_lesson.objects.all()
+
+        # if info.context.user.is_superuser==True | info.context.user.is_employee==True:
+        #     return Online_lesson.objects.filter(Qr)[offset:limit]
+        # if info.context.user.is_student==True:
+        #     student = Student.objects.get(user=info.context.user)
+        #     online_student = Online_student.objects.filter(student=student).values ('online_lesson')
+        #     return Online_lesson.objects.filter(Q(pk__in=online_student), Qr)[offset:limit]
+        # else:
+        #     return Online_lesson.objects.filter(Q(create_userID=info.context.user), Qr)[offset:limit]
 
     @login_required
     @permission_required('online_lesson.view_online_student')
