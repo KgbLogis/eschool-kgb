@@ -10,6 +10,7 @@ from apps.schoolyear.models import Schoolyear
 from graphql_jwt.decorators import login_required, permission_required
 from django.db.models import Q
 from school.utils import custom_paginate
+from datetime import date
 
 class Online_file_folderType(DjangoObjectType):
     class Meta:
@@ -161,9 +162,18 @@ class Query(object):
                 online_sub_i = Online_sub.objects.get(pk=id, status='OPEN')
                 student = Student.objects.get(user=info.context.user)
 
-                online_attendance = Online_attendance(online_sub=online_sub_i, student=student)
-                online_attendance.save()
-                
+                # Check if an attendance already exists for today
+                today = date.today()
+                exists = Online_attendance.objects.filter(
+                    online_sub=online_sub_i,
+                    student=student,
+                    created_at__date=today  # assuming Online_attendance has a DateTimeField `created_at`
+                ).exists()
+
+                if not exists:
+                    online_attendance = Online_attendance(online_sub=online_sub_i, student=student)
+                    online_attendance.save()
+
                 return online_sub_i
         except Online_sub.DoesNotExist:
             return None
