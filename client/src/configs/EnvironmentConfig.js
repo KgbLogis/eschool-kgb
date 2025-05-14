@@ -4,8 +4,8 @@ const dev = {
 };
 
 const prod = {
-	API_ENDPOINT_URL: 'https://2424job.com:8001/graphql',
-	SERVER_ENDPOINT_URL: 'https://2424job.com:8001/media/'
+	API_ENDPOINT_URL: 'https://2424job.com:8000/graphql',
+	SERVER_ENDPOINT_URL: 'https://2424job.com:8000/media/'
 };
 
 const test = {
