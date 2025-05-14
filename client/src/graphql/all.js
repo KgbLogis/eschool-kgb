@@ -411,10 +411,6 @@ export const ALL_SECTIONS = gql`
                 id
                 program
             }
-            subSchool {
-                id
-                name
-            }
             school {
                 id
                 name

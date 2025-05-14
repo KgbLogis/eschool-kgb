@@ -69,21 +69,7 @@ class Query(object):
             # else:
             #     password = 'Ift2021;'
 
-            
-            if info.context.user.is_superuser==True:
-                fullname = urllib.parse.quote_plus('Админ')
-                password = 'Ift2021;'
-            else:
-                fullname = urllib.parse.quote_plus(str(info.context.user.first_name)+' '+str(info.context.user.last_name))
-
-                if live.create_userID == info.context.user:
-                    password = 'Ift2021;'
-                else:
-                    password = live.password
-
-            checksum = hashlib.sha1(str('joinfullName='+fullname+'&meetingID=123-456-789-'+live.meeting_id+'&password='+password+'mKztztg9JzFdgcNNBBpqYgtOhk6lyi3jaotiVWnI').encode('utf-8')).hexdigest()
-
-            joinurl = 'http://live.mobilebox.mn/bigbluebutton/api/join?fullName='+fullname+'&meetingID=123-456-789-'+live.meeting_id+'&password='+password+'&checksum='+str(checksum)
+            joinurl = 'https://meet.itgeltugsbayasgalant.mn/'+live.meeting_id
 
             return {"url":joinurl}
 
@@ -112,19 +98,19 @@ class CreateLive(graphene.Mutation):
         password = 'Emind_'+str(random.randrange(1, 100000))
         meeting_id = str(random.randrange(1, 100000))
 
-        title_o = urllib.parse.quote_plus(title)
-
-        checksum = hashlib.sha1(str('createname='+title_o+'&meetingID=123-456-789-'+meeting_id+'&attendeePW='+password+'&moderatorPW=Ift2021;mKztztg9JzFdgcNNBBpqYgtOhk6lyi3jaotiVWnI').encode('utf-8')).hexdigest()
-
-        response = requests.get('http://live.mobilebox.mn/bigbluebutton/api/create?name='+title_o+'&meetingID=123-456-789-'+meeting_id+'&attendeePW='+password+'&moderatorPW=Ift2021;&checksum='+str(checksum))
-
-        root = ET.fromstring(response.text)
-        if root[0].text == 'SUCCESS':
-            live_o = Live(title=title, date=date, duration=duration, description=description, status=status, teacher=teacher_i, section_id = section, meeting_id=meeting_id, password=password, create_userID=create_userID_i)
-            live_o.save()
-
-        elif root[0].text == 'FAILED':
-            return None
+        live_o = Live(
+            title=title, 
+            date=date, 
+            duration=duration, 
+            description=description, 
+            status=status, 
+            teacher=teacher_i,
+            section_id = section,
+            meeting_id=meeting_id, 
+            password=password,
+            create_userID=create_userID_i
+        )
+        live_o.save()
 
         return CreateLive(live=live_o)
 
@@ -153,31 +139,17 @@ class UpdateLive(graphene.Mutation):
         meeting_id = str(random.randrange(1, 100000))
 
         title = urllib.parse.quote_plus(title)
-
-        checksum = hashlib.sha1(str('createname='+title+'&meetingID=123-456-789-'+meeting_id+'&attendeePW=Ift2021;&moderatorPW='+password+'mKztztg9JzFdgcNNBBpqYgtOhk6lyi3jaotiVWnI').encode('utf-8')).hexdigest()
-
-        response = requests.get('http://live.mobilebox.mn/bigbluebutton/api/create?name='+title+'&meetingID=123-456-789-'+meeting_id+'&attendeePW=Ift2021;&moderatorPW='+password+'&checksum='+str(checksum))
-
-        root = ET.fromstring(response.text)
-
-        if root[0].text == 'SUCCESS':
-
-            checksum2 = hashlib.sha1(str('endmeetingID=123-456-789-'+live_o.meeting_id+'&password='+live_o.password+'mKztztg9JzFdgcNNBBpqYgtOhk6lyi3jaotiVWnI').encode('utf-8')).hexdigest()
-            response = requests.get('http://live.mobilebox.mn/bigbluebutton/api/end?meetingID=123-456-789-'+live_o.meeting_id+'&password='+live_o.password+'&checksum=='+str(checksum2))
-
-            live_o.title = title
-            live_o.date = date
-            live_o.duration = duration
-            live_o.description = description
-            live_o.status = status
-            live_o.teacher = teacher_i
-            live_o.section = section_i
-            live_o.meeting_id = meeting_id
-            live_o.password = password
-            live_o.save()
-
-        elif root[0].text == 'FAILED':
-            return None
+        
+        live_o.title = title
+        live_o.date = date
+        live_o.duration = duration
+        live_o.description = description
+        live_o.status = status
+        live_o.teacher = teacher_i
+        live_o.section = section_i
+        live_o.meeting_id = meeting_id
+        live_o.password = password
+        live_o.save()
         
         return UpdateLive(live=live_o)
         
@@ -190,12 +162,7 @@ class DeleteLive(graphene.Mutation):
     @permission_required('live.delete_live')
     def mutate(self, info, **kwargs):
         live_o = Live.objects.get(pk=kwargs["id"])
-        if live_o is not None:
-
-            checksum2 = hashlib.sha1(str('endmeetingID=123-456-789-'+live_o.meeting_id+'&password='+live_o.password+'mKztztg9JzFdgcNNBBpqYgtOhk6lyi3jaotiVWnI').encode('utf-8')).hexdigest()
-            response = requests.get('http://live.mobilebox.mn/bigbluebutton/api/end?meetingID=123-456-789-'+live_o.meeting_id+'&password='+live_o.password+'&checksum=='+str(checksum2))
-
-            live_o.delete()
+        live_o.delete()
         return DeleteLive(live=live_o)
 
 class Mutation(graphene.ObjectType):
