@@ -34,6 +34,7 @@ const StudentReport = lazy(() => import(`./student-report`));
 const UpdatePassword = lazy(() => import('./user-settings/update-password'));
 const UpdateProfile = lazy(() => import('./user-settings/update-profile'));
 const Live = lazy(() => import('./live'));
+const LiveMeeting = lazy(() => import('./live/live'))
 const MarkConsolidation = lazy(() => import('./mark-consolidation'));
 const TransferStudent = lazy(() => import('./transfer-student'));
 const Event = lazy(() => import('./event'));
@@ -255,6 +256,10 @@ export const AppViews = (currentTitle) => {
                         path={`${APP_PREFIX_PATH}/student-report`}
                         render={props => <StudentReport {...props}
                             title={title} />}
+                    />
+                    <Route
+                        path={`${APP_PREFIX_PATH}/live/:meetingId`}
+                        render={props => <LiveMeeting props={props} title={title} />}
                     />
                     <Route
                         path={`${APP_PREFIX_PATH}/live`}

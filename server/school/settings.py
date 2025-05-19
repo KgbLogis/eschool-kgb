@@ -30,8 +30,8 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env.bool('APP_DEBUG')
 
 # ALLOWED_HOSTS = ['66.181.175.235', '127.0.0.1', 'localhost', '192.168.0.105', '192.168.0.106', '192.168.0.113', '192.168.0.100']
-# ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = env('ALLOWED_HOSTS').split(',')
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = env('ALLOWED_HOSTS').split(',')
 
 # Application definition
 # python -m pip install graphene-django

@@ -27,17 +27,14 @@ const Folder = ({ data, setFolder, setFolderHistory, refetch }) => {
 	}
 
 	function onDragOver (e) {
-		// console.log("onDragOver");
 		e.stopPropagation();
 	  }
 	
 	function onDragEnter (e) {
-		// console.log("onDragEnter");
 		e.stopPropagation();
 	  }
 	
 	function onFileDrop (e) {
-		console.log("onFileDrop");
 		e.stopPropagation();
 	}
 

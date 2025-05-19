@@ -52,7 +52,6 @@ const AllSub = (props) => {
     });
 
     function deleteModal(row) {
-        console.log(row);
         confirm({
             title: 'Устгах уу?',
             okText: 'Устгах',

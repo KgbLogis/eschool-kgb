@@ -17,8 +17,6 @@ function SchoolForm(props) {
     const { data: activityData } = useQuery(ALL_ACTIVITY);
     const { data: programsData } = useQuery(ALL_PROGRAMS);
 
-    console.log(programsData);
-
     const [createClasses, { loading }] = useMutation(CREATE_CLASSES, {
         onCompleted: data => {
             message.success('Амжилттай хадгаллаа');

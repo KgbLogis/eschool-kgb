@@ -13,9 +13,6 @@ const Index = (props) => {
 
     const slug = useParams();
 
-    console.log(slug);
-    
-
     const { loading, data } = useQuery(LESSON_BY_ID, {
         variables: { id: slug.lesson }
     });

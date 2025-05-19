@@ -7,10 +7,9 @@ from apps.section.models import Section
 from graphql_jwt.decorators import login_required, permission_required
 import random
 import hashlib
-import requests
-import urllib.parse
-import xml.etree.ElementTree as ET
 from datetime import datetime
+from django.utils import timezone
+import urllib.parse
 from django.db.models import Q
 
 class LiverType(DjangoObjectType):
@@ -23,6 +22,7 @@ class Live_configType(DjangoObjectType):
 
 class Live_urltype(graphene.ObjectType):
     url = graphene.String()
+    password = graphene.String()
 
 class Query(object):
     all_lives = graphene.List(LiverType, offset=graphene.Int(required=False, default_value=0), limit=graphene.Int(required=False, default_value=50), filter=graphene.String())
@@ -38,7 +38,17 @@ class Query(object):
             
         if info.context.user.is_student==True:
             student = Student.objects.get(user=info.context.user)
-            return Live.objects.filter(Q(section=student.section), Q(date__gte = datetime.now()), Q(title__icontains=filter) | Q(description__icontains=filter))[offset:limit]
+            
+            cutoff = timezone.now().replace(microsecond=0)
+            
+            live = Live.objects.filter(
+                section=student.section
+            )[offset:limit]
+
+            for d in live:
+                print(d.date, cutoff)
+                                
+            return live
         else:
             # teachers = Teacher.access_teacher(Teacher.objects.get(user=info.context.user))
             # return Live.objects.filter(teacher_id__in=teachers)
@@ -64,14 +74,7 @@ class Query(object):
         try:
             live = Live.objects.get(pk=live_id)
 
-            # if info.context.user.is_student==True:
-            #     password = live.password
-            # else:
-            #     password = 'Ift2021;'
-
-            joinurl = 'https://meet.itgeltugsbayasgalant.mn/'+live.meeting_id
-
-            return {"url":joinurl}
+            return {"url":live.meeting_id, "password": live.password }
 
         except Live.DoesNotExist:
             return None
@@ -82,7 +85,7 @@ class CreateLive(graphene.Mutation):
 
     class Arguments:
         title = graphene.String()
-        date = graphene.String()
+        date = graphene.DateTime()
         duration = graphene.Int()
         description = graphene.String()
         status = graphene.String()
@@ -119,7 +122,7 @@ class UpdateLive(graphene.Mutation):
 
     class Arguments:
         title = graphene.String()
-        date = graphene.String()
+        date = graphene.DateTime()
         duration = graphene.Int()
         description = graphene.String()
         status = graphene.String()
