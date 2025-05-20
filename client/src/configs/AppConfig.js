@@ -1,7 +1,7 @@
 import { SIDE_NAV_LIGHT, NAV_TYPE_SIDE, DIR_LTR } from 'constants/ThemeConstant';
 import { env } from './EnvironmentConfig';
 
-export const APP_NAME = 'KGB';
+export const APP_NAME = 'Мон Кор Фовер';
 export const API_BASE_URL = env.API_ENDPOINT_URL;
 export const  BASE_SERVER_URL = env.SERVER_ENDPOINT_URL;
 export const MEETING_DOMAIN = env.MEETING_DOMAIN;

@@ -46,7 +46,7 @@ const Food = () => {
                         <div className="relative inline-block duration-300 ease-in-out transition-transform transform hover:-translate-y-2 hover:cursor-pointer w-full">
                             <div className="shadow p-4 rounded-7 bg-white">
                                 <div className="flex justify-center relative rounded-lg overflow-hidden h-16">
-                                    <span className="absolute top-0 left-0 inline-flex mt-3 ml-3 px-3 py-2 rounded-lg z-10 bg-emind-400 text-sm font-medium text-white select-none">
+                                    <span className="absolute top-0 left-0 inline-flex mt-3 ml-3 px-3 py-2 rounded-lg z-10 bg-mkp-400 text-sm font-medium text-white select-none">
                                         {item.food.name}
                                     </span>
                                 </div>

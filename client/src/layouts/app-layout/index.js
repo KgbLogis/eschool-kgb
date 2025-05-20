@@ -20,7 +20,7 @@ export default function AppLayout() {
   const { domainData } = useDomain()
 
   return (
-    <div className='bg-emind px-5 max-w-full overflow-hidden'>
+    <div className='bg-mkp px-5 max-w-full overflow-hidden'>
       <div className="pb-7 before:content-[''] before:absolute before:inset-0 before:bg-fixed before:bg-no-repeat before:bg-skew-pattern">
         <Transition.Root show={mobileMenuOpen} as={Fragment}>
           <Dialog as="div" className="lg:hidden" onClose={setMobileMenuOpen}>
@@ -102,12 +102,12 @@ export default function AppLayout() {
           <div
             className="flex"
           >
-            <nav className="hidden bg-white rounded-4 mr-4 lg:block w-[105px] lg:w-[300px] px-5 pt-8 pb-16 overflow-x-hidden">
+            <nav className="hidden bg-mkp-2 rounded-4 mr-4 lg:block w-[105px] lg:w-[300px] px-5 pt-8 pb-16 overflow-x-hidden">
               <img
                 alt="logo"
                 className={classNames(
                   domainData.logo === defaultLogo ? 'h-16' : 'h-16 ',
-                  "w-auto hidden ml-16 my-auto mx-auto lg:block"
+                  "w-auto hidden ml-16 my-auto mx-auto lg:block bg-[#faf2df] rounded-full"
                 )}
                 src={domainData.logo}
               />
@@ -121,18 +121,18 @@ export default function AppLayout() {
               <header className="h-[70px] relative flex items-center justify-between mx-9 md:justify-end">
                 <button
                   type="button"
-                  className="px-4 text-emind lg:hidden"
+                  className="px-4 text-mkp lg:hidden"
                   onClick={() => setMobileMenuOpen(true)}
                 >
                   <span className="sr-only">Open sidebar</span>
-                  <MenuAlt2Icon className="h-6 w-6 text-emind" aria-hidden="true" />
+                  <MenuAlt2Icon className="h-6 w-6 text-mkp" aria-hidden="true" />
                 </button>
                 <div className="ml-2 flex items-center sm:ml-6">
-                  <SupportSVG className="h-7 w-7 fill-emind" />
+                  <SupportSVG className="h-7 w-7 fill-mkp" />
                   <NavProfile />
                 </div>
               </header>
-              <div className='border-b border-emind/20 mx-[10%]' />
+              <div className='border-b border-mkp/20 mx-[10%]' />
               <main className="mt-4 p-4">
                 <AppViews />
               </main>

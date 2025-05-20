@@ -301,12 +301,12 @@ const Index = () => {
                         .saveAs('Суралцагч.xlsx');
                     }}
                 >
-                    <DownloadIcon className="h-5 w-5 text-emind" aria-hidden="true" />
+                    <DownloadIcon className="h-5 w-5 text-mkp" aria-hidden="true" />
                 </button>
                 <Menu as="div" className="relative inline-block text-left">
                     <div>
                         <Menu.Button className="inline-flex w-full justify-center rounded-md px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                            <FilterIcon className="h-5 w-5 text-emind" aria-hidden="true" />
+                            <FilterIcon className="h-5 w-5 text-mkp" aria-hidden="true" />
                         </Menu.Button>
                     </div>
                     <Transition

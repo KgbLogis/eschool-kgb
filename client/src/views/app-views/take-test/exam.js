@@ -184,7 +184,7 @@ const Exam = () => {
                     </Card>
                     <Card
                         title={<IntlMessage id="question" />}
-                        className='bg-emind/5'
+                        className='bg-mkp/5'
                     >
                         { answers.map(function (answer, index) {
                             filledForm = filledForm + 1

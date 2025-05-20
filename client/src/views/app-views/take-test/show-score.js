@@ -19,7 +19,7 @@ const ShowScore = ({ score }) => {
 					</div>
 				</Flex>
 			</Flex>
-			<div className="py-lg-4 bg-emind rounded-4 mt-4">
+			<div className="py-lg-4 bg-mkp rounded-4 mt-4">
 				<h1 className="text-white display-4"><IntlMessage id="total-exam-score" /></h1>
 				<p className="text-white text-center text-2xl mt-2 mb-4 mx-auto">
 					{score}

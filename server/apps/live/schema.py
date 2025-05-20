@@ -98,7 +98,7 @@ class CreateLive(graphene.Mutation):
         
         teacher_i = Teacher.objects.get(pk=teacher)
         create_userID_i = info.context.user
-        password = 'Emind_'+str(random.randrange(1, 100000))
+        password = 'Mon_Kor_Power_'+str(random.randrange(1, 100000))
         meeting_id = str(random.randrange(1, 100000))
 
         live_o = Live(
@@ -138,7 +138,7 @@ class UpdateLive(graphene.Mutation):
         teacher_i = Teacher.objects.get(pk=teacher)
         section_i = Section.objects.get(pk=section)
 
-        password = 'Emind_'+str(random.randrange(1, 100000))
+        password = 'Mon_Kor_Power_'+str(random.randrange(1, 100000))
         meeting_id = str(random.randrange(1, 100000))
 
         title = urllib.parse.quote_plus(title)

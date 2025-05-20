@@ -94,7 +94,7 @@ function FlexTimeSub({ flexTime }) {
                 {data?.allFlexTimeSubs.map((flexTimeSub, index) => (
                     <div
                         key={index}
-                        className='relative flex flex-row gap-3 rounded-2 bg-emind-200 hover:cursor-pointer'
+                        className='relative flex flex-row gap-3 rounded-2 bg-mkp-200 hover:cursor-pointer'
                         onClick={() => handleOpen({ flexTimeSub: flexTimeSub })}
                     >
                         {permissions.delete &&
@@ -216,7 +216,7 @@ export default function Index() {
                                 key={index}
                                 onClick={() => onFlexTimeClick(flexTime)}
                                 className={classNames(
-                                    selectedFlexTime === flexTime ? 'bg-emind-300' : 'bg-emind-200',
+                                    selectedFlexTime === flexTime ? 'bg-mkp-300' : 'bg-mkp-200',
                                     'relative flex-grow basis-60 text-center rounded-2 hover:cursor-pointer'
                                 )}
                             >

@@ -23,7 +23,7 @@ export default function AppLayout() {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-tr from-emind to-emind-300 flex">
+      <div className="min-h-screen bg-gradient-to-tr from-mkp to-mkp-300 flex">
 
         {/* Sidebar */}
         <div className="hidden h-full w-75-em sticky top-0 md:block">
@@ -69,7 +69,7 @@ export default function AppLayout() {
                 leaveFrom="translate-x-0"
                 leaveTo="-translate-x-full"
               >
-                <div className="relative max-w-xs w-full bg-emind pt-5 pb-4 flex-1 flex flex-col">
+                <div className="relative max-w-xs w-full bg-mkp pt-5 pb-4 flex-1 flex flex-col">
                   <Transition.Child
                     as={Fragment}
                     enter="ease-in-out duration-300"
@@ -119,7 +119,7 @@ export default function AppLayout() {
         </Transition.Root>
 
         {/* Content area */}
-        <div className="flex-1 flex flex-col overflow-hidden rounded-4 m-4 md:border-l-[12px] md:border-emind-400 bg-background md:rounded-10">
+        <div className="flex-1 flex flex-col overflow-hidden rounded-4 m-4 md:border-l-[12px] md:border-mkp-400 bg-background md:rounded-10">
           <header className="w-full">
             <div className="relative z-10 flex-shrink-0 h-16 flex">
               <button

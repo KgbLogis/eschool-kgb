@@ -42,7 +42,7 @@ const EventCard = ({ data, canDelete, onDelete, onSingleEventSelect, canEdit }) 
                 </p>
                 <div>
                     <span className='flex items-center'>
-                        <CalendarIcon className='h-4 text-emind mr-2' />
+                        <CalendarIcon className='h-4 text-mkp mr-2' />
                         {moment.utc(data.startAt).format('HH:mm')} - {moment.utc(data.endAt).format('HH:mm')}
                     </span>
                     <p className="font-normal text-gray-700 text-sm mb-2">

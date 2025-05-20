@@ -1038,15 +1038,15 @@ def Import_online_lesson(request):
                 except Section.DoesNotExist:
                     section_id = 1
 
-                if (os.path.isfile('C:/Emind/school/media/static/uploads/default/online_lessons/2022/03/27/'+str(file_o))==True) or (os.path.isfile('C:/Emind/school/media/static/uploads/default/online_lessons/2022/03/27/'+str(originalfile))==True) or (os.path.isfile('C:/Emind/school/media/static/uploads/default/online_lessons/2022/03/27/['+str(i)+']'+str(originalfile))==True):
+                if (os.path.isfile('C:/mkp/school/media/static/uploads/default/online_lessons/2022/03/27/'+str(file_o))==True) or (os.path.isfile('C:/mkp/school/media/static/uploads/default/online_lessons/2022/03/27/'+str(originalfile))==True) or (os.path.isfile('C:/mkp/school/media/static/uploads/default/online_lessons/2022/03/27/['+str(i)+']'+str(originalfile))==True):
 
-                    if os.path.isfile('C:/Emind/school/media/static/uploads/default/online_lessons/2022/03/27/'+str(file_o))==True:
+                    if os.path.isfile('C:/mkp/school/media/static/uploads/default/online_lessons/2022/03/27/'+str(file_o))==True:
 
-                        if os.path.isfile('C:/Emind/school/media/static/uploads/default/online_lessons/2022/03/27/'+str(originalfile))==True:
+                        if os.path.isfile('C:/mkp/school/media/static/uploads/default/online_lessons/2022/03/27/'+str(originalfile))==True:
 
                             try:
 
-                                os.rename('C:/Emind/school/media/static/uploads/default/online_lessons/2022/03/27/'+str(file_o), 'C:/Emind/school/media/static/uploads/default/online_lessons/2022/03/27/['+str(i)+']'+str(originalfile))
+                                os.rename('C:/mkp/school/media/static/uploads/default/online_lessons/2022/03/27/'+str(file_o), 'C:/mkp/school/media/static/uploads/default/online_lessons/2022/03/27/['+str(i)+']'+str(originalfile))
 
                                 originalfile = '['+str(i)+']'+originalfile
                             except:
@@ -1054,7 +1054,7 @@ def Import_online_lesson(request):
                             
                         else:
                             try:
-                                os.rename('C:/Emind/school/media/static/uploads/default/online_lessons/2022/03/27/'+str(file_o), 'C:/Emind/school/media/static/uploads/default/online_lessons/2022/03/27/'+str(originalfile))
+                                os.rename('C:/mkp/school/media/static/uploads/default/online_lessons/2022/03/27/'+str(file_o), 'C:/mkp/school/media/static/uploads/default/online_lessons/2022/03/27/'+str(originalfile))
 
                                 originalfile = originalfile
                             except:

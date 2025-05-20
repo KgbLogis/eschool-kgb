@@ -26,33 +26,33 @@ module.exports = {
         "2xl-max": { max: "1320px" },
       },
       colors: ({ colors }) => ({
-        'emind': {
-          DEFAULT: '#009A8E',
-          50: '#53FFF2',
-          100: '#3EFFF0',
-          200: '#15FFED',
-          300: '#00ECD9',
-          400: '#00C3B4',
-          500: '#009A8E',
-          600: '#00625A',
-          700: '#002A27',
+        'mkp': {
+          DEFAULT: '#ECC023',
+          50: '#FBF0CC',
+          100: '#F9EBB9',
+          200: '#F6E094',
+          300: '#F2D66E',
+          400: '#EFCB49',
+          500: '#ECC023',
+          600: '#C69E11',
+          700: '#92750D',
+          800: '#5F4C08',
+          900: '#2B2204',
+          950: '#110E01'
+        },
+        'mkp-2': {
+          DEFAULT: '#0F4430',
+          50: '#38D398',
+          100: '#2CCA8E',
+          200: '#25A877',
+          300: '#1E875F',
+          400: '#166548',
+          500: '#0F4430',
+          600: '#051610',
+          700: '#000000',
           800: '#000000',
           900: '#000000',
           950: '#000000'
-        },
-        'emind-2': {
-          DEFAULT: '#5D8FA6',
-          50: '#D3E1E7',
-          100: '#C6D8E0',
-          200: '#ACC6D1',
-          300: '#92B3C3',
-          400: '#77A1B4',
-          500: '#5D8FA6',
-          600: '#487083',
-          700: '#34515F',
-          800: '#20323B',
-          900: '#0C1316',
-          950: '#020404'
         },
         background: '#f2f5fe',
       }),
@@ -242,6 +242,7 @@ module.exports = {
         bounce: "bounce 1s infinite", "fade-up": "fade-up 1.5s both",
         bounce200: 'bounce 1s infinite 200ms',
         bounce400: 'bounce 1s infinite 400ms',
+        wave: 'wave 1.5s infinite ease-in-out',
       },
       aspectRatio: {
         auto: "auto",
@@ -260,6 +261,7 @@ module.exports = {
       backgroundColor: ({ theme }) => theme("colors"),
       backgroundImage: ({ theme }) => ({
         none: "none",
+        'flag-mn-pattern': "url('/src/assets/image/flags/mn.png')",
         "gradient-to-t": "linear-gradient(to top, var(--tw-gradient-stops))",
         "gradient-to-tr": "linear-gradient(to top right, var(--tw-gradient-stops))",
         "gradient-to-r": "linear-gradient(to right, var(--tw-gradient-stops))",
@@ -739,7 +741,12 @@ module.exports = {
         full: "100%",
       }),
       keyframes: {
-
+        wave: {
+          '0%, 100%': { transform: 'rotate(0deg)' },
+          '25%': { transform: 'rotate(1deg)' },
+          '50%': { transform: 'rotate(-1.5deg)' },
+          '75%': { transform: 'rotate(1deg)' },
+        },
         blob: {
           "0%": {
             transform: "translate(0px, 0px) scale(1)",

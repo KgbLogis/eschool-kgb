@@ -136,7 +136,7 @@ const AllSub = (props) => {
                         <Link
                             to={`${APP_PREFIX_PATH}/online-lesson/lessons/${props.lesson}/${sub.id}`}
                             key={index}
-                            className={`border-regular border-1 pt-[20px] px-[25px] pb-[25px] bg-emind rounded-10 bg-cover bg-center`}
+                            className={`border-regular border-1 pt-[20px] px-[25px] pb-[25px] bg-mkp rounded-10 bg-cover bg-center`}
                         >
                             {Object.values(props.permissions).some(val => val === true) &&
                                 <div className="flex items-center justify-between text-center">
@@ -149,7 +149,7 @@ const AllSub = (props) => {
                                 <p className='text-slate-100 my-auto font-semibold'>{moment(sub.dueDate).format('YYYY-MM-DD')}</p>
                             </div>
                             <div className='mt-2'>
-                                <Scrollbars className='h-48 border-l-2 border-emind-400'>
+                                <Scrollbars className='h-48 border-l-2 border-mkp-400'>
                                     <p className={`ml-2 mb-[20px] leading-[1.786] whitespace-pre-line text-slate-200`}>
                                         {sub.description}
                                     </p>
@@ -158,7 +158,7 @@ const AllSub = (props) => {
                             <div className="flex flex-wrap items-center justify-between">
                                 <div className="flex items-center gap-[15px]">
                                     <img
-                                        className="w-[30px] h-[30px] rounded-full bg-emind-400"
+                                        className="w-[30px] h-[30px] rounded-full bg-mkp-400"
                                         src={
                                             sub.createUserid.teacher ? BASE_SERVER_URL + sub.createUserid.teacher.photo
                                                 : BASE_SERVER_URL + 'avatar01.png'

@@ -9,27 +9,33 @@ const MenuLink = ({ menu, active }) => {
     return (
         <Link
             className={classNames(
-                active ? "bg-emind/5" : "",
-                "h-[50px] flex items-center rounded-2 text-white mb-1 relative group w-full flex-row justify-start text-xs font-medium space-x-2 hover:bg-emind/5"
+                active ? "bg-mkp/10" : "",
+                "h-[50px] flex items-center rounded-2 text-white mb-1 relative group w-full flex-row justify-start text-xs font-medium space-x-2 hover:bg-mkp/5"
             )}
             to={menu.path}
         >
             <div className={classNames(
-                active ? 'bg-emind' : '',
+                active ? 'bg-mkp' : '',
                 'w-[2%] h-full rounded-l-4'
             )} />
-            <img
+            <menu.icon
                 className={classNames(
-                    active ? 'fill-emind' : 'fill-emind',
-                    'h-8 w-8 group-hover:fill-emind'
+                    active ? 'fill-white' : 'fill-slate-200',
+                    'h-8 w-8 group-hover:fill-white'
+                )}
+            />
+            {/* <img
+                className={classNames(
+                    active ? 'fill-mkp' : 'fill-mkp',
+                    'h-8 w-8 group-hover:fill-mkp'
                 )}
                 alt='icon'
                 src={`/img/menu/${menu.icon}.png`}
-            />
+            /> */}
             <span
                 className={classNames(
-                    active ? '' : ' group-hover:text-emind',
-                    'text-sm font-semibold ml-3 text-emind'
+                    active ? 'text-white' : ' group-hover:text-white',
+                    'text-sm font-semibold ml-3 text-slate-200'
                 )}
             >
                 <IntlMessage id={menu.title} />
@@ -68,23 +74,29 @@ const MenuItem = ({ menu }) => {
                 <div
                     onClick={handleSubNav}
                     className={classNames(
-                        subnav ? 'bg-emind/5' :
+                        subnav ? 'bg-mkp/5' :
                             '',
-                        'group w-full p-2 rounded-3 flex justify-start items-center text-xs font-medium hover:text-white hover:cursor-pointer hover:bg-emind/5'
+                        'group w-full p-2 rounded-3 flex justify-start items-center text-xs font-medium hover:text-white hover:cursor-pointer hover:bg-mkp/5'
                     )}
                 >
-                    <img
+                    <menu.icon
+                        className={classNames(
+                            // location.pathname.includes(menu.path) ? 'fill-white' : 'fill-slate-300',
+                            'h-8 w-8 fill-white group-hover:fill-white'
+                        )}
+                    />
+                    {/* <img
                         alt='icon'
                         className={classNames(
-                            subnav ? 'fill-emind' : 'fill-emind',
+                            subnav ? 'fill-mkp' : 'fill-mkp',
                             'h-8 w-8 group-hover:fill-white'
                         )}
                         src={`/img/menu/${menu.icon}.png`}
-                    />
+                    /> */}
                     <div className='flex justify-between w-full items-center'>
                         <span
                             className={classNames(
-                                subnav ? 'text-emind' : ' text-emind group-hover:text-emind',
+                                subnav ? 'text-white' : ' text-white group-hover:text-white',
                                 'text-sm font-semibold ml-3'
                             )}
                         >
@@ -92,7 +104,7 @@ const MenuItem = ({ menu }) => {
                         </span>
                         <ChevronDownIcon
                             className={classNames(
-                                subnav ? 'text-emind rotate-180 ' : 'text-emind',
+                                subnav ? 'text-white rotate-180 ' : 'text-white',
                                 'h-4 w-4 transform transition'
                             )}
                         />
@@ -114,7 +126,7 @@ const MenuItem = ({ menu }) => {
                     leaveFrom='transform opacity-100 scale-100'
                     leaveTo='transform opacity-0 scale-95'
                 >
-                    <ul className='bg-emind/5 rounded-3 relative mt-2 block'>
+                    <ul className='bg-mkp/5 rounded-3 relative mt-2 block'>
                         <Transition.Child
                             enter='transform transition ease-in-out duration-500 sm:duration-700'
                             enterFrom='translate-x-full'

@@ -33,7 +33,7 @@ const Index = (props) => {
                 <ConversationForm handleCancel={handleCancel} />
             </FormModal>
             <div className="flex flex-col w-full h-full rounded-3xl md:flex-row">
-                <div className="flex flex-col w-full bg-emind/10 m-2 rounded-4 md:w-2/12">
+                <div className="flex flex-col w-full bg-mkp/10 m-2 rounded-4 md:w-2/12">
                     <Button 
                         className='mx-auto mt-4' 
                         type='primary' 
@@ -49,13 +49,13 @@ const Index = (props) => {
                                 <span className="inline-flex">
                                     <InboxSVG
                                         className={classNames(
-                                            location.pathname === "/app/conversation/inbox" ? 'fill-emind-500' : 'fill-gray-500',
+                                            location.pathname === "/app/conversation/inbox" ? 'fill-mkp-500' : 'fill-gray-500',
                                             `h-6 w-6`
                                         )}
                                     />
                                 <span
                                     className={classNames(
-                                        location.pathname === "/app/conversation/inbox" ? 'text-emind-500' : 'text-gray-700',
+                                        location.pathname === "/app/conversation/inbox" ? 'text-mkp-500' : 'text-gray-700',
                                         `ml-2 `
                                     )}
                                 >Ирсэн</span>
@@ -68,13 +68,13 @@ const Index = (props) => {
                                 <span className="inline-flex">
                                     <SentSVG 
                                         className={classNames(
-                                            location.pathname === "/app/conversation/sent" ? 'fill-emind-500' : 'fill-gray-500',
+                                            location.pathname === "/app/conversation/sent" ? 'fill-mkp-500' : 'fill-gray-500',
                                             `h-6 w-6`
                                         )}
                                     />
                                 <span 
                                     className={classNames(
-                                        location.pathname === "/app/conversation/sent" ? 'text-emind-500' : 'text-gray-700',
+                                        location.pathname === "/app/conversation/sent" ? 'text-mkp-500' : 'text-gray-700',
                                         `ml-2 `
                                     )}
                                 >Илгээсэн</span>

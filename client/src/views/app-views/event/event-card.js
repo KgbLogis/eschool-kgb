@@ -20,7 +20,7 @@ const EventCard = ({ data, canDelete, onDelete, onSingleEventSelect, canEdit }) 
     return (
         <>
             <div
-                className={`bg-emind flex flex-row rounded-2 justify-between mt-2 hover:cursor-pointer hover:-translate-y-1 hover:scale-102 duration-300`}
+                className={`bg-mkp flex flex-row rounded-2 justify-between mt-2 hover:cursor-pointer hover:-translate-y-1 hover:scale-102 duration-300`}
                 onClick={() => setIsEventModalVisible(true)}
             >
                 <div className='px-4 w-full'>
@@ -85,7 +85,7 @@ const EventCard = ({ data, canDelete, onDelete, onSingleEventSelect, canEdit }) 
                     >
                         <div>
                             <span className='flex items-center'>
-                                <CalendarIcon className='h-4 text-emind mr-2' />
+                                <CalendarIcon className='h-4 text-mkp mr-2' />
                                 {moment.utc(data.startAt).format('HH:mm')} - {moment.utc(data.endAt).format('HH:mm')}
                             </span>
                             <p className="whitespace-pre-line font-normal text-gray-700 text-sm mb-2">

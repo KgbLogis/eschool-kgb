@@ -44,7 +44,7 @@ const UpdateProfile = () => {
                             return (
                                 <Avatar
                                     size={300} 
-                                    className='bg-emind'
+                                    className='bg-mkp'
                                     src={BASE_SERVER_URL+user.student.photo}
                                 />
                             )
@@ -52,7 +52,7 @@ const UpdateProfile = () => {
                             return (
                                 <Avatar
                                     size={300} 
-                                    className='bg-emind'
+                                    className='bg-mkp'
                                     src={BASE_SERVER_URL+user.teacher.photo}
                                 />
                             )
@@ -60,7 +60,7 @@ const UpdateProfile = () => {
                             return (
                                 <Avatar
                                     size={300} 
-                                    className='bg-emind'
+                                    className='bg-mkp'
                                     src={BASE_SERVER_URL+'avatar01.png'}
                                 />
                             )

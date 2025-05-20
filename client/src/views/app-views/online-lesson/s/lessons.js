@@ -136,7 +136,7 @@ const Lessons = ({ permissions }) => {
                     <Link
                         to={`${APP_PREFIX_PATH}/online-lesson/${lesson.id}`}
                         key={index}
-                        className={`border-regular border-1 pt-[20px] px-[25px] pb-[25px] bg-emind/10 rounded-10 bg-cover bg-center`}
+                        className={`border-regular border-1 pt-[20px] px-[25px] pb-[25px] bg-mkp/10 rounded-10 bg-cover bg-center`}
                     >
                         {Object.values(permissions).some(val => val === true) &&
                             <div className="flex items-center justify-end">
@@ -153,7 +153,7 @@ const Lessons = ({ permissions }) => {
                         <div className="flex flex-wrap items-center justify-between">
                             <div className="flex items-center gap-[15px]">
                                 <img
-                                    className="w-[30px] h-[30px] rounded-full bg-emind"
+                                    className="w-[30px] h-[30px] rounded-full bg-mkp"
                                     src={
                                         lesson.createUserid.teacher ? BASE_SERVER_URL+lesson.createUserid.teacher.photo
                                          : BASE_SERVER_URL + 'avatar01.png'
@@ -163,7 +163,7 @@ const Lessons = ({ permissions }) => {
                                 <span className={`text-[15px] font-medium `}>{lesson.createUserid.teacher?.name}</span>
                             </div>
                             <div className="flex items-center gap-[15px]">
-                                <CalendarIcon className='h-7 text-emind' />
+                                <CalendarIcon className='h-7 text-mkp' />
                                 <p>{moment(lesson.createdAt).format('YYYY-MM-DD')}</p>
                             </div>
                         </div>

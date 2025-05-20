@@ -5,6 +5,7 @@ import ChartWidget from 'components/shared-components/ChartWidget';
 import { withRouter } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import IntlMessage from "components/util-components/IntlMessage";
+import { OnlineLessonSVG, StudentSVG, SubjectSVG, TeacherSVG } from "assets/svg/menu-icon";
 
 const DASHBOARD = gql`
     query dashboard {
@@ -34,7 +35,7 @@ export const DefaultDashboard = () => {
                 {
                     title: <IntlMessage id="student-registration" />,
                     value: data.dashboard.studentCount,
-                    svg: "student-white",
+                    svg: StudentSVG,
                     color1: '#C67BFC',
                     color2: '#5971FF',
                     colorType: 1
@@ -42,7 +43,7 @@ export const DefaultDashboard = () => {
                 {
                     title: <IntlMessage id="teacher-registration" />,
                     value: data.dashboard.teacherCount,
-                    svg: "teacher-white",
+                    svg: TeacherSVG,
                     color: 'rgba(159, 177, 183, .1)',
                     color1: '#727DFD',
                     color2: '#33A1EE',
@@ -51,7 +52,7 @@ export const DefaultDashboard = () => {
                 {
                     title: <IntlMessage id="subject-registration" />,
                     value: data.dashboard.subjectCount,
-                    svg: "subject-white",
+                    svg: SubjectSVG,
                     color: 'rgba(159, 177, 183, .1)',
                     color1: '#E7687F',
                     color2: '#F29A5F',
@@ -60,7 +61,7 @@ export const DefaultDashboard = () => {
                 {
                     title: <IntlMessage id="online-lesson-registration" />,
                     value: data.dashboard.onlineLessonCount,
-                    svg: "online-lesson-white",
+                    svg: OnlineLessonSVG,
                     color: 'rgba(159, 177, 183, .1)',
                     color1: '#43D49B',
                     color2: '#9ADD68',

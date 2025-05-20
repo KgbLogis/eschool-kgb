@@ -42,7 +42,7 @@ const EventList = props => {
 
     return (
         <>
-            <div className="flex justify-between items-center text-white p-2 bg-emind rounded-2 mx-4 mt-2">
+            <div className="flex justify-between items-center text-white p-2 bg-mkp rounded-2 mx-4 mt-2">
                 <div>
                     <ChevronLeftIcon className='h-4 w-4' />
                 </div>

@@ -93,7 +93,7 @@ const ExamForm = ({ answer, refetch, next, prev, setIsFinished, page, answers })
     }
 
     return (
-        <Card className='bg-emind/5'>
+        <Card className='bg-mkp/5'>
             <Title level={3}><IntlMessage id="question" /> {page + 1}</Title>
             <Paragraph >
                 {question.questionText}

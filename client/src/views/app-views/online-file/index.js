@@ -279,12 +279,12 @@ const Index = () => {
                     <ol className="flex h-8 space-x-2">
                         {folderHistory.map((item, index) => (
                             <li key={index} className="flex items-center text-center">
-                                {index !== 0 && <span className=" text-center text-emind">/</span>}
+                                {index !== 0 && <span className=" text-center text-mkp">/</span>}
                                 <span
                                     onClick={() => currentFolder !== item.id && onBreadcrumbsChange({ key: index, id: item.id })}
                                     className={classNames(
                                         currentFolder === item.id && 'font-bold',
-                                        "flex items-center text-center px-1 capitalize text-emind hover:underline hover:cursor-pointer"
+                                        "flex items-center text-center px-1 capitalize text-mkp hover:underline hover:cursor-pointer"
                                     )}
                                 >
                                     {item.name}

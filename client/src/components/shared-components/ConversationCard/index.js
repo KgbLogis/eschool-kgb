@@ -35,7 +35,7 @@ const ConversationCard = ({ data, selected, setSelected, setCheckedList, isCheck
                     id={"checkbox"}
                     checked={isChecked}
                     name={data.id}
-                    className="focus:ring-indigo-500 h-4 w-4 accent-emind border-gray-300 rounded"
+                    className="focus:ring-indigo-500 h-4 w-4 accent-mkp border-gray-300 rounded"
                     type="checkbox"
                 />
             </div>

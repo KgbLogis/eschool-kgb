@@ -1,4 +1,4 @@
-// Emind
+// mkp
 export const REPORT_IMAGE_URL = 'http://66.181.175.235:8001';
 
 // Dhis

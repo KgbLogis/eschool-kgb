@@ -56,8 +56,8 @@ const CalendarApp = ({ data, loading, fetchTimes }) => {
 				{listData.map(function (item, index) {
 					return (
 						<li key={index}>
-							<button className="flex items-center flex-shrink-0 h-5 px-1 text-xs hover:bg-emind-200">
-								<span className="flex-shrink-0 w-2 h-2 border border-emind-500 rounded-full"></span>
+							<button className="flex items-center flex-shrink-0 h-5 px-1 text-xs hover:bg-mkp-200">
+								<span className="flex-shrink-0 w-2 h-2 border border-mkp-500 rounded-full"></span>
 								<span className="ml-2 font-light leading-none"></span>
 								<span className="ml-2 font-medium leading-none truncate">{item.routine.subject.subject}</span>
 							</button>
@@ -89,11 +89,11 @@ const CalendarApp = ({ data, loading, fetchTimes }) => {
 								'bg-background p-2 rounded-2'
 							)}
 						>
-							<p className="text-emind-800 text-sm">{item.routine.classes.program.program} {item.routine.section.section}</p>
-							<span className="text-emind-800 text-sm">{item.routine.teacher.familyName} {item.routine.teacher.name}</span>
+							<p className="text-mkp-800 text-sm">{item.routine.classes.program.program} {item.routine.section.section}</p>
+							<span className="text-mkp-800 text-sm">{item.routine.teacher.familyName} {item.routine.teacher.name}</span>
 							<h3 className="font-bold mt-px">{item.routine.subject.subject} / {item.routine.subject.content}</h3>
 							<div className="flex items-center gap-3 mt-2">
-								<span className="bg-emind-100 text-emind-700 rounded-full px-3 py-1 text-sm">{item.time}</span>
+								<span className="bg-mkp-100 text-mkp-700 rounded-full px-3 py-1 text-sm">{item.time}</span>
 								<span className="text-slate-600 text-sm flex gap-1 items-center"> 
 									<LocationMarkerIcon className='w-4 h-4' />{item.room}
 								</span>

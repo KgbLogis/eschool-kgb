@@ -46,7 +46,7 @@ const Index = () => {
 
     return (
         <>
-            <div className="flex flex-col w-full m-2 h-full bg-emind/10 rounded-4 md:w-10/12">
+            <div className="flex flex-col w-full m-2 h-full bg-mkp/10 rounded-4 md:w-10/12">
                 
                 { selected ? (
                     <ConversationBody selected={selected} setSelected={setSelected} />
@@ -57,7 +57,7 @@ const Index = () => {
                             <input
                                 onChange={handleSelectAll}
                                 type="checkbox"
-                                className="focus:ring-emind-500 h-5 w-5 accent-emind border-gray-300 rounded"
+                                className="focus:ring-mkp-500 h-5 w-5 accent-mkp border-gray-300 rounded"
                             />
                             { checkedList.length > 0 ?
                                 <Popconfirm
@@ -74,7 +74,7 @@ const Index = () => {
                                     <div className='flex justify-between w-full items-center'>
                                         <Input onChange={e => onSearch(e)} className='ml-4 w-2/3 md:w-1/3' placeholder={'Хайх'} prefix={<SearchOutlined />} />
                                         <RefreshIcon 
-                                            className='h-5 w-5 text-emind hover:cursor-pointer'  
+                                            className='h-5 w-5 text-mkp hover:cursor-pointer'  
                                             onClick={() => refetch()}
                                         />
                                     </div>

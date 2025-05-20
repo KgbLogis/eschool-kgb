@@ -85,7 +85,7 @@ const Folder = ({ data, setFolder, setFolderHistory, refetch }) => {
 				onClick={() => onFolderClicked({ id: data.id, name: data.name })}
 			>
 				<div className="relative px-5 py-1 bg-white ring-1 ring-gray-900/5 rounded-lg leading-none flex items-top justify-start space-x-6">
-					<FolderSVG className="w-8 h-8 fill-emind my-auto" />
+					<FolderSVG className="w-8 h-8 fill-mkp my-auto" />
 					<div className="space-y-2">
 						<p className="text-slate-800 text-sm my-auto">{data.name}</p>
 					</div>

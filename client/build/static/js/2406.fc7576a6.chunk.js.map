@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/2406.fc7576a6.chunk.js","mappings":"mIAQA,UANmB,WACjB,OACE,uCAEJ,C","sources":["views/app-views/assessment/index.js"],"sourcesContent":["import React from 'react'\r\n\r\nconst Assessment = () => {\r\n  return (\r\n    <div>Assessment</div>\r\n  )\r\n}\r\n\r\nexport default Assessment"],"names":[],"sourceRoot":""}

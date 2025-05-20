@@ -155,10 +155,10 @@ const CalendarApp = ({ permissions }) => {
 	return (
 		<>
 			<div className='flex flex-col md:flex-row gap-3'>
-				<div className='bg-emind/10 rounded-4 p-2 md:basis-1/4'>
+				<div className='bg-mkp/10 rounded-4 p-2 md:basis-1/4'>
 					<div className='flex flex-row justify-center mt-4'>
 						{eventTypes?.allEventTypes.map((event, index) => (
-							<span key={index} className="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 text-xs font-bold text-emind">
+							<span key={index} className="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 text-xs font-bold text-mkp">
 								<svg className="h-3 w-3" viewBox="0 0 6 6" aria-hidden="true" fill={event.color}>
 									<circle cx={3} cy={3} r={3} />
 								</svg>
@@ -211,7 +211,7 @@ const CalendarApp = ({ permissions }) => {
 											<Option value={"11"}>11 сар</Option>
 											<Option value={"12"}>12 сар</Option>
 										</Select>
-										<h2 className="text-xl font-bold leading-none text-emind">{moment(currentDate).format("YYYY-MMMM")}</h2>
+										<h2 className="text-xl font-bold leading-none text-mkp">{moment(currentDate).format("YYYY-MMMM")}</h2>
 									</div>
 									<div className=''>
 										{permissions.create === true && (
@@ -219,7 +219,7 @@ const CalendarApp = ({ permissions }) => {
 										)}
 									</div>
 								</div>
-								<div className="grid grid-cols-7 py-2 rounded-t-2 mt-2 bg-emind/10 text-emind">
+								<div className="grid grid-cols-7 py-2 rounded-t-2 mt-2 bg-mkp/10 text-mkp">
 									<div className="pl-1 text-sm font-bold text-center ">{moment.weekdays(1)}</div>
 									<div className="pl-1 text-sm font-bold text-center ">{moment.weekdays(2)}</div>
 									<div className="pl-1 text-sm font-bold text-center ">{moment.weekdays(3)}</div>
@@ -236,8 +236,8 @@ const CalendarApp = ({ permissions }) => {
 											}
 											<div
 												className={classNames(
-													moment(item).day() === 0 || moment(item).day() === 6 ? 'bg-emind/10 text-emind' : 'bg-white',
-													'relative flex flex-col h-30 group border border-emind hover:cursor-pointer'
+													moment(item).day() === 0 || moment(item).day() === 6 ? 'bg-mkp/10 text-mkp' : 'bg-white',
+													'relative flex flex-col h-30 group border border-mkp hover:cursor-pointer'
 												)}
 												onClick={() => onSelect(item)}
 											>

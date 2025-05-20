@@ -211,7 +211,7 @@ function LessonForm (props) {
                             <ol className="flex h-8 space-x-2">
                                 { folderHistory.map((item, index) => (
                                     <li key={index} className="flex items-center space-x-1">
-                                        { index !== 0 && <span className=" text-emind">/</span>}
+                                        { index !== 0 && <span className=" text-mkp">/</span>}
                                         <a 
                                             onClick={() => currentFolder !== item.id && onBreadcrumbsChange({ key: index, id: item.id })} 
                                             rel="noopener noreferrer" 

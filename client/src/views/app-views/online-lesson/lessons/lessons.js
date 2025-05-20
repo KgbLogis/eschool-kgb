@@ -132,7 +132,7 @@ const Lessons = ({ permissions }) => {
                     <Link
                         to={`${APP_PREFIX_PATH}/online-lesson/lessons/${lesson.id}`}
                         key={index}
-                        className={`border-regular border-1 pt-[20px] px-[25px] pb-[25px] bg-emind rounded-10 bg-cover bg-center`}
+                        className={`border-regular border-1 pt-[20px] px-[25px] pb-[25px] bg-mkp rounded-10 bg-cover bg-center`}
                     >
                         {Object.values(permissions).some(val => val === true) &&
                             <div className="flex items-center justify-between text-center">
@@ -145,7 +145,7 @@ const Lessons = ({ permissions }) => {
                             <p className='text-slate-100 my-auto font-semibold'>{moment(lesson.createdAt).format('YYYY-MM-DD')}</p>
                         </div>
                         <div className='mt-2'>
-                            <Scrollbars className='h-48 border-l-2 border-emind-400'>
+                            <Scrollbars className='h-48 border-l-2 border-mkp-400'>
                                 <p className={`ml-2 mb-[20px] leading-[1.786] whitespace-pre-line text-slate-200`}>
                                     {lesson.description}
                                 </p>
@@ -154,7 +154,7 @@ const Lessons = ({ permissions }) => {
                         <div className="flex flex-wrap items-center justify-between">
                             <div className="flex items-center gap-[15px]">
                                 <img
-                                    className="w-[30px] h-[30px] rounded-full bg-emind-400"
+                                    className="w-[30px] h-[30px] rounded-full bg-mkp-400"
                                     src={
                                         lesson.createUserid.teacher ? BASE_SERVER_URL + lesson.createUserid.teacher.photo
                                             : BASE_SERVER_URL + 'avatar01.png'

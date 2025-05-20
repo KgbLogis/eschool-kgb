@@ -21,7 +21,7 @@ export default function Index(props) {
     return (
         <>
             <div className="flex flex-col w-full h-full rounded-3xl md:flex-row">
-                <div className="flex flex-col w-full bg-emind/10 m-2 rounded-4 md:w-3/12">
+                <div className="flex flex-col w-full bg-mkp/10 m-2 rounded-4 md:w-3/12">
                     <nav className="flex-1 w-full p-6">
                         <div className="space-y-2">
                             {
@@ -32,16 +32,16 @@ export default function Index(props) {
                                             to={`${match.url}/sent`}
                                             className="-mx-3 px-3 py-1 flex items-center justify-between text-sm font-medium rounded-lg w-full"
                                         >
-                                            <span className="inline-flex border-b-2 border-emind pb-1 w-full">
+                                            <span className="inline-flex border-b-2 border-mkp pb-1 w-full">
                                                 <BookOpenIcon
                                                     className={classNames(
-                                                        location.pathname === "/app/conversation/sent" ? 'text-emind-500' : 'text-gray-500',
+                                                        location.pathname === "/app/conversation/sent" ? 'text-mkp-500' : 'text-gray-500',
                                                         `h-6 w-6`
                                                     )}
                                                 />
                                                 <span
                                                     className={classNames(
-                                                        location.pathname === "/app/conversation/sent" ? 'text-emind-500' : 'text-gray-700',
+                                                        location.pathname === "/app/conversation/sent" ? 'text-mkp-500' : 'text-gray-700',
                                                         `ml-2 `
                                                     )}
                                                 >
