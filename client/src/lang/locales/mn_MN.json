@@ -3,6 +3,7 @@
 	"term-of-service": "Үйлчилгээний нөхцөл",
 	"privacy-policy": "Нууцлалын бодлого",
 	"login-fail": "Нэвтрэх нэр эсвэл нууц үг буруу байна",
+	"register-fail": "Бүртгэл буруу байна",
 	"copyright": "Бүх эрх хуулиар хамгаалагдсан.",
 
 	"password.title": "Нууц үгийн шаардлага",
@@ -50,6 +51,7 @@
 	"main.update_password": "Нууц үг",
 	"main.logout": "Гарах",
 	"main.login": "Нэвтрэх",
+	"main.register": "Бүртгүүлэх",
 	"main.login-title": "Нэвтрэх хэсэг",
 	"main.site_status": "Сайтын байдал",
 	"main.total_logins": "Нийт нэвтэрсэн тоо",
