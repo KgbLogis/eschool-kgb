@@ -164,7 +164,6 @@ class Query(object):
     def resolve_all_student_status_extras(self, info, **kwargs):
         return Student_status_extra.objects.all()
 
-    @login_required
     def resolve_all_activitys(self, info, **kwargs):
         return Activity.objects.all()
 
