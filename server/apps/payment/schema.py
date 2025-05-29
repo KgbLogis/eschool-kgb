@@ -230,11 +230,11 @@ class CreateInvoice(graphene.Mutation):
 
             invoice_data = {
                 "invoice_code": "MON_COR_FOVER_INVOICE",
-                "sender_invoice_no": " ".join((student.school.name, student.student_code )),
-                "invoice_receiver_code": " ".join((student.school.name, student.student_code )),
-                "sender_branch_code": student.school.name,
+                "sender_invoice_no": " ".join((student.phone, student.student_code )),
+                "invoice_receiver_code": " ".join((student.phone, student.student_code )),
+                "sender_branch_code": student.phone,
                 "amount": int(payment.amount),
-                "invoice_description": " ".join((student.school.name, student.student_code )),
+                "invoice_description": " ".join((student.phone, student.student_code )),
                 "callback_url": "http://localhost:8000/graphql#query=%0Aquery%20check_invoice_status%20%7B%0A%20%20checkInvoiceStatus%20(id%3A%2010)%0A%7D"
             } 
 
@@ -252,8 +252,8 @@ class CreateInvoice(graphene.Mutation):
             create_userID_i = info.context.user
 
             invoice = Invoice(student=student, 
-                            title=" ".join((student.school.name, student.student_code )), 
-                            description=" ".join((student.school.name, student.student_code )),
+                            title=" ".join((student.phone, student.student_code )), 
+                            description=" ".join((student.phone, student.student_code )),
                             amount=int(payment.amount), 
                             pay_date=datetime.now(),
                             status='PENDING', 
