@@ -17,6 +17,7 @@ from django.db.models import Q
 from school.utils import custom_paginate
 from datetime import datetime
 from graphql import GraphQLError
+from graphql_jwt.shortcuts import get_token
 
 class StudentType(DjangoObjectType):
     class Meta:
@@ -184,43 +185,56 @@ class CreateStudent(graphene.Mutation):
     student = graphene.Field(StudentType)
 
     class Arguments:
-        # student_code = graphene.String()
-        # registerNo = graphene.String()
-        # religion = graphene.String()
-        # surname = graphene.String()
         family_name = graphene.String()
         name = graphene.String()
-        # nationality = graphene.String()
-        # state = graphene.String()
         # photo = Upload()
         phone = graphene.String()
         address = graphene.String()
-        # join_date = graphene.String()
-        # join_schoolyear = graphene.String()
+        join_schoolyear = graphene.String()
         sex = graphene.String()
         classtime = graphene.Int()
-        # status = graphene.Int()
-        # status_extra = graphene.Int()
+        status = graphene.Int()
+        status_extra = graphene.Int()
         activity = graphene.Int()
-        # birthdate = graphene.String()
-        # birth_city = graphene.Int()
-        # birth_district = graphene.Int()
-        # school = graphene.Int()
-        # program = graphene.Int()
-        # classes = graphene.Int()
-        # section = graphene.Int()
-
+        school = graphene.Int()
+        program = graphene.Int()
+        classes = graphene.Int()
+        section = graphene.Int()
         password = graphene.String(required=True)
-        # username = graphene.String(required=True)
         email = graphene.String(required=True)
 
     @login_required
     @permission_required('student.add_student')
-    def mutate(self, info, family_name, name, phone, address, sex, classtime, activity, password, email):
+    def mutate(self, info, family_name, name, phone, address, sex, classtime, activity, password, email, school, section, program, classes, status, status_extra, join_schoolyear):
 
+
+        errors = {}
+
+        # Check if phone exists
+        if get_user_model().objects.filter(username=phone).exists():
+            errors["phone"] = "Утасны дугаар бүртгэлтэй байна"
+
+        # Check if email exists
+        if get_user_model().objects.filter(email=email).exists():
+            errors["email"] = "И-мэйл хаяг бүртгэлтэй байна"
+          
+        VALID_SEX_VALUES = ["Эрэгтэй", "Эмэгтэй"]
+
+        if sex not in VALID_SEX_VALUES:
+            errors["sex"] = "Хүйс буруу байна"
+        # If any errors, raise them
+        if errors:
+            raise GraphQLError("Validation failed", extensions={"errors": errors})
+        
         classtime_i = Classtime.objects.get(pk=classtime)
         activity_i = Activity.objects.get(pk=activity)
-        join_schoolyear_i = Schoolyear.objects.get(is_current=True)
+        join_schoolyear_i = Schoolyear.objects.get(pk=join_schoolyear)
+        school_i = School.objects.get(pk=school)
+        section_i = Section.objects.get(pk=section)
+        program_i = Program.objects.get(pk=program)
+        classes_i = Classes.objects.get(pk=classes)
+        status_i = Student_status.objects.get(pk=status)
+        status_extra_i = Student_status_extra.objects.get(pk=status_extra)
         
         current_year = datetime.now().year
         
@@ -233,14 +247,31 @@ class CreateStudent(graphene.Mutation):
         except Student.DoesNotExist:
             student_code = "s"+str(current_year)[-2:] + "001"
         
-        userob = get_user_model()(username=student_code,email=email,first_name=name,last_name=family_name,is_student=True,is_teacher=False,is_parent=False,)
+        userob = get_user_model()(username=phone,email=email,first_name=name,last_name=family_name,is_student=True,is_teacher=False,is_parent=False,)
         userob.set_password(password)
         userob.save()
         user_i = get_user_model().objects.get(pk=userob.pk)
 
         group = Group.objects.get(pk=2)
         group.user_set.add(user_i)
-        stu = Student(user=user_i, student_code=student_code, family_name=family_name, name=name, phone=phone, address=address, join_schoolyear=join_schoolyear_i,sex=sex, classtime=classtime_i, activity=activity_i)
+        stu = Student(
+            user=user_i, 
+            student_code=student_code, 
+            family_name=family_name, 
+            name=name, 
+            phone=phone,
+            address=address, 
+            join_schoolyear=join_schoolyear_i,
+            sex=sex, 
+            classtime=classtime_i, 
+            activity=activity_i,
+            school=school_i,
+            program=program_i,
+            classes=classes_i,
+            section=section_i,
+            status=status_i,
+            status_extra=status_extra_i,
+        )
         # if photo != '':
         #     stu.photo = photo
 
@@ -252,24 +283,12 @@ class UpdateStudent(graphene.Mutation):
     student = graphene.Field(StudentType)
 
     class Arguments:
-        student_code = graphene.String()
-        registerNo = graphene.String()
-        religion = graphene.String()
-        surname = graphene.String()
         family_name = graphene.String()
         name = graphene.String()
-        nationality = graphene.String()
-        state = graphene.String()
-        photo = Upload()
         phone = graphene.String()
         address = graphene.String()
-        join_date = graphene.String()
         join_schoolyear = graphene.String()
         sex = graphene.String()
-        birthdate = graphene.String()
-        birth_city = graphene.Int()
-        birth_district = graphene.Int()
-        username = graphene.String()
         email = graphene.String()
         section = graphene.Int()
         activity = graphene.Int()
@@ -287,12 +306,25 @@ class UpdateStudent(graphene.Mutation):
         student = Student.objects.get(pk=kwargs["id"])
 
         user_o = get_user_model().objects.get(pk = student.user_id)
+        
+        errors = {}
 
-        user_o.username = kwargs["username"]
+        # Check if phone exists
+        if get_user_model().objects.filter(username=kwargs["phone"]).exclude(pk=user_o.id).exists():
+            errors["phone"] = "Утасны дугаар бүртгэлтэй байна"
+
+        # Check if email exists
+        if get_user_model().objects.filter(email=kwargs["email"]).exclude(pk=user_o.id).exists():
+            errors["email"] = "И-мэйл хаяг бүртгэлтэй байна"
+          
+        # If any errors, raise them
+        if errors:
+            raise GraphQLError("Validation failed", extensions={"errors": errors})
+
+        user_o.username = kwargs["phone"]
         user_o.email = kwargs["email"]
         user_o.last_name = kwargs["family_name"]
         user_o.first_name = kwargs["name"]
-        user_o.set_password(kwargs["username"])
         user_o.is_student = True
         user_o.save()
 
@@ -311,24 +343,14 @@ class UpdateStudent(graphene.Mutation):
         student.status_extra = status_extra_o
         student.school = school_o
         student.program = program_o
-        student.student_code = kwargs["student_code"]
-        student.registerNo = kwargs["registerNo"]
-        student.religion = kwargs["religion"]
-        student.surname = kwargs["surname"]
         student.family_name = kwargs["family_name"]
         student.name = kwargs["name"]
-        student.nationality = kwargs["nationality"]
-        student.state = kwargs["state"]
         if photo != '':
             student.photo = photo
         student.phone = kwargs["phone"]
         student.address = kwargs["address"]
-        student.join_date = kwargs["join_date"]
         student.join_schoolyear_id = kwargs["join_schoolyear"]
         student.sex = kwargs["sex"]
-        student.birthdate = kwargs["birthdate"]
-        student.birth_city_id = kwargs["birth_city"]
-        student.birth_district_id = kwargs["birth_district"]
         student.save()
         return UpdateStudent(student=student)
 
@@ -379,6 +401,7 @@ class TransferStudent(graphene.Mutation):
 class Register(graphene.Mutation):
     
     success = graphene.Boolean()
+    token = graphene.String()
 
     class Arguments:
         name = graphene.String()
@@ -431,6 +454,9 @@ class Register(graphene.Mutation):
         userob = get_user_model()(username=phone,email=email,first_name=name,last_name=family_name,is_student=True,is_teacher=False,is_parent=False,)
         userob.set_password(password)
         userob.save()
+        
+        token = get_token(userob)
+        
         user_i = get_user_model().objects.get(pk=userob.pk)
 
         group = Group.objects.get(pk=2)
@@ -452,7 +478,10 @@ class Register(graphene.Mutation):
 
         stu.save()
 
-        return Register(success=True)
+        return Register(
+            success=True,
+            token=token
+        )
 
 class Mutation(graphene.ObjectType):
     create_student = CreateStudent.Field()

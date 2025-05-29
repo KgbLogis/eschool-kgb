@@ -117,14 +117,40 @@ export const TRANSFER_STUDENT = gql `
 `;
 
 export const UPDATE_STUDENT = gql `
-    mutation updateStudent ($section: Int, $activity: Int, $classtime: Int, $statusExtra: Int, $status: Int, $school: Int, $program: Int, $address: String, $birthCity: Int, $birthDistrict: Int, $birthdate: String,
-                            $familyName: String, $id: ID, $joinDate: String, 
-                            $joinSchoolyear: String, $name: String, $nationality: String, $phone: String,
-                            $registerNo: String, $religion: String, $sex: String, $state: String, $studentCode: String, $surname: String, $username: String) {
-        updateStudent (section: $section, activity: $activity, classtime: $classtime, address: $address, birthCity: $birthCity, birthDistrict: $birthDistrict, birthdate: $birthdate, 
-                        familyName: $familyName, id: $id, joinDate: $joinDate, statusExtra: $statusExtra, status: $status, school: $school, program: $program,
-                        joinSchoolyear: $joinSchoolyear, name: $name, nationality: $nationality, phone: $phone, 
-                        registerNo: $registerNo, religion: $religion, sex: $sex, state: $state, studentCode: $studentCode, surname: $surname, username: $username, email: "test@test.mn") {
+    mutation updateStudent (
+        $activity: Int
+        $address: String
+        $classtime: Int
+        $email: String
+        $familyName: String
+        $id: ID
+        $joinSchoolyear: String
+        $name: String
+        $phone: String
+        $program: Int
+        $school: Int
+        $section: Int
+        $sex: String
+        $status: Int
+        $statusExtra: Int
+    ) {
+        updateStudent (
+            activity: $activity
+            address: $address
+            classtime: $classtime
+            email: $email
+            familyName: $familyName
+            id: $id
+            joinSchoolyear: $joinSchoolyear
+            name: $name
+            phone: $phone
+            program: $program
+            school: $school
+            section: $section
+            sex: $sex
+            status: $status
+            statusExtra: $statusExtra
+        ) {
             student {
                 id
             }

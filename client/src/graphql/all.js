@@ -260,32 +260,18 @@ export const ALL_STUDENTS = gql`
                 email
             }
             studentCode
-            surname
             familyName
             name
-            religion
-            registerNo
-            nationality
-            state
             photo
             phone
             address
+            isPaid
             activity {
                 id
                 name
             }
-            joinDate
             sex
-            birthdate
             classtime {
-                id
-                name
-            }
-            birthCity {
-                id
-                name
-            }
-            birthDistrict {
                 id
                 name
             }

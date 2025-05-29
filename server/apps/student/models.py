@@ -70,7 +70,7 @@ class Student(Model):
         #     return Student.objects.filter(classes=classes).values('id')
 
     def filter_fields():
-        return ['student_code','registerNo','surname','family_name','name', 'phone','school__name','program__program','classes__classes']
+        return ['student_code','family_name','name', 'phone','school__name','program__program','classes__classes']
         # 'program__program_numeric',
         # ,'classes__classes_numeric'
 

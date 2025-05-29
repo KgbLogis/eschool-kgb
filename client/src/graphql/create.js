@@ -108,18 +108,42 @@ export const CREATE_EMPLOYEE = gql `
 `;
 
 export const CREATE_STUDENT = gql `
-    mutation createStudent($activity: Int, $address: String, $birthCity: Int, $birthDistrict: Int, $birthdate: String,
-                            $classes: Int, $classtime: Int, $familyName: String, $joinDate: String,
-                            $joinSchoolyear: String, $name: String, $nationality: String, $phone: String, $program: Int, 
-                            $registerNo: String, $religion: String, $school: Int, $section: Int, $sex: String, $state: String, $status: Int, 
-                            $statusExtra: Int, $surname: String, $studentCode: String,
-                            $username: String!, $password: String!) {
-      createStudent(activity: $activity, address: $address, birthCity: $birthCity, birthDistrict: $birthDistrict, birthdate: $birthdate, 
-                    classes: $classes, familyName: $familyName, joinDate: $joinDate, name: $name, phone: $phone, 
-                    registerNo: $registerNo, religion: $religion, school: $school, sex: $sex, status: $status,
-                    surname: $surname, studentCode: $studentCode, classtime: $classtime, joinSchoolyear: $joinSchoolyear, 
-                    nationality: $nationality, program: $program, section: $section, state: $state, statusExtra: $statusExtra,
-                    username: $username, password: $password, email: "test@test.mn") {
+    mutation createStudent(
+      $activity: Int
+      $address: String
+      $classes: Int
+      $classtime: Int
+      $email: String!
+      $familyName: String
+      $joinSchoolyear: String
+      $name: String
+      $password: String!
+      $phone: String
+      $program: Int
+      $school: Int
+      $section: Int
+      $sex: String
+      $status: Int
+      $statusExtra: Int
+    ) {
+      createStudent(
+        activity: $activity
+        address: $address
+        classes: $classes
+        classtime: $classtime
+        email: $email
+        familyName: $familyName
+        joinSchoolyear: $joinSchoolyear
+        name: $name
+        password: $password
+        phone: $phone
+        program: $program
+        school: $school
+        section: $section
+        sex: $sex
+        status: $status
+        statusExtra: $statusExtra
+      ) {
         student {
           id
         }

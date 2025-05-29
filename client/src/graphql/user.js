@@ -16,13 +16,8 @@ export const ME = gql `
             student {
                 isPaid
                 studentCode
-                surname
                 familyName
                 name
-                religion
-                registerNo
-                nationality
-                state
                 photo
                 phone
                 address
@@ -30,18 +25,8 @@ export const ME = gql `
                     id
                     name
                 }
-                joinDate
                 sex
-                birthdate
                 classtime {
-                    id
-                    name
-                }
-                birthCity {
-                    id
-                    name
-                }
-                birthDistrict {
                     id
                     name
                 }

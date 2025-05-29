@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Form, Input, Alert, message, Row, Col, Select } from "antd";
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Alert, Row, Col, Select, InputNumber } from "antd";
 import {
     AUTH_TOKEN,
 } from 'redux/constants/Auth';
@@ -35,6 +34,7 @@ const REGISTER = gql`
             sex: $sex
         ) {
             success
+            token
         }
     }
 `;
@@ -45,6 +45,7 @@ export const RegisterForm = props => {
     const { user, refetch } = useContext(UserContext);
     const token = localStorage.getItem(AUTH_TOKEN);
     const [showMessage, setShowMessage] = useState(false)
+    const [error, setError] = useState({})
 
     const { data: classTimes } = useQuery(ALL_CLASSTIME)
 
@@ -56,14 +57,21 @@ export const RegisterForm = props => {
         setShowMessage(true)
     }
 
-    const [onRegister, { loading, error }] = useMutation(REGISTER, {
+    const [onRegister, { loading }] = useMutation(REGISTER, {
         onCompleted: data => {
-
+            localStorage.setItem(AUTH_TOKEN, data.register.token);
+            refetch()
         },
         onError: err => {
-            setShowMessage(true)
+            setError({
+                email: err.graphQLErrors[0].extensions.errors.email,
+                phone: err.graphQLErrors[0].extensions.errors.phone
+            })
+            showAuthMessage()
         }
     });
+
+    const phoneRegEx = new RegExp(/^[7-9][0-9]{3}[0-9]{4}$/u);
 
     if (showMessage) {
         setTimeout(() => {
@@ -71,11 +79,12 @@ export const RegisterForm = props => {
         }, 3000);
     }
 
-    // useEffect(() => {
-    //     if (token && user) {
-    //         history.push('/app/home')
-    //     }
-    // }, [user, token])
+    useEffect(() => {
+        if (token && user) {
+            history.push('/app/home')
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user, token])
 
     return (
         <div>
@@ -107,44 +116,55 @@ export const RegisterForm = props => {
                                     message: 'Нэвтрэх нэр оруулна уу',
                                 }
                             ]}>
-                            <Input prefix={<UserOutlined className="text-primary" />} />
+                            <Input />
                         </Form.Item>
                         <Form.Item
                             name="phone"
                             label={<IntlMessage id="phone" />}
+                            help={error.phone}
+                            validateStatus={error.phone && "error"}
                             rules={[
                                 {
                                     required: true,
                                     message: 'Нэвтрэх нэр оруулна уу',
+                                },
+                                {
+                                    validator(rule, value) {
+                                        if (phoneRegEx.test(value)) {
+                                            return Promise.resolve();
+                                        }
+                                        return Promise.reject('Утасны дугаар буруу байна!');
+                                    },
                                 }
                             ]}>
-                            <Input prefix={<UserOutlined className="text-primary" />} />
+                            <InputNumber className='w-full' />
                         </Form.Item>
                         <Form.Item
-                            name="username"
-                            label={<IntlMessage id="username" />}
+                            name="classtime"
+                            label={<IntlMessage id="classtime" />}
                             rules={[
                                 {
                                     required: true,
                                     message: 'Нэвтрэх нэр оруулна уу',
                                 }
                             ]}>
-                            <Input prefix={<UserOutlined className="text-primary" />} />
+                            <Select>
+                                {classTimes?.allClasstimes.map((classtime) => (
+                                    <Option key={classtime.id} value={classtime.id} >{classtime.name}</Option>
+                                ))}
+                            </Select>
                         </Form.Item>
                         <Form.Item
-                            name="username"
-                            label={<IntlMessage id="username" />}
+                            name="password"
+                            label={<IntlMessage id="password" />}
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Нэвтрэх нэр оруулна уу',
+                                    message: 'Нууц үг оруулна уу',
                                 }
-                            ]}>
-                                <Select>
-                                    { classTimes?.allClasstimes.map((classtime) => (
-                                        <Option key={classtime.id} value={classtime.id} >{classtime.name}</Option>
-                                    ))}
-                                </Select>
+                            ]}
+                        >
+                            <Input.Password />
                         </Form.Item>
                     </Col>
                     <Col className="gutter-row" span={12}>
@@ -157,30 +177,45 @@ export const RegisterForm = props => {
                                     message: 'Нэвтрэх нэр оруулна уу',
                                 }
                             ]}>
-                            <Input prefix={<UserOutlined className="text-primary" />} />
+                            <Input />
                         </Form.Item>
                         <Form.Item
-                            name="email"
-                            label={<IntlMessage id="email" />}
+                            name="sex"
+                            label={<IntlMessage id="sex" />}
                             rules={[
                                 {
                                     required: true,
                                     message: 'Нэвтрэх нэр оруулна уу',
                                 }
                             ]}>
-                            <Input prefix={<UserOutlined className="text-primary" />} />
+                            <Select>
+                                <Option value="Эрэгтэй"><IntlMessage id="sex.male" /></Option>
+                                <Option value="Эмэгтэй"><IntlMessage id="sex.female" /></Option>
+                            </Select>
                         </Form.Item>
                         <Form.Item
-                            name="password"
-                            label={<IntlMessage id="password" />}
+                            name="email"
+                            label={<IntlMessage id="email" />}
+                            help={error.email}
+                            validateStatus={error.email && "error"}
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Нууц үг оруулна уу',
+                                    message: 'Нэвтрэх нэр оруулна уу',
                                 }
-                            ]}
-                        >
-                            <Input.Password prefix={<LockOutlined className="text-primary" />} />
+                            ]}>
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            name="address"
+                            label={<IntlMessage id="address" />}
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Нэвтрэх нэр оруулна уу',
+                                }
+                            ]}>
+                            <Input.TextArea />
                         </Form.Item>
                     </Col>
                 </Row>
