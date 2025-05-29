@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useMutation, useQuery } from '@apollo/client';
 import { Button, Card, Image, message, Steps, Typography } from 'antd';
 import { CHECK_INVOICE_STATUS, CREATE_INVOICE, INVOICE_BY_STUDENT } from 'graphql/payment';
+import { UserContext } from 'hooks/UserContextProvider';
 
 const { Step } = Steps;
 const { Title, Paragraph } = Typography;
@@ -47,6 +48,8 @@ const Index = () => {
     const [invoice, setInvoice] = useState();
     const [current, setCurrent] = useState(0);
 
+    const { refetch } = useContext(UserContext)
+
     const [createInvoice, { loading }] = useMutation(CREATE_INVOICE, {
         onCompleted: data => {
             refetchInvoice()
@@ -84,7 +87,7 @@ const Index = () => {
             if (data.checkInvoiceStatus === 'PENDING') {
                 message.warning('Төлбөр төлөгдөөгүй байна!')
             } else {
-                setCurrent(current + 1);
+                refetch()
             }
         }
     })
@@ -92,10 +95,6 @@ const Index = () => {
     const next = () => {
         setCurrent(current + 1);
     };
-
-    // const prev = () => {
-    //     setCurrent(current - 1);
-    // };
 
     if (loading) {
         return <div>loading...</div>

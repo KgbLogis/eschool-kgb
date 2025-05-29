@@ -4,7 +4,7 @@ import { DeleteTwoTone, EditTwoTone, EyeTwoTone } from '@ant-design/icons';
 import utils from 'utils';
 import { useMutation, useLazyQuery } from '@apollo/client';
 import IntlMessage from "components/util-components/IntlMessage";
-import { ALL_LIVES, DELETE_LIVE, GET_LIVE_URL } from 'graphql/live';
+import { ALL_LIVES, DELETE_LIVE } from 'graphql/live';
 import moment from 'moment';
 import AsyncTable from 'components/shared-components/AsyncTable';
 import Loading from 'components/shared-components/Loading';

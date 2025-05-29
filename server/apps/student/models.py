@@ -9,6 +9,7 @@ from apps.classes.models import Classes
 from apps.section.models import Section
 from apps.schoolyear.models import Schoolyear
 from tenants.middlewares import get_current_db_name
+from django.utils import timezone
 
 def user_directory_path(instance, filename):
     upload_path = 'default'
@@ -19,38 +20,36 @@ def user_directory_path(instance, filename):
 
 class Student(Model):
     user = OneToOneField(settings.AUTH_USER_MODEL, on_delete=CASCADE)
-    is_paid = BooleanField(default=False)
+    expire_date = DateTimeField(default=timezone.now().date() - timezone.timedelta(days=1))
     student_code = CharField(unique=True, max_length=40)
-    registerNo = CharField(max_length=50)
-    religion = CharField(max_length=100)
-    surname = CharField(max_length=100)
+    # registerNo = CharField(max_length=50)
+    # religion = CharField(max_length=100)
+    # surname = CharField(max_length=100)
     family_name = CharField(max_length=100)
     name = CharField(max_length=100)
-    nationality = CharField(max_length=100)
-    state = CharField(max_length=100)
+    # nationality = CharField(max_length=100)
+    # state = CharField(max_length=100)
     photo = ImageField(upload_to=user_directory_path, default='default.jpg')
     phone = CharField(max_length=8, blank=True)
     address = TextField(blank=True)
-    join_date = CharField(blank=True, max_length=20)
     join_schoolyear = ForeignKey(Schoolyear, on_delete=CASCADE)
     sex = CharField(max_length=10)
     classtime = ForeignKey(Classtime, on_delete=CASCADE)
     status = ForeignKey(Student_status, on_delete=CASCADE)
     status_extra = ForeignKey(Student_status_extra, on_delete=CASCADE)
     activity = ForeignKey(Activity, on_delete=CASCADE)
-    birthdate = DateField(blank=True)
-    birth_city = ForeignKey(City, on_delete=CASCADE)
-    birth_district = ForeignKey(District, on_delete=CASCADE)
-    school = ForeignKey(School, on_delete=CASCADE)
-    program = ForeignKey(Program, on_delete=CASCADE)
-    classes = ForeignKey(Classes, on_delete=CASCADE)
-    section = ForeignKey(Section, on_delete=CASCADE)
+    # birthdate = DateField(blank=True)
+    # birth_city = ForeignKey(City, on_delete=CASCADE)
+    # birth_district = ForeignKey(District, on_delete=CASCADE)
+    school = ForeignKey(School, on_delete=CASCADE, null=True, blank=True)
+    program = ForeignKey(Program, on_delete=CASCADE, null=True, blank=True)
+    classes = ForeignKey(Classes, on_delete=CASCADE, null=True, blank=True)
+    section = ForeignKey(Section, on_delete=CASCADE, null=True, blank=True)
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
-    create_userID = ForeignKey(settings.AUTH_USER_MODEL, related_name = 'create_user', on_delete=CASCADE)
 
     def __str__(self):
-        return 'family_name: '+self.family_name+' | name: '+str(self.name) + ' | is_paid: ' +str(self.is_paid)
+        return 'family_name: '+self.family_name+' | name: '+str(self.name) + ' | expire_date: ' +str(self.expire_date)
         
     def access_student(teacher):
         section = Section.objects.filter(teacher=teacher).values('id')

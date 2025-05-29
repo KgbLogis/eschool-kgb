@@ -6,7 +6,7 @@ from apps.student.models import Student
 from apps.section.models import Section
 from graphql_jwt.decorators import login_required, permission_required
 import random
-import hashlib
+from apps.student.decorators import student_payment_decorator
 from datetime import datetime
 from django.utils import timezone
 import urllib.parse
@@ -32,6 +32,7 @@ class Query(object):
 
     @login_required
     @permission_required('live.view_live')
+    @student_payment_decorator
     def resolve_all_lives(self, info, offset, limit, filter):
         if info.context.user.is_superuser==True:
             return Live.objects.filter(Q(title__icontains=filter) | Q(description__icontains=filter))[offset:limit]
@@ -56,6 +57,7 @@ class Query(object):
 
     @login_required
     @permission_required('live.view_live')
+    @student_payment_decorator
     def resolve_live_by_id(root, info, id):
         try:
             return Live.objects.get(pk=id)
@@ -70,6 +72,7 @@ class Query(object):
             return None
 
     @login_required
+    @student_payment_decorator
     def resolve_get_liveurl(root, info, live_id):
         try:
             live = Live.objects.get(pk=live_id)

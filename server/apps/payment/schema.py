@@ -9,6 +9,7 @@ import requests
 from requests.structures import CaseInsensitiveDict
 import json
 from datetime import datetime
+from apps.schoolyear.models import Schoolyear
 
 class PaymentType(DjangoObjectType):
     class Meta:
@@ -69,7 +70,7 @@ class Query(object):
         auth_url = 'https://merchant.qpay.mn/v2/auth/token'
         auth_headers = CaseInsensitiveDict()
         auth_headers["Content-Type"] = "application/json"
-        auth_headers["Authorization"] = "Basic RV9NSU5EOktNU01HSlVi"
+        auth_headers["Authorization"] = "Basic TU9OX0NPUl9GT1ZFUjpvZmp3aGpyUQ=="
         
         auth_resp = requests.post(auth_url, headers=auth_headers)
         
@@ -105,7 +106,8 @@ class Query(object):
                 invoice.status = qpay_check_resp['rows'][0]['payment_status']
                 invoice.save()
                 student = Student.objects.get(pk=invoice.student.id)
-                student.is_paid = True
+                schoolyear = Schoolyear.objects.get(is_current=True)
+                student.expire_date = schoolyear.end_date
                 student.save()
                 return qpay_check_resp['rows'][0]['payment_status']
             else: 
@@ -207,7 +209,7 @@ class CreateInvoice(graphene.Mutation):
         auth_url = 'https://merchant.qpay.mn/v2/auth/token'
         auth_headers = CaseInsensitiveDict()
         auth_headers["Content-Type"] = "application/json"
-        auth_headers["Authorization"] = "Basic RV9NSU5EOktNU01HSlVi"
+        auth_headers["Authorization"] = "Basic TU9OX0NPUl9GT1ZFUjpvZmp3aGpyUQ=="
         
         auth_resp = requests.post(auth_url, headers=auth_headers)
         
@@ -227,7 +229,7 @@ class CreateInvoice(graphene.Mutation):
             invoice_headers["Authorization"] = 'Bearer {}'.format(access_token)
 
             invoice_data = {
-                "invoice_code": "E_MIND_INVOICE",
+                "invoice_code": "MON_COR_FOVER_INVOICE",
                 "sender_invoice_no": " ".join((student.school.name, student.student_code )),
                 "invoice_receiver_code": " ".join((student.school.name, student.student_code )),
                 "sender_branch_code": student.school.name,

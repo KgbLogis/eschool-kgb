@@ -16,6 +16,12 @@ export const ALL_LIVES = gql `
             section {
                 id
                 section
+                program {
+                    id
+                }
+                classes {
+                    id
+                }
             }
             password
             teacher {

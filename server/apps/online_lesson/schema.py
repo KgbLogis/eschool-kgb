@@ -5,7 +5,7 @@ from graphene_file_upload.scalars import Upload
 from .models import Online_file_folder, Online_lesson, Online_attendance, Online_student, Online_file, Online_sub_file, Online_type, Online_sub
 from apps.subject.models import Subject
 from apps.student.models import Student
-from apps.teacher.models import Teacher
+from apps.student.decorators import student_payment_decorator
 from apps.schoolyear.models import Schoolyear
 from graphql_jwt.decorators import login_required, permission_required
 from django.db.models import Q
@@ -71,12 +71,14 @@ class Query(object):
 
     @login_required
     @permission_required('online_lesson.view_online_sub_file')
+    @student_payment_decorator
     def resolve_all_online_sub_files(self, info, online_sub):
         online_sub_o = Online_sub.objects.get(pk=online_sub)
         return Online_sub_file.objects.filter(online_sub=online_sub_o)
 
     @login_required
     @permission_required('online_lesson.view_online_lesson')
+    @student_payment_decorator
     def resolve_all_online_lessons(self, info, offset, limit, filter):
 
         fields = Online_lesson.filter_fields()
@@ -109,11 +111,13 @@ class Query(object):
 
     @login_required
     @permission_required('online_lesson.view_online_student')
+    @student_payment_decorator
     def resolve_all_online_student_by_lesson(self, info, online_lesson):
         return Online_student.objects.filter(online_lesson_id=online_lesson)
 
     @login_required
     @permission_required('online_lesson.view_online_type')
+    @student_payment_decorator
     def resolve_all_online_types(self, info, **kwargs):
         return Online_type.objects.all()
         
@@ -127,6 +131,7 @@ class Query(object):
         
     @login_required
     @permission_required('online_lesson.view_online_file')
+    @student_payment_decorator
     def resolve_all_online_files(self, info, folder):
         if folder==0:
             return Online_file.objects.filter(Q(create_userID=info.context.user), Q(folder__isnull=True))
@@ -135,6 +140,7 @@ class Query(object):
 
     @login_required
     @permission_required('online_lesson.view_online_lesson')
+    @student_payment_decorator
     def resolve_online_lesson_by_id(root, info, id):
         try:
             return Online_lesson.objects.get(pk=id)
@@ -143,6 +149,7 @@ class Query(object):
 
     @login_required
     @permission_required('online_lesson.view_online_sub')
+    @student_payment_decorator
     def resolve_all_online_sub_by_lesson(root, info, online_lesson):
         try:
             if info.context.user.is_student==False:
@@ -154,6 +161,7 @@ class Query(object):
             
     @login_required
     @permission_required('online_lesson.view_online_sub')
+    @student_payment_decorator
     def resolve_online_sub_by_id(root, info, id):
         try:
             if info.context.user.is_student==False:
@@ -180,6 +188,7 @@ class Query(object):
       
     @login_required
     @permission_required('online_lesson.view_online_attendance')
+    @student_payment_decorator
     def resolve_online_attendance_by_sub(root, info, online_sub):
         try:
             online_sub_i = Online_sub.objects.get(pk=online_sub)
@@ -193,6 +202,7 @@ class Query(object):
         
     @login_required
     @permission_required('online_lesson.view_online_lesson')
+    @student_payment_decorator
     def resolve_all_online_lessons_pagination(self, info, page, per_page):
 
         if info.context.user.is_teacher==True:

@@ -1,9 +1,10 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useContext } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Loading from 'components/shared-components/Loading';
 import { APP_PREFIX_PATH, APP_NAME } from 'configs/AppConfig'
 import { CheckPer } from 'hooks/checkPermission';
+import { UserContext } from "hooks/UserContextProvider";
 
 const Program = lazy(() => import(`./programs`));
 const DailyFood = lazy(() => import(`./daily-food`));
@@ -53,6 +54,23 @@ const FlexTime = lazy(() => import('./flex-time'))
 export const AppViews = (currentTitle) => {
 
     const title = currentTitle.currentTitle;
+
+    const { user } = useContext(UserContext)
+
+    if (user.isStudent) {
+        if (user.student.isPaid === false) {
+            return <Suspense fallback={<Loading cover="content" />}>
+                <Switch>
+                    <Route
+                        path={`${APP_PREFIX_PATH}/payment`}
+                        component={lazy(() => import(`./payment`))}
+                    />
+                    <Redirect from={`${APP_PREFIX_PATH}`} to={`${APP_PREFIX_PATH}/payment`} />
+                </Switch>
+            </Suspense>
+        }
+    }
+
 
     return (
         <>
@@ -321,11 +339,11 @@ export const AppViews = (currentTitle) => {
                         render={props => <ContactBook {...props}
                             title={title} />}
                     />
-                    <Route 
+                    <Route
                         path={`${APP_PREFIX_PATH}/flex-time`}
                         render={props => <FlexTime {...props}
                             title={title} />}
-                    
+
                     />
                     <Redirect from={`${APP_PREFIX_PATH}`} to={`${APP_PREFIX_PATH}/home`} />
                 </Switch>

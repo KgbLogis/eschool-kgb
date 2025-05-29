@@ -10,7 +10,7 @@ import Loading from 'components/shared-components/Loading';
 
 const { Option } = Select;
 
-function SchoolForm ({editData, formType, setIsModalVisible, refetch}) {
+function SchoolForm({ editData, formType, setIsModalVisible, refetch }) {
 
     const [form] = Form.useForm();
 
@@ -27,14 +27,13 @@ function SchoolForm ({editData, formType, setIsModalVisible, refetch}) {
     const { data: allPrograms } = useQuery(ALL_PROGRAMS);
 
     const { data } = useQuery(ALL_SECTIONS);
-
     const [createSchool, { loading: createLoading }] = useMutation(CREATE_LIVE, {
-		onCompleted: data => {
+        onCompleted: data => {
             message.success('Амжилттай хадгаллаа');
             setIsModalVisible(false);
             refetch();
-		}
-	});
+        }
+    });
 
     const [updateSchool, { loading: updateLoading }] = useMutation(UPDATE_LIVE, {
         onCompleted: data => {
@@ -45,8 +44,8 @@ function SchoolForm ({editData, formType, setIsModalVisible, refetch}) {
     });
 
     useEffect(() => {
-        fetchTeacher({ variables: { offset: 0, limit: 9, filter: ''} })
-        if(formType === "edit") {
+        fetchTeacher({ variables: { offset: 0, limit: 9, filter: '' } })
+        if (formType === "edit") {
             form.setFieldsValue({
                 title: editData.title,
                 description: editData.description,
@@ -55,17 +54,25 @@ function SchoolForm ({editData, formType, setIsModalVisible, refetch}) {
                 teacher: editData.teacher.id,
                 date: moment(editData.date),
                 type: editData.type,
-                section: editData.section.id
+                section: editData.section.id,
+                program: editData.section.program.id,
+                classes: editData.section.classes.id
             });
-        } else if(formType === "create") {
+            const sections = data.allSections.filter(section => section.classes.id === editData.section.classes.id).map(filteredSection => (
+                filteredSection
+            ));
+            setAllSections(sections);
+            fetchClasses({ variables: { program: editData.section.program.id, offset: 1, limit: 1, filter: '' } })
+        } else if (formType === "create") {
             form.resetFields();
+            setAllSections([])
         }
-    }, [editData, fetchTeacher, form, formType, data]);
+    }, [editData, fetchTeacher, form, formType, data, fetchClasses]);
 
     const onFinish = values => {
         if (formType === "edit") {
             values.id = editData?.id
-            updateSchool({ variables: values})
+            updateSchool({ variables: values })
         } else {
             createSchool({ variables: values })
         }
@@ -94,7 +101,7 @@ function SchoolForm ({editData, formType, setIsModalVisible, refetch}) {
 
     return (
         <Spin spinning={createLoading || updateLoading} tip="Ачааллаж байна...">
-            <Form  
+            <Form
                 id="SchoolForm"
                 layout={'vertical'}
                 form={form}
@@ -120,36 +127,36 @@ function SchoolForm ({editData, formType, setIsModalVisible, refetch}) {
                             <Select
                                 onChange={onProgramChange}
                             >
-                                { allPrograms?.allPrograms.map((program, index) => (
+                                {allPrograms?.allPrograms.map((program, index) => (
                                     <Option key={index} value={program.id} >{program.program}</Option>
                                 ))}
                             </Select>
                         </Form.Item>
                         <Form.Item name="section" label={<IntlMessage id="section" />} rules={[
-                            { 
+                            {
                                 required: true,
                                 message: "Хоосон орхих боломжгүй"
                             }
                         ]}>
                             <Select>
-                                { allSections.map((section, index) => (
+                                {allSections.map((section, index) => (
                                     <Option key={index} value={section.id} >{section.section}</Option>
                                 ))}
                             </Select>
                         </Form.Item>
                         <Form.Item name="date" label={<IntlMessage id="date" />} rules={[
-                            { 
+                            {
                                 required: true,
                                 message: "Хоосон орхих боломжгүй"
                             }
                         ]}>
-                            <DatePicker 
+                            <DatePicker
                                 showTime
-                                style={{ width: '100%' }} 
+                                style={{ width: '100%' }}
                             />
                         </Form.Item>
                         <Form.Item name="status" label={<IntlMessage id="status" />} rules={[
-                            { 
+                            {
                                 required: true,
                                 message: "Хоосон орхих боломжгүй"
                             }
@@ -171,12 +178,12 @@ function SchoolForm ({editData, formType, setIsModalVisible, refetch}) {
                                 showSearch
                                 filterOption={false}
                                 notFoundContent={
-                                    teacherLoading ? <Loading cover='content' /> 
-                                    : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                                    teacherLoading ? <Loading cover='content' />
+                                        : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
                                 }
                                 onSearch={onSearch}
                             >
-                                { teacherData.map((item, index) => (
+                                {teacherData.map((item, index) => (
                                     <Option key={item.id} value={item.id} > {item.familyName} {item.name} / {item.teacherCode} </Option>
                                 ))}
                             </Select>
@@ -190,13 +197,13 @@ function SchoolForm ({editData, formType, setIsModalVisible, refetch}) {
                             <Select
                                 onChange={onClassesChange}
                             >
-                                { allClasses?.allClassess.map((classes, index) => (
+                                {allClasses?.allClassess.map((classes, index) => (
                                     <Option key={index} value={classes.id} >{classes.classes}</Option>
                                 ))}
                             </Select>
                         </Form.Item>
                         <Form.Item name="type" label={<IntlMessage id="onlineType" />} rules={[
-                            { 
+                            {
                                 required: true,
                                 message: "Хоосон орхих боломжгүй"
                             }
@@ -207,7 +214,7 @@ function SchoolForm ({editData, formType, setIsModalVisible, refetch}) {
                             </Select>
                         </Form.Item>
                         <Form.Item name="duration" label={<IntlMessage id="duration" />} rules={[
-                            { 
+                            {
                                 required: true,
                                 message: "Хоосон орхих боломжгүй"
                             }

@@ -11,6 +11,7 @@ from apps.schoolyear.models import Schoolyear
 from datetime import date, datetime, timedelta
 from graphql_jwt.decorators import login_required, permission_required
 from django.db.models import Q
+from apps.student.decorators import student_payment_decorator
 
 class RoutineType(DjangoObjectType):
     class Meta:
@@ -36,6 +37,7 @@ class Query(object):
 
     @login_required
     @permission_required('routine.view_routine')
+    @student_payment_decorator
     def resolve_routines(root, info, filter):
 
         fields = Routine.filter_fields()
@@ -68,6 +70,7 @@ class Query(object):
 
     @login_required
     @permission_required('routine.view_routine_time')
+    @student_payment_decorator
     def resolve_all_routine_times(root, info, date):
 
         nxt_mnth = date.replace(day=28) + timedelta(days=4)
