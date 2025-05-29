@@ -83,7 +83,7 @@ export const RegisterForm = props => {
         if (token && user) {
             history.push('/app/home')
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user, token])
 
     return (
@@ -100,129 +100,107 @@ export const RegisterForm = props => {
             }
             <Form
                 layout="vertical"
-                name="login-form"
-                onFinish={e => {
-                    onRegister({ variables: e });
-                }}
+                name="register-form"
+                onFinish={e => onRegister({ variables: e })}
             >
                 <Row gutter={[16, 24]}>
-                    <Col className="gutter-row" span={12}>
+                    <Col xs={24} md={12}>
                         <Form.Item
                             name="familyName"
                             label={<IntlMessage id="familyName" />}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Нэвтрэх нэр оруулна уу',
-                                }
-                            ]}>
+                            rules={[{ required: true, message: 'Нэр оруулна уу' }]}
+                        >
                             <Input />
                         </Form.Item>
+
                         <Form.Item
                             name="phone"
                             label={<IntlMessage id="phone" />}
                             help={error.phone}
                             validateStatus={error.phone && "error"}
                             rules={[
-                                {
-                                    required: true,
-                                    message: 'Нэвтрэх нэр оруулна уу',
-                                },
+                                { required: true, message: 'Утасны дугаар оруулна уу' },
                                 {
                                     validator(rule, value) {
-                                        if (phoneRegEx.test(value)) {
-                                            return Promise.resolve();
-                                        }
+                                        if (!value || phoneRegEx.test(value)) return Promise.resolve();
                                         return Promise.reject('Утасны дугаар буруу байна!');
-                                    },
+                                    }
                                 }
-                            ]}>
-                            <InputNumber className='w-full' />
+                            ]}
+                        >
+                            <InputNumber className="w-full" />
                         </Form.Item>
+
                         <Form.Item
                             name="classtime"
                             label={<IntlMessage id="classtime" />}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Нэвтрэх нэр оруулна уу',
-                                }
-                            ]}>
-                            <Select>
-                                {classTimes?.allClasstimes.map((classtime) => (
-                                    <Option key={classtime.id} value={classtime.id} >{classtime.name}</Option>
+                            rules={[{ required: true, message: 'Анги сонгоно уу' }]}
+                        >
+                            <Select placeholder="Анги сонгох">
+                                {classTimes?.allClasstimes.map(classtime => (
+                                    <Option key={classtime.id} value={classtime.id}>
+                                        {classtime.name}
+                                    </Option>
                                 ))}
                             </Select>
                         </Form.Item>
+
                         <Form.Item
                             name="password"
                             label={<IntlMessage id="password" />}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Нууц үг оруулна уу',
-                                }
-                            ]}
+                            rules={[{ required: true, message: 'Нууц үг оруулна уу' }]}
                         >
                             <Input.Password />
                         </Form.Item>
                     </Col>
-                    <Col className="gutter-row" span={12}>
+
+                    <Col xs={24} md={12}>
                         <Form.Item
                             name="name"
                             label={<IntlMessage id="name" />}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Нэвтрэх нэр оруулна уу',
-                                }
-                            ]}>
+                            rules={[{ required: true, message: 'Нэр оруулна уу' }]}
+                        >
                             <Input />
                         </Form.Item>
+
                         <Form.Item
                             name="sex"
                             label={<IntlMessage id="sex" />}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Нэвтрэх нэр оруулна уу',
-                                }
-                            ]}>
-                            <Select>
+                            rules={[{ required: true, message: 'Хүйс сонгоно уу' }]}
+                        >
+                            <Select placeholder="Хүйс сонгох">
                                 <Option value="Эрэгтэй"><IntlMessage id="sex.male" /></Option>
                                 <Option value="Эмэгтэй"><IntlMessage id="sex.female" /></Option>
                             </Select>
                         </Form.Item>
+
                         <Form.Item
                             name="email"
                             label={<IntlMessage id="email" />}
                             help={error.email}
                             validateStatus={error.email && "error"}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Нэвтрэх нэр оруулна уу',
-                                }
-                            ]}>
+                            rules={[{ required: true, message: 'И-мэйл оруулна уу' }]}
+                        >
                             <Input />
                         </Form.Item>
+
                         <Form.Item
                             name="address"
                             label={<IntlMessage id="address" />}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Нэвтрэх нэр оруулна уу',
-                                }
-                            ]}>
+                            rules={[{ required: true, message: 'Хаяг оруулна уу' }]}
+                        >
                             <Input.TextArea />
                         </Form.Item>
                     </Col>
                 </Row>
+
                 <Form.Item>
-                    <Button type="primary" htmlType="submit" block loading={loading}> <IntlMessage id="main.register" /></Button>
+                    <Button type="primary" htmlType="submit" block loading={loading}>
+                        <IntlMessage id="main.register" />
+                    </Button>
                 </Form.Item>
             </Form>
+
         </div>
     )
 }
