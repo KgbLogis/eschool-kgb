@@ -1,94 +1,31 @@
 import { AUTH_PREFIX_PATH } from 'configs/AppConfig';
 import useDomain from 'hooks/useDomain';
-import React from 'react'
-import { Switch, Route, } from "react-router-dom";
-import { Link, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Switch, Route, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AuthViews from 'views/auth-views';
 
 export const AuthLayout = () => {
-
-	const { domainData } = useDomain()
-
-	const { pathname } = useLocation()
-
-	console.log(pathname);
-
+	const { domainData } = useDomain();
+	const { pathname } = useLocation();
 
 	return (
-		// <div className="auth-container">
-		// 	<section className="absolute w-full h-full">
-		// 		<div className="absolute top-0 w-full h-full bg-mkp-2" />
-		// 		<div className="container mx-auto px-4 h-full">
-		// 			<div className="flex content-center items-center justify-center h-full">
-		// 				<div className="hidden lg:block w-3/12 px-4">
-		// 					<img src="/img/flags/login-mn.png" alt="Left decoration" className="w-full h-auto" />
-		// 				</div>
+		<div className="min-h-screen flex flex-col">
+			<section className="relative w-full flex-1">
+				<div className="absolute top-0 w-full h-full bg-gradient-to-r from-mkp-400 to-mkp -z-10" />
 
-		// 				{/* Login form */}
-		// 				<div className="w-full px-4">
-		// 					<div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-[#f9f1dc] border-0">
-		// 						<div className="rounded-t mb-0 px-6 py-6">
-		// 							<div className="text-center ">
-		// 								<img
-		// 									alt="Мон Кор Фовер"
-		// 									className="w-44 mx-auto"
-		// 									src={domainData.logo}
-		// 								/>
-		// 							</div>
-		// 						</div>
-		// 						<div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-		// 							<Switch>
-		// 								<Route path="" component={AuthViews} />
-		// 							</Switch>
-		// 						</div>
-		// 					</div>
-		// 				</div>
-		// 				<div className="hidden lg:block w-3/12 px-4">
-		// 					<img src="/img/flags/login-ko.png" alt="Right decoration" className="w-full h-auto" />
-		// 				</div>
-		// 			</div>
-		// 		</div>
+				<div className="container mx-auto px-4 h-full flex items-center justify-center">
+					<div className="flex flex-col lg:flex-row w-full h-full items-center justify-center">
 
-		// 		<footer className="hidden absolute w-full bottom-0 bg-mkp">
-		// 			<div className="container mx-auto px-4">
-		// 				<hr className="mb-6 border-b-1 border-gray-700" />
-		// 				<div className="flex flex-wrap items-center md:justify-between justify-center">
-		// 					<div className="w-full md:w-4/12 px-4">
-		// 						<div className="text-sm text-mkp-2 font-semibold py-1">
-		// 							© {new Date().getFullYear()}
-		// 							<a href="/" className="text-mkp-2 hover:text-mkp-2-600 text-sm font-semibold py-1">
-		// 								{" "}Мон Кор Фовер
-		// 							</a>
-		// 						</div>
-		// 					</div>
-		// 					<div className="w-full md:w-8/12 px-4">
-		// 						<ul className="flex flex-wrap list-none md:justify-end justify-center">
-		// 							<li>
-		// 								<a href="/" className="text-mkp-2 hover:text-mkp-2-600 text-sm font-semibold block py-1 px-3">Үйлчилгээний нөхцөл</a>
-		// 							</li>
-		// 							<li>
-		// 								<a href="/" className="text-mkp-2 hover:text-mkp-2-600 text-sm font-semibold block py-1 px-3">Нууцлалын бодлого</a>
-		// 							</li>
-		// 						</ul>
-		// 					</div>
-		// 				</div>
-		// 			</div>
-		// 		</footer>
-		// 	</section>
-		// </div>
-		<div className="auth-container">
-			<section className="absolute w-full h-full">
-				<div className="absolute top-0 w-full h-full bg-gradient-to-r from-mkp-400 to-mkp " />
-				<div className="container mx-auto px-4 h-full">
-					<div className="flex content-center items-center justify-center h-full">
-						<div className="hidden lg:block w-3/12 px-4">
+						{/* Left decoration - hidden on small screens */}
+						<div className="hidden lg:block lg:w-3/12 px-4">
 							<img src="/img/flags/login-mn.png" alt="Left decoration" className="w-full h-auto" />
 						</div>
 
-						{/* Login/Register form */}
-						<div className="w-full px-4">
-							<div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-mkp-2 border-0">
-								<div className="rounded-t mb-0 px-6 py-6">
+						{/* Form section */}
+						<div className="w-full sm:w-10/12 md:w-8/12 lg:w-6/12 px-4 my-8">
+							<div className="relative flex flex-col min-w-0 break-words w-full shadow-lg rounded-lg bg-mkp-2 border-0">
+								<div className="rounded-t px-6 py-6">
 									<div className="text-center">
 										<img
 											alt="Мон Кор Фовер"
@@ -100,18 +37,18 @@ export const AuthLayout = () => {
 										<div className="mt-6 inline-flex border border-mkp rounded-full overflow-hidden bg-white shadow-sm">
 											<Link
 												to={`${AUTH_PREFIX_PATH}/login`}
-												className={`px-6 py-2 text-sm font-semibold transition-colors duration-200 ${pathname === "/auth/login"
-														? "bg-mkp text-white"
-														: "text-mkp hover:bg-mkp/10"
+												className={`px-6 py-2 text-sm font-semibold transition-colors duration-200 ${pathname === `${AUTH_PREFIX_PATH}/login`
+													? "bg-mkp text-white"
+													: "text-mkp hover:bg-mkp/10"
 													}`}
 											>
 												Нэвтрэх
 											</Link>
 											<Link
 												to={`${AUTH_PREFIX_PATH}/register`}
-												className={`px-6 py-2 text-sm font-semibold transition-colors duration-200 ${pathname === "/auth/register"
-														? "bg-mkp text-white"
-														: "text-mkp hover:bg-mkp/10"
+												className={`px-6 py-2 text-sm font-semibold transition-colors duration-200 ${pathname === `${AUTH_PREFIX_PATH}/register`
+													? "bg-mkp text-white"
+													: "text-mkp hover:bg-mkp/10"
 													}`}
 											>
 												Бүртгүүлэх
@@ -119,49 +56,24 @@ export const AuthLayout = () => {
 										</div>
 									</div>
 								</div>
+
 								<div className="flex-auto px-4 lg:px-10 py-10 pt-0">
 									<Switch>
-										<Route path="" component={AuthViews} />
+										<Route path={`${AUTH_PREFIX_PATH}/`} component={AuthViews} />
 									</Switch>
 								</div>
 							</div>
 						</div>
 
-						<div className="hidden lg:block w-3/12 px-4">
+						{/* Right decoration - hidden on small screens */}
+						<div className="hidden lg:block lg:w-3/12 px-4">
 							<img src="/img/flags/login-ko.png" alt="Right decoration" className="w-full h-auto" />
 						</div>
 					</div>
 				</div>
-
-				<footer className="hidden absolute w-full bottom-0 bg-mkp">
-					<div className="container mx-auto px-4">
-						<hr className="mb-6 border-b-1 border-gray-700" />
-						<div className="flex flex-wrap items-center md:justify-between justify-center">
-							<div className="w-full md:w-4/12 px-4">
-								<div className="text-sm text-mkp-2 font-semibold py-1">
-									© {new Date().getFullYear()}
-									<a href="/" className="text-mkp-2 hover:text-mkp-2-600 text-sm font-semibold py-1">
-										{" "}Мон Кор Фовер
-									</a>
-								</div>
-							</div>
-							<div className="w-full md:w-8/12 px-4">
-								<ul className="flex flex-wrap list-none md:justify-end justify-center">
-									<li>
-										<a href="/" className="text-mkp-2 hover:text-mkp-2-600 text-sm font-semibold block py-1 px-3">Үйлчилгээний нөхцөл</a>
-									</li>
-									<li>
-										<a href="/" className="text-mkp-2 hover:text-mkp-2-600 text-sm font-semibold block py-1 px-3">Нууцлалын бодлого</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</footer>
 			</section>
 		</div>
-	)
-}
+	);
+};
 
-
-export default AuthLayout
+export default AuthLayout;

@@ -5,7 +5,7 @@ import { classNames } from 'utils'
 import { ChevronDownIcon } from '@heroicons/react/outline'
 import { Transition } from '@headlessui/react'
 
-const MenuLink = ({ menu, active }) => {
+const MenuLink = ({ menu, active, onClick }) => {
     return (
         <Link
             className={classNames(
@@ -13,10 +13,11 @@ const MenuLink = ({ menu, active }) => {
                 "h-[50px] flex items-center rounded-2 text-white mb-1 relative group w-full flex-row justify-start text-xs font-medium space-x-2 hover:bg-gradient-to-l from-mkp-300 to-mkp "
             )}
             to={menu.path}
+            onClick={onClick}
         >
             <div className={classNames(
-                active ? 'bg-mkp/20' : '',
-                'w-[2%] h-full rounded-l-4'
+                active ? 'bg-[#ecc023]' : '',
+                'w-[2%] h-full rounded-l-4 group-hover:bg-[#ecc023]'
             )} />
             <menu.icon
                 className={classNames(
@@ -24,14 +25,6 @@ const MenuLink = ({ menu, active }) => {
                     'h-8 w-8 group-hover:fill-white'
                 )}
             />
-            {/* <img
-                className={classNames(
-                    active ? 'fill-mkp' : 'fill-mkp',
-                    'h-8 w-8 group-hover:fill-mkp'
-                )}
-                alt='icon'
-                src={`/img/menu/${menu.icon}.png`}
-            /> */}
             <span
                 className={classNames(
                     active ? 'text-white' : ' group-hover:text-white',
@@ -44,7 +37,7 @@ const MenuLink = ({ menu, active }) => {
     )
 }
 
-const MenuItem = ({ menu }) => {
+const MenuItem = ({ menu, onClick }) => {
 
     const location = useLocation()
     const [subnav, setSubnav] = useState(false);
@@ -114,6 +107,7 @@ const MenuItem = ({ menu }) => {
                 <MenuLink
                     menu={menu}
                     active={checkActive({ path: menu.path })}
+                    onClick={onClick}
                 />
 
             }
@@ -140,6 +134,7 @@ const MenuItem = ({ menu }) => {
                                     <MenuLink
                                         menu={submenu}
                                         active={checkActive({ path: submenu.path })}
+                                        onClick={onClick}
                                     />
                                 </li>
                             ))}

@@ -69,7 +69,7 @@ export default function AppLayout() {
                   <div className="flex-shrink-0 px-4 flex items-center">
                     <img
                       className={classNames(
-                        "w-auto bg-[#faf2df] rounded-full h-16"
+                        "w-auto h-16"
                       )}
                       src={domainData.logo}
                       alt="Logo"
@@ -101,7 +101,7 @@ export default function AppLayout() {
           <div
             className="flex"
           >
-            <nav className="hidden bg-mkp-2 rounded-4 mr-4 lg:block w-[105px] lg:w-[300px] px-5 pt-8 pb-16 overflow-x-hidden">
+            <nav className="hidden bg-[#FBFCFA] rounded-4 mr-4 lg:block w-[105px] lg:w-[300px] px-5 pt-8 pb-16 overflow-x-hidden">
               <img
                 alt="logo"
                 className={classNames(
@@ -116,7 +116,7 @@ export default function AppLayout() {
                 ))}
               </ul>
             </nav>
-            <div className="max-w-full lg:max-w-auto rounded-[1.3rem] flex-1 min-w-0 min-h-screen pb-10 shadow-sm bg-white">
+            <div className="max-w-full lg:max-w-auto rounded-[1.3rem] flex-1 min-w-0 min-h-screen pb-10 shadow-sm bg-[#FBFCFA]">
               <header className="h-[70px] relative flex items-center justify-between mx-9 md:justify-end">
                 <button
                   type="button"
