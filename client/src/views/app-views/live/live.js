@@ -13,7 +13,7 @@ export default function Live(props) {
     const history = useHistory();
 
     const [meetingUrl, setMeetingUrl] = useState("")
-    const [password, setPassword] = useState("")
+    // const [password, setPassword] = useState("")
 
     const { user } = useContext(UserContext)
 
@@ -26,21 +26,21 @@ export default function Live(props) {
         variables: { liveId: meetingId },
         onCompleted: result => {
             setMeetingUrl(result.getLiveurl.url)
-            setPassword(result.getLiveurl.password)
+            // setPassword(result.getLiveurl.password)
         }
     })
 
-    const handleApiReady = (externalApi) => {
-        externalApi.addEventListener("participantRoleChanged", (event) => {
-            if (event.role === "moderator") {
-                externalApi.executeCommand("password", password);
-            }
-        });
+    // const handleApiReady = (externalApi) => {
+    //     externalApi.addEventListener("participantRoleChanged", (event) => {
+    //         if (event.role === "moderator") {
+    //             externalApi.executeCommand("password", password);
+    //         }
+    //     });
 
-        externalApi.addEventListener("passwordRequired", () => {
-            externalApi.executeCommand("password", password);
-        });
-    };
+    //     externalApi.addEventListener("passwordRequired", () => {
+    //         externalApi.executeCommand("password", password);
+    //     });
+    // };
 
     function handleReadyToClose() {
         history.push('/app/live');
@@ -61,7 +61,7 @@ export default function Live(props) {
                     displayName: user.firstName
                 }}
                 onReadyToClose={handleReadyToClose}
-                onApiReady={handleApiReady}
+                // onApiReady={handleApiReady}
             />
         </>
     )
