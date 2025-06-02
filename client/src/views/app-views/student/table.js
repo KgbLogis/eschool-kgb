@@ -11,6 +11,7 @@ import ChangePassword from 'components/shared-components/ChangePassword';
 import Flex from 'components/shared-components/Flex';
 import { UserContext } from 'hooks/UserContextProvider';
 import { SELECT_CLASSES, SELECT_PROGRAM, SELECT_SECTION } from 'graphql/select';
+import moment from 'moment';
 
 const { confirm } = Modal;
 const { Option } = Select
@@ -166,12 +167,6 @@ function StudentsTable(props) {
 			render: text => <span>{text.substr(0, 4) + `-` + text.substr(4, 9)}</span>,
 		},
 		{
-			key: 'address',
-			title: <IntlMessage id="address" />,
-			dataIndex: 'address',
-			sorter: (a, b) => utils.antdTableSorter(a, b, 'address')
-		},
-		{
 			key: 'isPaid',
 			title: <IntlMessage id="isPaid" />,
 			dataIndex: 'isPaid',
@@ -182,7 +177,14 @@ function StudentsTable(props) {
 					'px-2 py-1 font-weight-bold rounded-lg d-inline-block text-white'
 				)}>{elm.isPaid === true ? 'Төлсөн' : 'Төлөөгүй'}</span>
 			)
-		}
+		},
+		{
+			key: 'createdAt',
+			title: <IntlMessage id="registeredAt" />,
+			dataIndex: 'createdAt',
+			sorter: (a, b) => utils.antdTableSorter(a, b, 'createdAt'),
+			render: text => <span>{moment(text).format("YYYY-MM-DD")}</span>,
+		},
 	];
 
 	if (props.permissions.edit === true || props.permissions.destroy === true) {

@@ -9,18 +9,18 @@ const MenuLink = ({ menu, active }) => {
     return (
         <Link
             className={classNames(
-                active ? "bg-mkp/10" : "",
-                "h-[50px] flex items-center rounded-2 text-white mb-1 relative group w-full flex-row justify-start text-xs font-medium space-x-2 hover:bg-mkp/5"
+                active ? "bg-gradient-to-l from-mkp-300 to-mkp " : "",
+                "h-[50px] flex items-center rounded-2 text-white mb-1 relative group w-full flex-row justify-start text-xs font-medium space-x-2 hover:bg-gradient-to-l from-mkp-300 to-mkp "
             )}
             to={menu.path}
         >
             <div className={classNames(
-                active ? 'bg-mkp' : '',
+                active ? 'bg-mkp/20' : '',
                 'w-[2%] h-full rounded-l-4'
             )} />
             <menu.icon
                 className={classNames(
-                    active ? 'fill-white' : 'fill-slate-200',
+                    active ? 'fill-white' : 'fill-mkp',
                     'h-8 w-8 group-hover:fill-white'
                 )}
             />
@@ -35,7 +35,7 @@ const MenuLink = ({ menu, active }) => {
             <span
                 className={classNames(
                     active ? 'text-white' : ' group-hover:text-white',
-                    'text-sm font-semibold ml-3 text-slate-200'
+                    'text-sm font-semibold ml-3 text-mkp'
                 )}
             >
                 <IntlMessage id={menu.title} />
@@ -74,15 +74,15 @@ const MenuItem = ({ menu }) => {
                 <div
                     onClick={handleSubNav}
                     className={classNames(
-                        subnav ? 'bg-mkp/5' :
+                        subnav ? 'bg-gradient-to-l from-mkp-300 to-mkp ' :
                             '',
-                        'group w-full p-2 rounded-3 flex justify-start items-center text-xs font-medium hover:text-white hover:cursor-pointer hover:bg-mkp/5'
+                        'group w-full p-2 rounded-3 flex justify-start items-center text-xs font-medium hover:text-white hover:cursor-pointer hover:bg-mkp'
                     )}
                 >
                     <menu.icon
                         className={classNames(
-                            // location.pathname.includes(menu.path) ? 'fill-white' : 'fill-slate-300',
-                            'h-8 w-8 fill-white group-hover:fill-white'
+                            subnav ? 'fill-white' : 'fill-mkp',
+                            'h-8 w-8 group-hover:fill-white'
                         )}
                     />
                     {/* <img
@@ -96,7 +96,7 @@ const MenuItem = ({ menu }) => {
                     <div className='flex justify-between w-full items-center'>
                         <span
                             className={classNames(
-                                subnav ? 'text-white' : ' text-white group-hover:text-white',
+                                subnav ? 'text-white' : ' text-mkp group-hover:text-white',
                                 'text-sm font-semibold ml-3'
                             )}
                         >
@@ -104,7 +104,7 @@ const MenuItem = ({ menu }) => {
                         </span>
                         <ChevronDownIcon
                             className={classNames(
-                                subnav ? 'text-white rotate-180 ' : 'text-white',
+                                subnav ? 'text-white rotate-180 ' : 'text-mkp',
                                 'h-4 w-4 transform transition'
                             )}
                         />

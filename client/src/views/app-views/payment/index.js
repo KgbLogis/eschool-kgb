@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { useMutation, useQuery } from '@apollo/client';
-import { Button, Card, Image, message, Steps, Typography } from 'antd';
+import { Button, Card, message, Steps, Typography } from 'antd';
 import { CHECK_INVOICE_STATUS, CREATE_INVOICE, INVOICE_BY_STUDENT } from 'graphql/payment';
 import { UserContext } from 'hooks/UserContextProvider';
 
@@ -24,7 +24,7 @@ const Sanamj = () => {
     )
 }
 
-const Qpay = ({ invoice }) => {
+const Qpay = ({ invoice, checkInvoiceStatus }) => {
 
     return (
         <div className='text-center mt-4'>
@@ -34,11 +34,31 @@ const Qpay = ({ invoice }) => {
                     Та энэхүү QR кодыг банкны апликэйшнаар уншуулан төлөөрэй Social pay-ээр уншуулах боломжгүй.
                 </Paragraph>
             </Typography>
-            <Image
-                width={300}
-                preview={false}
+            <img
+                className='hidden mx-auto md:block'
+                alt="qpay"
                 src={`data:image/png;base64, ${invoice.qpayQrImage}`}
             />
+            <div className='grid grid-cols-3 gap-4 md:hidden'>
+                {invoice.invoiceStockSet.map((stock, index) => (
+                    <div key={index}>
+                        <a href={stock.link} target="_blank" rel="noreferrer">
+                            <img
+                                className='mx-auto rounded-4'
+                                alt="qpay"
+                                src={stock.logo}
+                            />
+                        </a>
+                    </div>
+                ))}
+            </div>
+            <Button
+                onClick={() => checkInvoiceStatus()}
+                className='mt-2'
+                type='primary'
+            >
+                Шалгах
+            </Button>
         </div>
     )
 }
@@ -56,6 +76,18 @@ const Index = () => {
         }
     })
 
+    const { refetch: checkInvoiceStatus } = useQuery(CHECK_INVOICE_STATUS, {
+        pollInterval: 10000,
+        variables: { id: invoice ? invoice.id : 1 },
+        onCompleted: data => {
+            if (data.checkInvoiceStatus === 'PENDING') {
+                message.warning('Төлбөр төлөгдөөгүй байна!')
+            } else {
+                refetch()
+            }
+        }
+    })
+
     const steps = [
         {
             title: 'Эхлэл',
@@ -63,7 +95,7 @@ const Index = () => {
         },
         {
             title: 'Төлбөр',
-            content: <Qpay invoice={invoice} />,
+            content: <Qpay invoice={invoice} checkInvoiceStatus={checkInvoiceStatus} />,
         },
         {
             title: 'Дуусгах',
@@ -76,18 +108,6 @@ const Index = () => {
             setInvoice(data.invoiceByStudent);
             if (data.invoiceByStudent === null) {
                 createInvoice()
-            }
-        }
-    })
-
-    useQuery(CHECK_INVOICE_STATUS, {
-        pollInterval: 10000,
-        variables: { id: invoice ? invoice.id : 1 },
-        onCompleted: data => {
-            if (data.checkInvoiceStatus === 'PENDING') {
-                message.warning('Төлбөр төлөгдөөгүй байна!')
-            } else {
-                refetch()
             }
         }
     })

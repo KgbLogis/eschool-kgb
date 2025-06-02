@@ -266,6 +266,7 @@ export const ALL_STUDENTS = gql`
             phone
             address
             isPaid
+            createdAt
             activity {
                 id
                 name

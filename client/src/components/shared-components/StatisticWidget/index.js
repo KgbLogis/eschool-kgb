@@ -5,7 +5,7 @@ const StatisticWidget = ({ title, value, Svg, colorType }) => {
 
 	return (
 		<div className={classNames(
-			`flex justify-between items-center bg-gradient-to-r from-mkp-2-400 to-mkp-2 rounded-2 `
+			`flex justify-between items-center bg-gradient-to-r from-mkp-400 to-mkp rounded-2 `
 		)}>
 			<div className='p-4'>
 				<h4 className="mb-0 font-bold text-white">{title}</h4>

@@ -20,7 +20,7 @@ export default function AppLayout() {
   const { domainData } = useDomain()
 
   return (
-    <div className='bg-mkp px-5 max-w-full overflow-hidden'>
+    <div className='bg-gradient-to-r from-mkp-300 to-mkp  px-5 max-w-full overflow-hidden'>
       <div className="pb-7 before:content-[''] before:absolute before:inset-0 before:bg-fixed before:bg-no-repeat before:bg-skew-pattern">
         <Transition.Root show={mobileMenuOpen} as={Fragment}>
           <Dialog as="div" className="lg:hidden" onClose={setMobileMenuOpen}>
@@ -45,7 +45,7 @@ export default function AppLayout() {
                 leaveFrom="translate-x-0"
                 leaveTo="-translate-x-full"
               >
-                <div className="relative max-w-xs w-full bg-white pt-5 pb-4 flex-1 flex flex-col">
+                <div className="relative max-w-xs w-full bg-mkp-2 pt-5 pb-4 flex-1 flex flex-col">
                   <Transition.Child
                     as={Fragment}
                     enter="ease-in-out duration-300"
@@ -69,8 +69,7 @@ export default function AppLayout() {
                   <div className="flex-shrink-0 px-4 flex items-center">
                     <img
                       className={classNames(
-                        domainData.logo === defaultLogo ? 'h-8' : 'h-16 ',
-                        "w-auto"
+                        "w-auto bg-[#faf2df] rounded-full h-16"
                       )}
                       src={domainData.logo}
                       alt="Logo"
@@ -107,7 +106,7 @@ export default function AppLayout() {
                 alt="logo"
                 className={classNames(
                   domainData.logo === defaultLogo ? 'h-16' : 'h-16 ',
-                  "w-auto hidden ml-16 my-auto mx-auto lg:block bg-[#faf2df] rounded-full"
+                  "w-auto hidden ml-16 my-auto mx-auto lg:block "
                 )}
                 src={domainData.logo}
               />
