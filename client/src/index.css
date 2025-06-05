@@ -53,6 +53,19 @@ svg {
 }
 
 .custom-select .ant-select-selector {
-  background-color: #0F4430 !important; 
+  background-color: #0F4430 !important;
   color: white
+}
+
+.watermark {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  color: rgba(255, 0, 0, 0.2);
+  font-size: 30px;
+  pointer-events: none;
+  user-select: none;
+  z-index: 9999;
+  transform: rotate(-45deg);
+  white-space: nowrap;
 }

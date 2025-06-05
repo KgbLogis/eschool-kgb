@@ -8,6 +8,7 @@ export const MEETING_DOMAIN = env.MEETING_DOMAIN;
 export const APP_PREFIX_PATH = '/app';
 export const AUTH_PREFIX_PATH = '/auth';
 export const REPORT_PREFIX_PATH = '/report';
+export const LANDING_PREFIX_PATH = '/landing';
 
 const locale = localStorage.getItem('locale');
 

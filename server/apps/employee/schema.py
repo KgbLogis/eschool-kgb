@@ -150,6 +150,7 @@ class CreateEmployee(graphene.Mutation):
         
         userob = get_user_model()(username=username,email=email,first_name=name,last_name=family_name,is_student=False,is_teacher=False,is_parent=False,is_employee=True)
         userob.set_password(password)
+        userob.verified = True
         userob.save()
         user_i = get_user_model().objects.get(pk=userob.pk)
 
