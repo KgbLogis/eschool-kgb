@@ -1,4 +1,4 @@
-import { AUTH_PREFIX_PATH } from 'configs/AppConfig';
+import { AUTH_PREFIX_PATH, LANDING_PREFIX_PATH } from 'configs/AppConfig';
 import useDomain from 'hooks/useDomain';
 import React from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
@@ -27,11 +27,13 @@ export const AuthLayout = () => {
 							<div className="relative flex flex-col min-w-0 break-words w-full shadow-lg rounded-lg bg-mkp-2 border-0">
 								<div className="rounded-t px-6 py-6">
 									<div className="text-center">
-										<img
-											alt="Мон Кор Фовер"
-											className="w-44 mx-auto"
-											src={domainData.logo}
-										/>
+										<Link to={LANDING_PREFIX_PATH}>
+											<img
+												alt="Мон Кор Фовер"
+												className="w-44 mx-auto"
+												src={domainData.logo}
+											/>
+										</Link>
 
 										{/* Toggle Tabs */}
 										<div className="mt-6 inline-flex border border-mkp rounded-full overflow-hidden bg-white shadow-sm">

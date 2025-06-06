@@ -211,13 +211,17 @@ export default function LandingLayout() {
                             </h3>
                             <div className='flex gap-4'>
                                 <div className='footer-icons'>
-                                    <Link href="https://facebook.com"><img className='h-5 w-auto' src={'/img/footer/vec.svg'} alt="facebook" /></Link>
+                                    <a href="https://www.facebook.com/profile.php?id=61576745552070" target='_blank' rel='noreferrer'>
+                                        <img className='h-5 w-auto' src={'/img/footer/vec.svg'} alt="facebook" />
+                                    </a>
                                 </div>
-                                <div className='footer-icons'>
+                                {/* <div className='footer-icons'>
                                     <Link href="https://twitter.com"><img className='h-5 w-auto' src={'/img/footer/twitter.svg'} alt="twitter" /></Link>
-                                </div>
+                                </div> */}
                                 <div className='footer-icons'>
-                                    <Link href="https://instagram.com"><img className='h-5 w-auto' src={'/img/footer/instagram.svg'} alt="instagram" /></Link>
+                                    <a href="https://www.instagram.com/mon_kor_power/" target='_blank' rel='noreferrer'>
+                                        <img className='h-5 w-auto' src={'/img/footer/instagram.svg'} alt="instagram" />
+                                    </a>
                                 </div>
                             </div>
                         </div>

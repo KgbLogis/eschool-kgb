@@ -22,11 +22,7 @@ const UpdatePassword = () => {
                         {
                             name: 'oldPassword',
                             errors: [
-                                data.passwordChange.errors.oldPassword.map((err, index) => (
-                                    <>
-                                        <IntlMessage key={index} id={err.message} /> <br/>
-                                    </>
-                                ))
+                                data.passwordChange.errors.oldPassword
                             ]
                         }
                     ])
@@ -36,11 +32,7 @@ const UpdatePassword = () => {
                         {
                             name: 'newPassword2',
                             errors: [
-                                data.passwordChange.errors.newPassword2.map((err, index) => (
-                                    <>
-                                        <IntlMessage key={index} id={err.message} /> <br/>
-                                    </>
-                                ))
+                                data.passwordChange.errors.newPassword2
                             ]
                         }
                     ])

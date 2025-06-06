@@ -29,13 +29,13 @@ import apps.contact_book.schema
 import apps.conversation.schema
 import apps.flextime.schema
 import apps.handover.schema
-from graphql_auth.schema import UserQuery, MeQuery
+from graphql_auth.schema import MeQuery
 from graphql_auth import mutations
 
 class AuthMutation(graphene.ObjectType):
     # register = mutations.Register.Field()
     # password_reset = mutations.PasswordReset.Field()
-    password_change = mutations.PasswordChange.Field()
+    # password_change = mutations.PasswordChange.Field()
     # archive_account = mutations.ArchiveAccount.Field()
     # update_account = mutations.UpdateAccount.Field()
     
@@ -45,7 +45,7 @@ class AuthMutation(graphene.ObjectType):
     # revoke_token = mutations.RevokeToken.Field()
 
 class Query(
-    UserQuery, 
+    # UserQuery, 
     MeQuery, 
     account.schema.Query,
     apps.support.schema.Query,

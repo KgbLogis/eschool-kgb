@@ -6,6 +6,8 @@ from apps.teacher.models import Teacher
 from apps.parent.models import Parent
 from apps.employee.models import Employee
 from graphql_jwt.decorators import login_required
+from graphql_jwt.shortcuts import get_token
+from graphene.types.generic import GenericScalar
 
 class AccountType(DjangoObjectType):
     class Meta:
@@ -25,6 +27,18 @@ class Custom_accountType(graphene.ObjectType):
     phone2 = graphene.String()
     address = graphene.String()
 
+class ErrorType(graphene.ObjectType):
+    message = graphene.String()
+    code = graphene.String()
+
+class PasswordChangeErrorsType(graphene.ObjectType):
+    non_field_errors = graphene.List(ErrorType)
+
+class PasswordChangeResponse(graphene.ObjectType):
+    success = graphene.Boolean()
+    errors = GenericScalar()
+    token = graphene.String()
+    
 class Query(object):
     all_accounts = graphene.List(AccountType)
     account_self = graphene.Field(Custom_accountType)
@@ -111,5 +125,49 @@ class UpdateMyAccount(graphene.Mutation):
         account_i.save()
         return UpdateMyAccount(account=account_i)
 
+class PasswordChange(graphene.Mutation):
+    
+    success = graphene.Boolean()
+    errors = GenericScalar()
+    token = graphene.String()
+    
+    class Arguments:
+        old_password = graphene.String()
+        new_password1 = graphene.String()
+        new_password2 = graphene.String()
+
+    @login_required
+    def mutate(self, info, old_password, new_password1, new_password2):
+        user_i = info.context.user
+        errors={}
+        
+        if not user_i.check_password(old_password):
+            old_password_error = {"oldPassword": "Нууц үг буруу байна"}
+            errors = {**errors, **old_password_error}
+            return PasswordChange(
+                success=False,
+                errors=errors,
+                token=None
+            )
+        if new_password1 == new_password2:
+            user_i.check_password(old_password)
+            # user_i.set_password(new_password1)
+            # user_i.save()
+            token = get_token(user_i)
+            return PasswordChange(
+                success=True,
+                errors=errors,
+                token=token
+            )
+        else:
+            new_password1_error = {"newPassword2": "Нууц үг таарахгүй байна байна"}
+            errors = {**errors, **new_password1_error}
+            return PasswordChange(
+                success=False,
+                errors=errors,
+                token=None
+            )
+
 class Mutation(graphene.ObjectType):
     update_my_account = UpdateMyAccount.Field()
+    password_change = PasswordChange.Field()
