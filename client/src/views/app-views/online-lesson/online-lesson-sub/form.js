@@ -46,7 +46,7 @@ function LessonForm (props) {
             message.success('Амжилттай хадгаллаа');
             form.resetFields();
             props.setIsModalVisible(false);
-            selectedFiles.map((item) => {
+            selectedFiles.forEach((item) => {
                 createOnlineSubFile({ variables: { onlineSub: data.createOnlineSub.onlineSub.id, onlineFile: item.id } })
             })
 		}
@@ -55,6 +55,9 @@ function LessonForm (props) {
     const { data: allFiles, loading } = useQuery(ALL_ONLINE_FILE, {
         variables: { folder: currentFolder }
     });
+
+    console.log(selectedFiles);
+    
 
     const [updateOnlineLesson, { loading: updateLoading }] = useMutation(UPDATE_SUB_LESSON, {
         refetchQueries: [{
@@ -212,7 +215,7 @@ function LessonForm (props) {
                                 { folderHistory.map((item, index) => (
                                     <li key={index} className="flex items-center space-x-1">
                                         { index !== 0 && <span className=" text-mkp">/</span>}
-                                        <a 
+                                        <p 
                                             onClick={() => currentFolder !== item.id && onBreadcrumbsChange({ key: index, id: item.id })} 
                                             rel="noopener noreferrer" 
                                             className={classNames(
@@ -221,7 +224,7 @@ function LessonForm (props) {
                                             )}
                                         >
                                             {item.name}
-                                        </a>
+                                        </p>
                                     </li>
 
                                 ))}
@@ -254,6 +257,7 @@ function LessonForm (props) {
                                         <img 
                                             className="h-24 w-auto mx-auto text-purple-600" 
                                             src={checkPreviewFileType(item.file)}
+                                            alt='file preview'
                                         />
                                         <p className='mt-1 w-full text-xs'>{item.file}</p>
                                     </div>
@@ -271,6 +275,7 @@ function LessonForm (props) {
                                     <img 
                                         className="h-24 w-auto mx-auto text-purple-600" 
                                         src={checkPreviewFileType(item.file)}
+                                        alt='file preview'
                                     />
                                     <p className='mt-1 w-full text-xs'>{item.file}</p>
                                 </div>

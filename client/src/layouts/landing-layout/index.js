@@ -74,7 +74,7 @@ export default function LandingLayout() {
                                         to={LANDING_PREFIX_PATH+item.href}
                                         className={classNames(
                                             sticky ? 'text-mkp' : 'text-white',
-                                            `text-base flex font-semibold hover:text-mkp capitalize`
+                                            `text-base flex font-semibold hover:text-mkp-2 capitalize`
                                         )}
                                     >
                                         {item.label}

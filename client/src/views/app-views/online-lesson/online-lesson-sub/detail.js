@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Typography, Divider, Badge, Row, Col, Table, Button, Image, Modal } from 'antd';
+import { Button, Image, Modal } from 'antd';
 import { CalendarTwoTone, RollbackOutlined } from '@ant-design/icons';
 import { useQuery } from '@apollo/client';
 import { useParams, Link } from 'react-router-dom';
@@ -12,27 +12,7 @@ import { SUB_BY_ID } from 'graphql/lesson';
 import { APP_PREFIX_PATH, BASE_SERVER_URL } from "configs/AppConfig";
 import IntlMessage from 'components/util-components/IntlMessage';
 
-const { Title, Paragraph } = Typography;
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
-
-
-const attendance_colums = [
-    {
-        title: <IntlMessage id="studentCode" />,
-        dataIndex: ['student', 'studentCode'],
-        key: 'studentCode',
-    },
-    {
-        title: <IntlMessage id="familyName" />,
-        dataIndex: ['student', 'familyName'],
-        key: 'familyName',
-    },
-    {
-        title: <IntlMessage id="name" />,
-        dataIndex: ['student', 'name'],
-        key: 'name',
-    },
-]
 
 const checkFileType = (file) => {
     const type = file.split('.').pop()
@@ -63,15 +43,25 @@ const Detail = (props) => {
     const [pageNumber, setPageNumber] = useState(1);
     const [numPages, setNumPages] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [selectedFile, setSelectedFile] = useState();
+    const [groupedFiles, setGroupedFiles] = useState({});
 
     const { data, loading } = useQuery(SUB_BY_ID, {
-        variables: { id: slug.subLesson }
+        variables: { id: slug.subLesson },
+        onCompleted: res => {
+            setGroupedFiles(res.onlineSubById.onlineSubFileSet.reduce((acc, item) => {
+                const file = item.onlineFile.file
+                const type = checkFileType(file)
+
+                if (!acc[type]) acc[type] = []
+                acc[type].push(file)
+
+                return acc
+            }, {}))
+        }
     });
 
     const showModal = (value) => {
         setIsModalVisible(true);
-        setSelectedFile(FilePreview(value))
     };
 
     const handleCancel = () => {
@@ -109,11 +99,7 @@ const Detail = (props) => {
                 )
             case 'image':
                 return (
-                    <Card>
-                        <Image className="img-fluid items-" width={200} alt="Preview" src={BASE_SERVER_URL + file} />
-                        {/* <Image style={{ maxHeight: '250px' }} preview={false} className="img-fluid" alt="Preview" src={BASE_SERVER_URL+file} /> */}
-
-                    </Card>
+                    <Image className="img-fluid items-" width={200} alt="Preview" src={BASE_SERVER_URL + file} />
                 )
 
             case `pdf`:
@@ -214,15 +200,31 @@ const Detail = (props) => {
                         </div>
                         <p className="mt-4 text-gray-700">{data.onlineSubById.description}</p>
                         <p>{data.onlineSubById.content}</p>
-                        <div>
-                            {data.onlineSubById.onlineSubFileSet.map((item, index) => (
-                                <FilePreview key={index} file={item.onlineFile.file} />
+                        <div className="space-y-8">
+                            {Object.entries(groupedFiles).map(([type, files]) => (
+                                type === 'image' ?
+                                    <Image.PreviewGroup>
+                                        {files.map((file, index) => (
+                                            <FilePreview key={`${type}-${index}`} file={file} />
+                                        ))}
+                                    </Image.PreviewGroup> :
+                                    <div key={type}>
+                                        <h3 className="text-xl font-semibold capitalize mb-4 text-gray-800">{type}</h3>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            {files.map((file, index) => (
+                                                <FilePreview key={`${type}-${index}`} file={file} />
+                                            ))}
+                                        </div>
+                                    </div>
                             ))}
                         </div>
                         <div className="flex flex-row-reverse justify-end -space-x-3 space-x-reverse">
                             {
                                 data.onlineSubById.onlineAttendanceSet.map((item, index) => (
-                                    <div className="relative flex h-8 w-8 shrink-0 select-none items-center justify-center rounded-full bg-gray-100 text-sm font-bold uppercase text-gray-800 ring ring-white">
+                                    <div
+                                        key={index}
+                                        className="relative flex h-8 w-8 shrink-0 select-none items-center justify-center rounded-full bg-gray-100 text-sm font-bold uppercase text-gray-800 ring ring-white"
+                                    >
                                         <img
                                             className="h-full w-full rounded-full object-cover object-center"
                                             src={BASE_SERVER_URL + item.student.photo}
