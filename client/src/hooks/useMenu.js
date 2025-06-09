@@ -45,7 +45,7 @@ export function useMenu() {
     setIsRefetch(true);
     setUserNav([]);
   }
-  
+
   const permissions = {
     view_home: CheckPer("view_home"),
     view_student: CheckPer("view_student"),
@@ -87,7 +87,7 @@ export function useMenu() {
     view_degree: CheckPer("view_degree"),
     view_food: CheckPer("view_food"),
     view_foodmenu: CheckPer("view_foodmenu"),
-    // view_camera: CheckPer("view_camera"),
+    view_news: CheckPer("view_news"),
     view_contactbook: CheckPer("view_contactbook"),
     view_flex_time: CheckPer("view_flex_time")
   };
@@ -256,6 +256,15 @@ export function useMenu() {
         path: "/app/event",
         title: "event",
         icon: EventSVG,
+        priority: 1000,
+        breadcrumb: true,
+        submenu: [],
+      },
+      {
+        key: "view_news",
+        path: "/app/news",
+        title: "news",
+        icon: NewsSVG,
         priority: 1000,
         breadcrumb: true,
         submenu: [],

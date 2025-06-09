@@ -3,14 +3,13 @@ import { Menu, Dropdown, Avatar } from "antd";
 import {
     EditOutlined,
     SettingOutlined,
-    LogoutOutlined,
-    UserOutlined
+    LogoutOutlined
 } from '@ant-design/icons';
 import Icon from 'components/util-components/Icon';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import IntlMessage from "components/util-components/IntlMessage";
 import { UserContext } from "hooks/UserContextProvider";
-import { BASE_SERVER_URL } from "configs/AppConfig";
+import { BASE_SERVER_URL, LANDING_PREFIX_PATH } from "configs/AppConfig";
 import { AUTH_TOKEN } from "redux/constants/Auth";
 
 const menuItem = [
@@ -28,12 +27,15 @@ const menuItem = [
 
 const NavProfile = () => {
 
+    const history = useHistory();
+
     const { user, refetch } = useContext(UserContext)
 
     function logout() {
         localStorage.removeItem(AUTH_TOKEN);
-        window.location.reload()
+        history.push(LANDING_PREFIX_PATH + '/home');
         refetch()
+        
     }
     const profileMenu = (
         <div className="nav-profile nav-dropdown">

@@ -50,6 +50,9 @@ const Assessment = lazy(() => import('./assessment'))
 const ContactBook = lazy(() => import('./contact-book'))
 const Report = lazy(() => import('./report'))
 const FlexTime = lazy(() => import('./flex-time'))
+const News = lazy(() => import('./news'))
+const NewsDetail = lazy(() => import('./news/news-detail'))
+const NewsForm = lazy(() => import('./news/form'))
 
 export const AppViews = (currentTitle) => {
 
@@ -191,21 +194,26 @@ export const AppViews = (currentTitle) => {
                                 title={title} />}
                         />
                     }
-                    {/* {CheckPer('view_online_sub') &&
-                        <Route
-                            path={`${APP_PREFIX_PATH}/online-lesson/:lesson/:subLesson`}
-                            render={props => <Detail {...props}
-                                viewAttendance={viewAttendance}
-                                title={title} />}
-                        />
-                    }
-                    {CheckPer('view_online_sub') &&
-                        <Route
-                            path={`${APP_PREFIX_PATH}/online-lesson/:lesson`}
-                            render={props => <SubLesson {...props}
-                                title={title} />}
-                        />
-                    } */}
+                    <Route
+                        path={`${APP_PREFIX_PATH}/news/create`}
+                        render={props => <NewsForm {...props}
+                            title={title} />}
+                    />
+                    <Route
+                        path={`${APP_PREFIX_PATH}/news/:id/edit`}
+                        render={props => <NewsForm {...props}
+                            title={title} />}
+                    />
+                    <Route
+                        path={`${APP_PREFIX_PATH}/news/:id`}
+                        render={props => <NewsDetail {...props}
+                            title={title} />}
+                    />
+                    <Route
+                        path={`${APP_PREFIX_PATH}/news`}
+                        render={props => <News {...props}
+                            title={title} />}
+                    />
                     {CheckPer('view_online_lesson') &&
                         <Route
                             path={`${APP_PREFIX_PATH}/online-lesson`}

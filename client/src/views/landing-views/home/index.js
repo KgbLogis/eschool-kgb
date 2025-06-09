@@ -1,6 +1,5 @@
 import React from 'react'
 import { motion } from "framer-motion"
-import { Link } from 'react-router-dom';
 
 export default function Index() {
 
@@ -10,14 +9,6 @@ export default function Index() {
         exit: { x: "-100%", opacity: 0 },
         transition: { duration: 0.6 },
     };
-
-    const rightAnimation = {
-        initial: { x: "100%", opacity: 0 },
-        animate: { x: 0, opacity: 1 },
-        exit: { x: "100%", opacity: 0 },
-        transition: { duration: 0.6 },
-    };
-
 
     const Aboutdata = [
         {

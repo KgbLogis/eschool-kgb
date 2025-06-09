@@ -95,7 +95,8 @@ INSTALLED_APPS = [
     'apps.conversation',
     'apps.contact_book',
     'apps.flextime',
-    'apps.handover'
+    'apps.handover',
+    'apps.news'
 ]
 
 AUTH_USER_MODEL = 'account.CustomUser'

@@ -13,6 +13,10 @@ export const AppViews = () => {
       <Suspense fallback={<Loading cover="page"/>}>
         <Switch>
           <Route path={`${LANDING_PREFIX_PATH}/home`} component={lazy(() => import(`./home`))} />
+          <Route path={`${LANDING_PREFIX_PATH}/news/:id`} component={lazy(() => import(`./news/single`))} />
+          <Route path={`${LANDING_PREFIX_PATH}/news`} component={lazy(() => import(`./news`))} />
+          <Route path={`${LANDING_PREFIX_PATH}/about`} component={lazy(() => import(`./about`))} />
+          <Route path={`${LANDING_PREFIX_PATH}/contact`} component={lazy(() => import(`./contact`))} />
           <Redirect from={`${LANDING_PREFIX_PATH}`} to={`${LANDING_PREFIX_PATH}/home`} />
         </Switch>
       </Suspense>

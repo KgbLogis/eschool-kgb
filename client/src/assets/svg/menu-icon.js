@@ -1535,3 +1535,18 @@ export const FlexTimeSVG = ({ className }) => (
     ></path>
   </svg>
 )
+
+export const NewsSVG = ({ className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    xmlSpace="preserve"
+    className={className}
+    viewBox="0 0 24 24"
+  >
+    <path
+      d="M11.25 3.25v11.5H6A4.75 4.75 0 0 1 1.25 10V8A4.75 4.75 0 0 1 6 3.25zM22.022.967a1.75 1.75 0 0 0-1.576-.239l-8.2 2.731v11.082l8.2 2.731a1.7 1.7 0 0 0 .553.09 1.75 1.75 0 0 0 1.751-1.749V2.387a1.75 1.75 0 0 0-.728-1.42M12.4 21.53a3.18 3.18 0 0 1-5.59-1.19l-1.15-4.61a2 2 0 0 0 .34.02h6.21l.76 3.05a3.18 3.18 0 0 1-.57 2.73"
+      data-name="Layer 2"
+      data-original="#000000"
+    ></path>
+  </svg>
+)

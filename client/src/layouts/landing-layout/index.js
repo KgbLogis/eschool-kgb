@@ -16,10 +16,10 @@ export default function LandingLayout() {
     const mobileMenuRef = useRef(null);
 
     const headerData = [
-        { label: "Нүүр", href: "/#main-banner" },
-        { label: "Бидний тухай", href: "/#portfolio" },
-        { label: "Мэдээлэл", href: "/#upgrade" },
-        { label: "Холбоо барих", href: "/documentation#version" },
+        { label: "Нүүр", href: "/home" },
+        { label: "Бидний тухай", href: "/about" },
+        { label: "Мэдээлэл", href: "/news" },
+        { label: "Холбоо барих", href: "/contact" },
     ];
 
     useEffect(() => {
@@ -71,7 +71,7 @@ export default function LandingLayout() {
                                     key={index}
                                 >
                                     <Link
-                                        href={item.href}
+                                        to={LANDING_PREFIX_PATH+item.href}
                                         className={classNames(
                                             sticky ? 'text-mkp' : 'text-white',
                                             `text-base flex font-semibold hover:text-mkp capitalize`

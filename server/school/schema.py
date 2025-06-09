@@ -29,6 +29,7 @@ import apps.contact_book.schema
 import apps.conversation.schema
 import apps.flextime.schema
 import apps.handover.schema
+import apps.news.schema
 from graphql_auth.schema import MeQuery
 from graphql_auth import mutations
 
@@ -76,6 +77,7 @@ class Query(
     apps.contact_book.schema.Query,
     apps.flextime.schema.Query,
     apps.handover.schema.Query,
+    apps.news.schema.Query,
     graphene.ObjectType
 ):
     pass
@@ -110,6 +112,7 @@ class Mutation(
     apps.contact_book.schema.Mutation,
     apps.flextime.schema.Mutation,
     apps.handover.schema.Mutation,
+    apps.news.schema.Mutation,
     graphene.ObjectType
 ):
     pass
