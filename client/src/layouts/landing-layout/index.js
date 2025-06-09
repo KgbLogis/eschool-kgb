@@ -207,7 +207,7 @@ export default function LandingLayout() {
                         {/* COLUMN-1 */}
                         <div className='col-span-4'>
                             <h3 className='text-white text-4xl font-semibold leading-9 mb-4 lg:mb-20'>
-                                Мон кор фовер
+                                Мон кор фовер ХХК
                             </h3>
                             <div className='flex gap-4'>
                                 <div className='footer-icons'>
