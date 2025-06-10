@@ -151,8 +151,8 @@ class PasswordChange(graphene.Mutation):
             )
         if new_password1 == new_password2:
             user_i.check_password(old_password)
-            # user_i.set_password(new_password1)
-            # user_i.save()
+            user_i.set_password(new_password1)
+            user_i.save()
             token = get_token(user_i)
             return PasswordChange(
                 success=True,

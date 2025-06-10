@@ -29,8 +29,6 @@ const Index = () => {
             setExelData(res.allStudentsReport)
         }
     })
-
-    console.log(searchedColumn);
     
 	const [deleteStudent] = useMutation(DELETE_STUDENT, {
 		onCompleted: data => {

@@ -56,9 +56,6 @@ function LessonForm (props) {
         variables: { folder: currentFolder }
     });
 
-    console.log(selectedFiles);
-    
-
     const [updateOnlineLesson, { loading: updateLoading }] = useMutation(UPDATE_SUB_LESSON, {
         refetchQueries: [{
             query: ALL_SUB_LESSON_BY_LESSON,

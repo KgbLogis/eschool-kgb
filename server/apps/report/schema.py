@@ -13,6 +13,7 @@ from apps.mark.models import Mark_rel, Mark_board, Mark, Mark_percentage
 from apps.subject.models import Subject
 from tenants.middlewares import get_current_db_name
 from django.db.models import Sum
+from django.utils import timezone
 
 class StudentreportType(graphene.ObjectType):
     school = graphene.String()
@@ -96,7 +97,7 @@ class Query(graphene.ObjectType):
     def resolve_dashboard(self, info):
       cursor = connections[get_current_db_name()].cursor()
 
-      student_count = Student.objects.filter(status_id__name='Суралцаж байгаа').count() 
+      student_count = Student.objects.filter(expire_date__gte=timezone.now().date()).count()
 
       teacher_count = Teacher.objects.all().count()
       
