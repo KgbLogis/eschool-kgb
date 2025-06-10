@@ -299,14 +299,14 @@ class CreateOnline_sub(graphene.Mutation):
     class Arguments:
         title = graphene.String()
         description = graphene.String()
-        # content = graphene.String()
+        files = graphene.List(graphene.ID)
         online_lesson = graphene.Int()
         online_type = graphene.Int()
         status = graphene.String()
 
     @login_required
     @permission_required('online_lesson.add_online_sub')
-    def mutate(self, info, title, description, online_lesson, online_type, status):
+    def mutate(self, info, title, description, online_lesson, online_type, status, files):
         
         online_lesson_i = Online_lesson.objects.get(pk=online_lesson)
         online_type_i = Online_type.objects.get(pk=online_type)
@@ -314,6 +314,12 @@ class CreateOnline_sub(graphene.Mutation):
 
         online_sub = Online_sub(title=title, description=description, status=status, online_lesson=online_lesson_i, online_type = online_type_i,create_userID=create_userID_i)
         online_sub.save()
+        
+        for file_id in files:
+            online_file = Online_file.objects.get(pk=file_id)
+            online_sub_file = Online_sub_file(online_sub=online_sub, online_file=online_file)
+            online_sub_file.save()
+        
         return CreateOnline_sub(online_sub=online_sub)
 
 class UpdateOnline_sub(graphene.Mutation):
@@ -322,15 +328,16 @@ class UpdateOnline_sub(graphene.Mutation):
     class Arguments:
         title = graphene.String()
         description = graphene.String()
-        # content = graphene.String()
+        files = graphene.List(graphene.ID)
         online_lesson = graphene.Int()
         online_type = graphene.Int()
         status = graphene.String()
         id = graphene.ID()
+        
 
     @login_required
     @permission_required('online_lesson.change_online_sub')
-    def mutate(self, info, title, description, online_lesson, online_type, status, id):
+    def mutate(self, info, title, description, online_lesson, online_type, status, id, files):
         
         online_sub = Online_sub.objects.get(pk=id)
         online_lesson_i = Online_lesson.objects.get(pk=online_lesson)
@@ -343,6 +350,15 @@ class UpdateOnline_sub(graphene.Mutation):
         online_sub.online_lesson = online_lesson_i
         online_sub.online_type = online_type_i
         online_sub.save()
+        
+        # Delete existing files
+        Online_sub_file.objects.filter(online_sub=online_sub).delete()
+        
+        for file_id in files:
+            online_file = Online_file.objects.get(pk=file_id)
+            online_sub_file = Online_sub_file(online_sub=online_sub, online_file=online_file)
+            online_sub_file.save()
+            
         return UpdateOnline_sub(online_sub=online_sub)
         
 class DeleteOnline_sub(graphene.Mutation):
@@ -506,6 +522,20 @@ class CreateOnline_file_folder(graphene.Mutation):
         online_file_folder.save()
         return CreateOnline_file_folder(online_file_folder=online_file_folder)
 
+class UpdateOnline_file_folder(graphene.Mutation):
+    online_file_folder = graphene.Field(Online_file_folderType)
+    class Arguments:
+        name = graphene.String()
+        id = graphene.ID()
+
+    @login_required
+    @permission_required('online_lesson.change_online_file_folder')
+    def mutate(self, info, name, id):
+        online_file_folder = Online_file_folder.objects.get(pk=id)
+        online_file_folder.name = name
+        online_file_folder.save()
+        return UpdateOnline_file_folder(online_file_folder=online_file_folder)
+
 class DeleteOnline_file_folder(graphene.Mutation):
     online_file_folder = graphene.Field(Online_file_folderType)
     class Arguments:
@@ -563,6 +593,7 @@ class Mutation(graphene.ObjectType):
     delete_online_type = DeleteOnline_type.Field()
     delete_online_attendance = DeleteOnline_attendance.Field()
     create_online_file_folder = CreateOnline_file_folder.Field()
+    update_online_file_folder = UpdateOnline_file_folder.Field()
     delete_online_file_folder = DeleteOnline_file_folder.Field()
     create_online_sub_file = CreateOnline_sub_file.Field()
     delete_online_sub_file = DeleteOnline_sub_file.Field()

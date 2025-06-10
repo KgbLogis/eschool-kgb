@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
-import { Button, Image, Modal } from 'antd';
+import { Button, Image } from 'antd';
 import { CalendarTwoTone, RollbackOutlined } from '@ant-design/icons';
 import { useQuery } from '@apollo/client';
 import { useParams, Link } from 'react-router-dom';
-import { Document, Page, pdfjs } from "react-pdf";
-import { SizeMe } from 'react-sizeme';
-import ReactPlayer from 'react-player/lazy'
 import moment from 'moment';
 import Loading from 'components/shared-components/Loading';
+import FilePreview from 'components/shared-components/FilePreview';
 import { SUB_BY_ID } from 'graphql/lesson';
 import { APP_PREFIX_PATH, BASE_SERVER_URL } from "configs/AppConfig";
 import IntlMessage from 'components/util-components/IntlMessage';
-
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const checkFileType = (file) => {
     const type = file.split('.').pop()
@@ -31,6 +27,13 @@ const checkFileType = (file) => {
             return `video`;
         case `pdf`:
             return `pdf`;
+        case 'doc':
+        case 'docx':
+        case 'xls':
+        case 'xlsx':
+        case 'ppt':
+        case 'pptx':
+            return `document`;
         default:
             return BASE_SERVER_URL + file;
     }
@@ -39,10 +42,6 @@ const checkFileType = (file) => {
 const Detail = (props) => {
 
     const slug = useParams();
-
-    const [pageNumber, setPageNumber] = useState(1);
-    const [numPages, setNumPages] = useState(null);
-    const [isModalVisible, setIsModalVisible] = useState(false);
     const [groupedFiles, setGroupedFiles] = useState({});
 
     const { data, loading } = useQuery(SUB_BY_ID, {
@@ -60,101 +59,7 @@ const Detail = (props) => {
         }
     });
 
-    const showModal = (value) => {
-        setIsModalVisible(true);
-    };
-
-    const handleCancel = () => {
-        setIsModalVisible(false);
-    };
-
-    const goToPrevPage = () => {
-        setPageNumber(pageNumber - 1)
-    }
-    const goToNextPage = () => {
-        setPageNumber(pageNumber + 1)
-    }
-
-    const FilePreview = ({ file }) => {
-
-        switch (checkFileType(file)) {
-            case `audio`:
-                return (
-                    <ReactPlayer
-                        className="react-player"
-                        width="100%"
-                        height="50px"
-                        controls={true}
-                        url={BASE_SERVER_URL + file}
-                    />
-                )
-            case `video`:
-                return (
-                    <ReactPlayer
-                        width="100%"
-                        height="100%"
-                        controls={true}
-                        url={BASE_SERVER_URL + file}
-                    />
-                )
-            case 'image':
-                return (
-                    <Image className="img-fluid items-" width={200} alt="Preview" src={BASE_SERVER_URL + file} />
-                )
-
-            case `pdf`:
-                return (
-                    <div>
-                        <Modal
-                            forceRender
-                            width={'50vw'}
-                            visible={isModalVisible}
-                            onCancel={handleCancel}
-                            footer={[
-                                <Button key="back" type='text' disabled={pageNumber === 1 && true} onClick={goToPrevPage}>
-                                    <IntlMessage id="main.previous" />
-                                </Button>,
-                                <Button key="next" type="primary" disabled={pageNumber === numPages && true} onClick={goToNextPage}>
-                                    <IntlMessage id="main.next" />
-                                </Button>,
-                            ]}
-                        >
-                            <SizeMe
-                                monitorHeight
-                                refreshRate={128}
-                                refreshMode={"debounce"}
-                                render={({ size }) => (
-                                    <Document
-                                        file={BASE_SERVER_URL + file}
-                                        onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-                                        renderTextLayer={false}
-                                        loading={<Loading cover="content" />}
-                                        renderMode="svg"
-                                    >
-                                        <Page
-                                            className="test"
-                                            width={size.width}
-                                            pageNumber={pageNumber}
-                                            renderTextLayer={false}
-                                            renderAnnotationLayer={false}
-                                        />
-                                    </Document>
-                                )}
-                            />
-                            <p>Нийт {numPages} хуудсаас {pageNumber}-г харуулж байна </p>
-                        </Modal>
-                        <Button type='primary' onClick={showModal} ><IntlMessage id="show-file" /></Button>
-                    </div>
-                )
-            default:
-                return (
-                    <div>
-                        <Button type='primary' onClick={() => window.open(BASE_SERVER_URL + file, '_blank')} ><IntlMessage id="show-file" /></Button>
-                    </div>
-                )
-        }
-
-    }
+    
 
     if (loading) {
         return <Loading cover="content" />
@@ -166,7 +71,6 @@ const Detail = (props) => {
                 <div className='flex justify-between'>
                     <Link to={`${APP_PREFIX_PATH}/online-lesson/lessons`}>
                         <Button
-                            // onClick={() => history.goBack()}
                             size='small'
                             type="primary"
                             icon={<RollbackOutlined />}

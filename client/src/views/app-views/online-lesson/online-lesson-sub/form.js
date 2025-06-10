@@ -3,7 +3,6 @@ import { Form, message, Input, Spin, Select, Col, Row } from 'antd';
 import { useMutation, useQuery } from '@apollo/client';
 import { ALL_FOLDERS, ALL_ONLINE_FILE, ALL_ONLINE_TYPE, CREATE_ONLINE_SUB_FILE } from 'graphql/lesson'
 import { CREATE_SUB_LESSON, ALL_SUB_LESSON_BY_LESSON, UPDATE_SUB_LESSON } from 'graphql/lesson'
-import 'braft-editor/dist/index.css';
 import IntlMessage from 'components/util-components/IntlMessage';
 import Folder from 'components/layout-components/Folder';
 import { classNames } from 'utils';
@@ -11,7 +10,7 @@ import { BASE_SERVER_URL } from 'configs/AppConfig';
 import Loading from 'components/shared-components/Loading';
 import { find } from 'lodash';
 
-function LessonForm (props) {
+function LessonForm(props) {
 
     const [form] = Form.useForm();
 
@@ -28,7 +27,7 @@ function LessonForm (props) {
         name: "Үндсэн хуудас"
     }]);
 
-    const { loading: folderLoading } = useQuery (ALL_FOLDERS, {
+    const { loading: folderLoading } = useQuery(ALL_FOLDERS, {
         onCompleted: data => {
             setFolders(data.allFolders);
         },
@@ -37,19 +36,19 @@ function LessonForm (props) {
 
     const [createOnlineSubFile] = useMutation(CREATE_ONLINE_SUB_FILE)
 
-    const [createOnlineLesson, { loading: createLoading } ] = useMutation(CREATE_SUB_LESSON, {
+    const [createOnlineLesson, { loading: createLoading }] = useMutation(CREATE_SUB_LESSON, {
         refetchQueries: [{
             query: ALL_SUB_LESSON_BY_LESSON,
             variables: { onlineLesson: props.lesson }
         }],
-		onCompleted: data => {
+        onCompleted: data => {
             message.success('Амжилттай хадгаллаа');
             form.resetFields();
             props.setIsModalVisible(false);
             selectedFiles.forEach((item) => {
                 createOnlineSubFile({ variables: { onlineSub: data.createOnlineSub.onlineSub.id, onlineFile: item.id } })
             })
-		}
+        }
     });
 
     const { data: allFiles, loading } = useQuery(ALL_ONLINE_FILE, {
@@ -61,7 +60,7 @@ function LessonForm (props) {
             query: ALL_SUB_LESSON_BY_LESSON,
             variables: { onlineLesson: props.lesson }
         }],
-        onCompleted: data => {
+        onCompleted: res => {
             message.success('Амжилттай хадгаллаа');
             form.resetFields();
             props.setIsModalVisible(false);
@@ -69,19 +68,19 @@ function LessonForm (props) {
     })
 
     useEffect(() => {
-        if(props.formType === "edit") {
-            const newData ={
-				content: props.editData.content,
+        if (props.formType === "edit") {
+            const newData = {
+                content: props.editData.content,
                 description: props.editData.description,
                 status: props.editData.status,
                 title: props.editData.title,
                 onlineType: props.editData.onlineType.id,
-			}
+            }
             props.editData.onlineSubFileSet.map(item => {
                 return setSelectedFiles(prevData => [...prevData, item.onlineFile])
             })
             form.setFieldsValue(newData);
-        } else if(props.formType === "create") {
+        } else if (props.formType === "create") {
             form.resetFields();
             setSelectedFiles([])
         }
@@ -99,16 +98,16 @@ function LessonForm (props) {
         }
         setCurrentFolder(id)
     }
-    
+
     const checkPreviewFileType = (file) => {
         const type = file.split('.').pop()
-        switch(type) {
+        switch (type) {
             case 'jpg':
             case 'jpeg':
             case 'webp':
             case 'svg':
             case 'png':
-                return BASE_SERVER_URL+file;
+                return BASE_SERVER_URL + file;
             case 'mp3':
             case 'm4a':
             case 'flac':
@@ -123,7 +122,7 @@ function LessonForm (props) {
     }
 
     function isSelected(id) {
-        const foundItem = find(selectedFiles, function(o) {
+        const foundItem = find(selectedFiles, function (o) {
             return o.id === id
         })
         if (foundItem) {
@@ -134,7 +133,7 @@ function LessonForm (props) {
     }
 
     function onFileClick(params) {
-        const foundItem = find(selectedFiles, function(o) {
+        const foundItem = find(selectedFiles, function (o) {
             return o.id === params.id
         })
         if (foundItem) {
@@ -145,6 +144,7 @@ function LessonForm (props) {
     }
 
     const onFinish = values => {
+        values.files = selectedFiles.map(item => item.id)
         if (props.formType === 'edit') {
             values.onlineLesson = props.lesson;
             values.id = props.editData.id;
@@ -157,11 +157,11 @@ function LessonForm (props) {
 
     return (
         <Spin spinning={createLoading || updateLoading} tip="Ачааллаж байна...">
-            <Form  
+            <Form
                 id="SubLessonForm"
                 layout={'vertical'}
                 form={form}
-                name="lesson" 
+                name="lesson"
                 onFinish={onFinish}
             >
                 <Row gutter={[24, 24]} >
@@ -181,7 +181,7 @@ function LessonForm (props) {
                             }
                         ]}>
                             <Select>
-                                { typeData?.allOnlineTypes.map((type, index) => (
+                                {typeData?.allOnlineTypes.map((type, index) => (
                                     <Option value={type.id} key={index} >{type.name}</Option>
                                 ))}
                             </Select>
@@ -209,12 +209,12 @@ function LessonForm (props) {
                     <Col xs={24} xl={12}>
                         <nav aria-label="breadcrumb" className="w-full px-4">
                             <ol className="flex h-8 space-x-2">
-                                { folderHistory.map((item, index) => (
+                                {folderHistory.map((item, index) => (
                                     <li key={index} className="flex items-center space-x-1">
-                                        { index !== 0 && <span className=" text-mkp">/</span>}
-                                        <p 
-                                            onClick={() => currentFolder !== item.id && onBreadcrumbsChange({ key: index, id: item.id })} 
-                                            rel="noopener noreferrer" 
+                                        {index !== 0 && <span className=" text-mkp">/</span>}
+                                        <p
+                                            onClick={() => currentFolder !== item.id && onBreadcrumbsChange({ key: index, id: item.id })}
+                                            rel="noopener noreferrer"
                                             className={classNames(
                                                 currentFolder === item.id && 'font-bold',
                                                 "flex items-center px-1 capitalize hover:underline text-900"
@@ -228,53 +228,53 @@ function LessonForm (props) {
                             </ol>
                         </nav>
                         <div className="grid grid-cols-3 gap-4">
-                            { folderLoading ?
-                                <Loading /> 
+                            {folderLoading ?
+                                <Loading />
                                 : folders.map((folder, index) => (
-                                <Folder 
-                                    key={index}
-                                    data={folder} 
-                                    setFolder={setCurrentFolder}
-                                    setFolderHistory={setFolderHistory}
-                                />
-                            ))}
+                                    <Folder
+                                        key={index}
+                                        data={folder}
+                                        setFolder={setCurrentFolder}
+                                        setFolderHistory={setFolderHistory}
+                                    />
+                                ))}
                         </div>
                         <div className="mt-4 grid grid-cols-4 gap-4">
-                            { loading ?
+                            {loading ?
                                 <Loading />
                                 :
                                 allFiles?.allOnlineFiles.map((item, index) => (
-                                    <div 
+                                    <div
                                         key={index}
                                         onClick={() => onFileClick(item)}
                                         className={classNames(isSelected(item.id) === 200 && "rounded-2 border-2 border-green-500",
                                             "w-full p-2 hover:cursor-pointer "
                                         )}
                                     >
-                                        <img 
-                                            className="h-24 w-auto mx-auto text-purple-600" 
+                                        <img
+                                            className="h-24 w-auto mx-auto text-purple-600"
                                             src={checkPreviewFileType(item.file)}
                                             alt='file preview'
                                         />
-                                        <p className='mt-1 w-full text-xs'>{item.file}</p>
+                                        <p className='mt-1 w-full text-xs'>{item.file.split('/').pop()}</p>
                                     </div>
                                 ))
                             }
                         </div>
                         <p className='px-4 text-900 font-bold'><IntlMessage id="selected-online-file" /></p>
                         <div className="mt-4 grid grid-cols-5 gap-4">
-                            { selectedFiles.map((item, index) => (
-                                <div 
+                            {selectedFiles.map((item, index) => (
+                                <div
                                     key={index}
                                     onClick={() => onFileClick(item)}
                                     className="w-full hover:cursor-pointer"
                                 >
-                                    <img 
-                                        className="h-24 w-auto mx-auto text-purple-600" 
+                                    <img
+                                        className="h-24 w-auto mx-auto text-purple-600"
                                         src={checkPreviewFileType(item.file)}
                                         alt='file preview'
                                     />
-                                    <p className='mt-1 w-full text-xs'>{item.file}</p>
+                                    <p className='mt-1 w-full text-xs'>{item.file.split('/').pop()}</p>
                                 </div>
                             ))}
                         </div>

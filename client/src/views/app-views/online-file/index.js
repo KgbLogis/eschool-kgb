@@ -35,6 +35,7 @@ const Index = () => {
         id: 0,
         name: "Үндсэн хавтас"
     }]);
+    const [editFolderId, setEditFolderId] = useState(null);
 
     const filterImage = (values) => {
         let filterredData = values.filter(file => file.file.split('.').pop() === 'png'
@@ -230,6 +231,11 @@ const Index = () => {
         value.onSuccess("Ok");
     };
 
+    function onFolderEdit(id) {
+        setIsFolderModalVisible(true);
+        setEditFolderId(id);
+    }
+
     const deleteModal = value => {
         confirm({
             title: 'Устгах уу?',
@@ -271,6 +277,7 @@ const Index = () => {
                         currentFolder={currentFolder}
                         refetch={folderRefetch}
                         handleCancel={handleCancel}
+                        folderId={editFolderId}
                     />
                 </div>
             </Modal>
@@ -332,7 +339,7 @@ const Index = () => {
                                 key={index}
                                 data={folder}
                                 refetch={folderRefetch}
-                                // onEdit={onEdit}
+                                onEdit={onFolderEdit}
                                 setFolder={setCurrentFolder}
                                 setFolderHistory={setFolderHistory}
                             />
@@ -383,7 +390,7 @@ const Index = () => {
                                                 <DeleteTwoTone twoToneColor="#eb2f96" key="delete" onClick={event => deleteModal(item.id)} />
                                             ]}
                                         >
-                                            <Meta description={item.file} />
+                                            <Meta description={item.file.split('/').pop()} />
                                         </Card>
                                     </List.Item>
                                 )}

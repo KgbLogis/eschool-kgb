@@ -49,6 +49,17 @@ export const CREATE_ONLINE_FILE_FOLDER = gql `
     }
 `;
 
+export const UPDATE_ONLINE_FILE_FOLDER = gql `
+    mutation updateOnlineFileFolder($id: ID, $name: String) {
+        updateOnlineFileFolder(id: $id, name: $name) {
+            onlineFileFolder {
+                id
+                name
+            }
+        }
+    }   
+`;
+
 export const DELETE_ONLINE_FILE = gql `
     mutation deleteOnlineFile ($id: ID) {
         deleteOnlineFile (id: $id) {
@@ -173,8 +184,8 @@ export const ALL_SUB_LESSON_BY_LESSON = gql `
 `;
 
 export const CREATE_SUB_LESSON = gql`
-    mutation createOnlineSub ($description: String, $onlineLesson: Int, $status: String, $title: String, $onlineType: Int) {
-        createOnlineSub (description: $description, onlineLesson: $onlineLesson, status: $status, title: $title, onlineType: $onlineType) {
+    mutation createOnlineSub ($description: String, $onlineLesson: Int, $status: String, $title: String, $onlineType: Int, $files: [ID]) {
+        createOnlineSub (description: $description, onlineLesson: $onlineLesson, status: $status, title: $title, onlineType: $onlineType, files: $files) {
             onlineSub {
                 id
             }
@@ -183,8 +194,8 @@ export const CREATE_SUB_LESSON = gql`
 `;
 
 export const UPDATE_SUB_LESSON = gql `
-    mutation updateOnlineSub ( $description: String, $id: ID, $onlineLesson: Int, $status: String, $title: String, $onlineType: Int) {
-        updateOnlineSub (description: $description, id: $id, onlineLesson: $onlineLesson, status: $status, title: $title, onlineType: $onlineType) {
+    mutation updateOnlineSub ( $description: String, $id: ID, $onlineLesson: Int, $status: String, $title: String, $onlineType: Int, $files: [ID]) {
+        updateOnlineSub (description: $description, id: $id, onlineLesson: $onlineLesson, status: $status, title: $title, onlineType: $onlineType, files: $files) {
             onlineSub {
                 id
             }
