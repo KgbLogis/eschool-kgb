@@ -20,7 +20,6 @@ const { confirm } = Modal
 const Index = () => {
 
     const [excelData, setExelData] = useState([])
-    const [searchedColumn, setSearchedColumn] = useState({});
     const [editData, setEditData] = useState({});
     const modalRef = useRef();
 
@@ -39,19 +38,10 @@ const Index = () => {
 
     function handleSearch(selectedKeys, confirm, dataIndex, dataIndex2) {
         confirm();
-        setSearchedColumn(prevData => ({
-            ...prevData,
-            [dataIndex+dataIndex2]: selectedKeys[0]
-        }))
     }
     
     function handleReset(clearFilters, dataIndex, dataIndex2) {
         clearFilters();
-        setSearchedColumn(current => {
-            const copy = {...current};
-            delete copy[dataIndex+dataIndex2];
-            return copy;
-        });
     }
 
     function getColumnSearchProps(dataIndex, dataIndex2) {
@@ -123,22 +113,6 @@ const Index = () => {
             ...getColumnSearchProps('name'),
         },
         {
-            title: "Иргэншил",
-            dataIndex: 'nationality',
-            key: 'nationality',
-            width: 150,
-            visible: true,
-            ...getColumnSearchProps('nationality'),
-        },
-        {
-            title: "Үндэс угсаа",
-            dataIndex: 'religion',
-            key: 'religion',
-            width: 150,
-            visible: true,
-            ...getColumnSearchProps('religion'),
-        },
-        {
             title: "Суралцагчийн код",
             dataIndex: 'studentCode',
             key: 'studentCode',
@@ -147,7 +121,7 @@ const Index = () => {
             ...getColumnSearchProps('studentCode'),
         },
         {
-            title: "Салбар сургууль",
+            title: "Сургалт",
             dataIndex: ['school', 'name'],
             key: 'school',
             width: 200,
@@ -155,7 +129,7 @@ const Index = () => {
             ...getColumnSearchProps('school', 'name'),
         },
         {
-            title: "Хөтөлбөр",
+            title: "Сургалтын төлөвлөгөө",
             dataIndex: ['program', 'program'],
             key: 'program',
             width: 100,
@@ -163,7 +137,7 @@ const Index = () => {
             ...getColumnSearchProps('program', 'program'),
         },
         {
-            title: "Анги дамжаа",
+            title: "Анги",
             dataIndex: ['classes', 'classes'],
             key: 'classes',
             width: 100,
@@ -177,30 +151,6 @@ const Index = () => {
             width: 100,
             visible: true,
             ...getColumnSearchProps('section', 'section'),
-        },
-        {
-            title: "Төрсөн огноо",
-            dataIndex: 'birthdate',
-            key: 'birthdate',
-            width: 150,
-            visible: true,
-            ...getColumnSearchProps('birthdate'),
-        },
-        {
-            title: "Төрсөн аймаг /хот/",
-            dataIndex: ['birthCity', 'name'],
-            key: 'birthCity',
-            width: 150,
-            visible: true,
-            ...getColumnSearchProps('birthCity', 'name'),
-        },
-        {
-            title: "Төрсөн сум /дүүрэг/",
-            dataIndex: ['birthDistrict', 'name'],
-            key: 'birthDistrict',
-            width: 150,
-            visible: true,
-            ...getColumnSearchProps('birthDistrict', 'name'),
         },
         {
             title: "И-мэйл",
@@ -219,7 +169,7 @@ const Index = () => {
             ...getColumnSearchProps('phone'),
         },
         {
-            title: "Сургуульд элссэн огноо",
+            title: "Элссэн огноо",
             dataIndex: ['joinSchoolyear', 'schoolyear'],
             key: 'email',
             width: 150,

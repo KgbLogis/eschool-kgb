@@ -67,11 +67,8 @@ INSTALLED_APPS = [
     'tenants',
     'apps.classes',
     'apps.core',
-    'apps.diplom',
     'apps.event',
     'apps.employee',
-    # 'apps.employee_attendance',
-#    'apps.library',
     'apps.support',
     'apps.live',
     'apps.mark',
@@ -81,7 +78,6 @@ INSTALLED_APPS = [
     'apps.parent',
     'apps.payment',
     'apps.program',
-#    'apps.report',
     'apps.routine',
     'apps.school',
     'apps.schoolyear',
@@ -90,12 +86,7 @@ INSTALLED_APPS = [
     'apps.sub_school',
     'apps.subject',
     'apps.teacher',
-    'apps.food',
-    'apps.plan',
     'apps.conversation',
-    'apps.contact_book',
-    'apps.flextime',
-    'apps.handover',
     'apps.news'
 ]
 

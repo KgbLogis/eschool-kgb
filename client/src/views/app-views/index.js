@@ -7,8 +7,6 @@ import { CheckPer } from 'hooks/checkPermission';
 import { UserContext } from "hooks/UserContextProvider";
 
 const Program = lazy(() => import(`./programs`));
-const DailyFood = lazy(() => import(`./daily-food`));
-const Food = lazy(() => import('./daily-food/food'))
 const ProgramSubject = lazy(() => import('./program-subject'));
 const Section = lazy(() => import(`./section`));
 const Student = lazy(() => import(`./student`));
@@ -37,19 +35,13 @@ const UpdateProfile = lazy(() => import('./user-settings/update-profile'));
 const Live = lazy(() => import('./live'));
 const LiveMeeting = lazy(() => import('./live/live'))
 const MarkConsolidation = lazy(() => import('./mark-consolidation'));
-const TransferStudent = lazy(() => import('./transfer-student'));
 const Event = lazy(() => import('./event'));
 const EmployeesAttendance = lazy(() => import('./employees-attendance'));
 const Employees = lazy(() => import('./employees'));
 const Support = lazy(() => import('./support'))
-const Plan = lazy(() => import('./plan'))
-const ShowPlan = lazy(() => import('./plan/show'))
 const Conversation = lazy(() => import('./conversation'))
-const DevTeacher = lazy(() => import('./dev-teacher'))
 const Assessment = lazy(() => import('./assessment'))
-const ContactBook = lazy(() => import('./contact-book'))
 const Report = lazy(() => import('./report'))
-const FlexTime = lazy(() => import('./flex-time'))
 const News = lazy(() => import('./news'))
 const NewsDetail = lazy(() => import('./news/news-detail'))
 const NewsForm = lazy(() => import('./news/form'))
@@ -93,10 +85,6 @@ export const AppViews = (currentTitle) => {
                     <Route
                         path={`${APP_PREFIX_PATH}/conversation`}
                         render={props => <Conversation {...props} />}
-                    />
-                    <Route
-                        path={`${APP_PREFIX_PATH}/student/transfer-student`}
-                        render={props => <TransferStudent {...props} />}
                     />
                     <Route
                         path={`${APP_PREFIX_PATH}/report`}
@@ -156,16 +144,6 @@ export const AppViews = (currentTitle) => {
                                 title={title} />}
                         />
                     }
-                    <Route
-                        path={`${APP_PREFIX_PATH}/food/:dailyMenu`}
-                        render={props => <Food {...props}
-                            title={title} />}
-                    />
-                    <Route
-                        path={`${APP_PREFIX_PATH}/food`}
-                        render={props => <DailyFood {...props}
-                            title={title} />}
-                    />
                     {CheckPer('view_section') &&
                         <Route
                             path={`${APP_PREFIX_PATH}/section`}
@@ -228,15 +206,6 @@ export const AppViews = (currentTitle) => {
                                 title={title} />}
                         />
                     }
-                    <Route
-                        path={`${APP_PREFIX_PATH}/plan/:id`}
-                        render={props => <ShowPlan {...props} />}
-                    />
-                    <Route
-                        path={`${APP_PREFIX_PATH}/plan`}
-                        render={props => <Plan {...props}
-                            title={title} />}
-                    />
                     {CheckPer('view_routine') &&
                         <Route
                             title={title}
@@ -244,11 +213,6 @@ export const AppViews = (currentTitle) => {
                             render={props => <Routine {...props} title={title} />}
                         />
                     }
-                    <Route
-                        title={title}
-                        path={`${APP_PREFIX_PATH}/dev-teacher`}
-                        render={props => <DevTeacher {...props} title={title} />}
-                    />
                     <Route
                         title={title}
                         path={`${APP_PREFIX_PATH}/assessment`}
@@ -341,17 +305,6 @@ export const AppViews = (currentTitle) => {
                         path={`${APP_PREFIX_PATH}/event`}
                         render={props => <Event {...props}
                             title={title} />}
-                    />
-                    <Route
-                        path={`${APP_PREFIX_PATH}/contact-book`}
-                        render={props => <ContactBook {...props}
-                            title={title} />}
-                    />
-                    <Route
-                        path={`${APP_PREFIX_PATH}/flex-time`}
-                        render={props => <FlexTime {...props}
-                            title={title} />}
-
                     />
                     <Redirect from={`${APP_PREFIX_PATH}`} to={`${APP_PREFIX_PATH}/home`} />
                 </Switch>

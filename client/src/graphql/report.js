@@ -223,6 +223,7 @@ export const MARK_CON_TEST = gql `
         D1934083_3: markCon(subject: 3, schoolyear: 1, student: 111971) {    percentage    type    diam  }
     }
 `;
+
 export const ALL_STUDENTS_REPORT = gql`
     query allStudentsReport {
         allStudentsReport {
@@ -233,32 +234,17 @@ export const ALL_STUDENTS_REPORT = gql`
                 email
             }
             studentCode
-            surname
-            familyName
             name
-            religion
-            registerNo
-            nationality
-            state
             photo
             phone
+            familyName
             address
             activity {
                 id
                 name
             }
-            joinDate
             sex
-            birthdate
             classtime {
-                id
-                name
-            }
-            birthCity {
-                id
-                name
-            }
-            birthDistrict {
                 id
                 name
             }

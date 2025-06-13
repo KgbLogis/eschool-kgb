@@ -72,13 +72,6 @@ const Settings = props => {
     const EventType = lazy(() => import('./event-type'));
     const GroupPer = lazy(() => import('./group-permission'));
 
-    const FoodMenu = lazy(() => import('./food-menu'))
-    const FoodMenuFoods = lazy(() => import('./food-menu/foods'))
-
-    const Diplom = lazy(() => import('./diplom'));
-
-    const DiplomFormPage = lazy(() => import('./diplom/form-page'));
-
 	return (
 		<InnerAppLayout 
 			sideContent={<SettingsMenu {...props}/>}
@@ -155,20 +148,6 @@ const Settings = props => {
                                             render={props => <TestLevel {...props} /> } 
                                         />
                                     }
-                                    { CheckPer('view_foodmenu') &&
-                                        <Route 
-                                            key={'food-menu'} 
-                                            path={`${match.url}/${prefix}food-menu/:foodMenu`}
-                                            render={props => <FoodMenuFoods {...props} /> } 
-                                        />
-                                    }
-                                    { CheckPer('view_foodmenu') &&
-                                        <Route 
-                                            key={'food-menu'} 
-                                            path={`${match.url}/${prefix}food-menu`}
-                                            render={props => <FoodMenu {...props} /> } 
-                                        />
-                                    }
                                     { CheckPer('view_schoolyear') &&
                                         <Route 
                                             key={'schoolyear'} 
@@ -188,21 +167,6 @@ const Settings = props => {
                                             render={props => <GroupPer {...props} />}
                                         />
                                     }
-                                    <Route
-                                        key={'Diplom create'}
-                                        path={`${match.url}/${prefix}diplom/create`}
-                                        render={props => <DiplomFormPage {...props} />}
-                                    />
-                                    <Route
-                                        key={'Diplom edit'}
-                                        path={`${match.url}/${prefix}diplom/edit`}
-                                        render={props => <DiplomFormPage {...props} />}
-                                    />
-                                    <Route
-                                        key={'Diplom'}
-                                        path={`${match.url}/${prefix}diplom`}
-                                        render={props => <Diplom {...props} />}
-                                    />
                                     <Redirect from={`${match.url}`} to={`${match.url}/${prefix}schoolyear`} />
                                 </Switch>
                             </Suspense>

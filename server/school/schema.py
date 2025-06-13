@@ -3,7 +3,6 @@ import account.schema
 import apps.classes.schema
 import apps.core.schema
 import apps.event.schema
-# import apps.library.schema
 import apps.live.schema
 import apps.mark.schema
 import apps.menu.schema
@@ -23,12 +22,7 @@ import apps.subject.schema
 import apps.teacher.schema
 import apps.employee.schema
 import apps.support.schema
-import apps.food.schema
-import apps.plan.schema
-import apps.contact_book.schema
 import apps.conversation.schema
-import apps.flextime.schema
-import apps.handover.schema
 import apps.news.schema
 from graphql_auth.schema import MeQuery
 from graphql_auth import mutations
@@ -71,12 +65,7 @@ class Query(
     apps.subject.schema.Query, 
     apps.teacher.schema.Query, 
     apps.employee.schema.Query, 
-    apps.food.schema.Query,
-    apps.plan.schema.Query,
     apps.conversation.schema.Query,
-    apps.contact_book.schema.Query,
-    apps.flextime.schema.Query,
-    apps.handover.schema.Query,
     apps.news.schema.Query,
     graphene.ObjectType
 ):
@@ -106,12 +95,7 @@ class Mutation(
     apps.subject.schema.Mutation, 
     apps.teacher.schema.Mutation, 
     apps.employee.schema.Mutation,
-    apps.food.schema.Mutation,
-    apps.plan.schema.Mutation,
     apps.conversation.schema.Mutation,
-    apps.contact_book.schema.Mutation,
-    apps.flextime.schema.Mutation,
-    apps.handover.schema.Mutation,
     apps.news.schema.Mutation,
     graphene.ObjectType
 ):
